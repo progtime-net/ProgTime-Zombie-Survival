@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6060427731562982439}
   - component: {fileID: 5991738542199663426}
   - component: {fileID: 7061068413212942723}
+  - component: {fileID: 4475915297401999727}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -137,6 +138,28 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!95 &4475915297401999727
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685867224026670113}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 853b6dff0ccc0d048b07deb8431e5671, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8408397976694697788
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +352,6 @@ MonoBehaviour:
   mouseSensitivity: 40
   mouseClampY: {x: -90, y: 90}
   playerAnimator: {fileID: 0}
-  camAnimator: {fileID: 0}
+  camAnimator: {fileID: 4475915297401999727}
   walkAnimationSpeed: 0
   runAnimationSpeed: 0
