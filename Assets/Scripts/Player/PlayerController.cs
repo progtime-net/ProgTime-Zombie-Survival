@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     private bool _isWalking;
     private bool _isRunning;
     private bool _isJumping;
-    private bool _isShooting;
+    private bool _isAttacking;
     
     private float moveSpeed = 0f;
     private Vector3 direction = Vector3.zero;
@@ -83,8 +83,8 @@ public class PlayerController : MonoBehaviour
         _controls.Player.Jump.performed += ctx => _isJumping = true;
         _controls.Player.Jump.canceled += ctx => _isJumping = false;
 
-        _controls.Player.Attack.performed += ctx => _isShooting = true;
-        _controls.Player.Attack.canceled += ctx => _isShooting = false;
+        _controls.Player.Attack.performed += ctx => _isAttacking = true;
+        _controls.Player.Attack.canceled += ctx => _isAttacking = false;
 
         _controls.Player.Sprint.performed += ctx => _isRunning = true;
         _controls.Player.Sprint.canceled += ctx => _isRunning = false;
