@@ -35,8 +35,6 @@ public class PlayerController : MonoBehaviour
     private Transform _t;
     private Vector2 _camPosition = new(0f, 0f);
     
-    private Animator _playerAnimator;
-    private Animator _camAnimator;
 
     private Vector2 _moveVector;
     private Vector2 _lookVector;
@@ -138,7 +136,7 @@ public class PlayerController : MonoBehaviour
         if (_isJumping && _isGrounded && _velocity <= 0f)
         {
             _velocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            _playerAnimator.Play("Jump");
+            playerAnimator.Play("Jump");
             _isJumping = false;
         }
     }
@@ -167,14 +165,14 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCamAnimation()
     {
-        _camAnimator.SetBool(IsWalking, _isWalking);
-        _camAnimator.speed = _isRunning ? runAnimationSpeed : walkAnimationSpeed;
+        camAnimator.SetBool(IsWalking, _isWalking);
+        camAnimator.speed = _isRunning ? runAnimationSpeed : walkAnimationSpeed;
     }
 
     private void HandleAnimation()
     {
-        _playerAnimator.SetBool(IsWalking, _isWalking);
-        _playerAnimator.SetBool(IsRunning, _isRunning);
+        playerAnimator.SetBool(IsWalking, _isWalking);
+        playerAnimator.SetBool(IsRunning, _isRunning);
     }
 
     private void HandleShooting()
