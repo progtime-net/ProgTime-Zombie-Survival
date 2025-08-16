@@ -11,12 +11,12 @@ public class WaveManagerScript : NetworkBehaviour
     [SerializeField] private int waveNamber = 1;
     [SerializeField] private Transform[] spawnPoints;
 
-    [SerializeField] private int playerCount = 1;
+    [SerializeField] public int playerCount = 1;
     private List<ZombieController> zombies = new List<ZombieController>();
     
-    public WaveManagerScript Instance { get; private set; }
+    public static WaveManagerScript Instance { get; private set; }
 
-    public void Start()
+    public void Awake()
     {
         if (Instance == null) return;
         Instance = this;
@@ -26,7 +26,7 @@ public class WaveManagerScript : NetworkBehaviour
     {
         Instance = null;
     }
-
+    [Server]
     public void SpawnWave()
     {
         for (int i = 0; i < zombieSpawnSettings.Length; ++i)
@@ -39,7 +39,7 @@ public class WaveManagerScript : NetworkBehaviour
             ++zombieSpawnSettings[i].ZombieSpawnFactor;
         }
     }
-
+    [Server]
     private IEnumerator SpawnCoroutine(ZombieSpawnSetting spawnSetting)
     {
         for (int i = 0; i < spawnSetting.ZombieSpawnFactor * playerCount; ++i)
@@ -48,7 +48,7 @@ public class WaveManagerScript : NetworkBehaviour
             yield return new WaitForSeconds(spawnSetting.ZombieSpawnDelay);
         }
     }
-
+    [Server]
     private void SpawnZombie(GameObject zombiePrefab)
     {
         if (spawnPoints.Length == 0) return;
