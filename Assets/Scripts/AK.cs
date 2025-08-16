@@ -8,6 +8,10 @@ public class AK : Gun
         range = 100f;
         fireRate = 0.4f;
         clipSize = 30f; // размер обоймы
+        if(totalAmmo < clipSize)
+            _currentAmmo = totalAmmo; // инициализация текущего количества патронов
+        else
+            _currentAmmo = clipSize;
     }
     public override void Reload()
     {
@@ -16,17 +20,16 @@ public class AK : Gun
 
         //TODO: Animation
 
-
+        base.Reload();
     }
 
-    public override void Shoot()
+    public override void Attack()
     {
         // Реализация стрельбы для AK
         Debug.Log("AK Shot Fired");
 
         //TODO: Animation
 
-
-        
+        base.Attack(); // Call the base Attack method to decrease ammo
     }
 }

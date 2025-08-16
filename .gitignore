@@ -56,7 +56,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
-Assets/GFX/texures
+Assets/GFX/textures
 
 # Unity3D generated meta files
 *.pidb.meta
