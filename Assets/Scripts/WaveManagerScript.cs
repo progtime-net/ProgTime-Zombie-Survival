@@ -1,5 +1,4 @@
 using Mirror;
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,18 +6,24 @@ using UnityEngine;
 public class WaveManagerScript : NetworkBehaviour
 {
 
-    [SerializeField] public ZombieSpawnSetting[] zombieSpawnSettings;
+    public ZombieSpawnSetting[] zombieSpawnSettings;
     [SerializeField] private int waveNamber = 1;
     [SerializeField] private Transform[] spawnPoints;
 
     [SerializeField] public int playerCount = 1;
-    private List<ZombieController> zombies = new List<ZombieController>();
+    public List<GameObject> Zombies { get; } = new List<GameObject>();
     
     public static WaveManagerScript Instance { get; private set; }
 
     public void Awake()
     {
-        if (Instance == null) return;
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("More than one WaveManager in the scene!");
+            Destroy(gameObject);
+            return;
+        }
+        
         Instance = this;
     }
 
@@ -55,10 +60,10 @@ public class WaveManagerScript : NetworkBehaviour
 
         var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         var zombieObj = Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity);
-        var zombie = zombieObj.GetComponent<ZombieController>();
+        var zombie = zombieObj.GetComponent<GameObject>();
 
         if (zombie == null) return;
 
-        zombies.Add(zombie);
+        Zombies.Add(zombie);
     }
 }
