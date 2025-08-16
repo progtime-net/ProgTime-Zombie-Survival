@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator camAnimator;
     [SerializeField] private float walkAnimationSpeed;
     [SerializeField] private float runAnimationSpeed;
+
+    [Header("Stats")] 
+    // [SyncVar(hook = nameof(HealthChanged))]
+    [SerializeField]
+    private float health = 100f;
     
     
     private CharacterController _controller;
@@ -48,9 +53,7 @@ public class PlayerController : MonoBehaviour
     
     private float moveSpeed = 0f;
     private Vector3 direction = Vector3.zero;
-    
-    
-    /*[SyncVar(hook = nameof(HealthChanged))]*/ private float health = 100f;
+
     /*[SyncVar(hook = nameof(AliveStateChanged))]*/ private bool isAlive = true;
 
     public static PlayerController LocalPLayer { get; private set; }
@@ -122,7 +125,7 @@ public class PlayerController : MonoBehaviour
     {
         // if (!isLocalPlayer || !isAlive) return;
 
-        HandleShooting();
+        HandleAttack();
     }
 
     private void HandleJump()
@@ -175,7 +178,7 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool(IsRunning, _isRunning);
     }
 
-    private void HandleShooting()
+    private void HandleAttack()
     {
         // if (_isShooting)
         //     gun.Shoot();
