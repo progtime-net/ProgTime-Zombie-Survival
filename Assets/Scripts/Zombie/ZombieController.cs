@@ -20,20 +20,21 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [SyncVar] protected AIState _state = AIState.Chase;
     [SerializeField] [SyncVar] protected float _health = 20f;
     protected IDamageable _targetToAttack = null;
-    protected Transform _targetToChase = null;
+    protected PlayerController _targetToChase = null;
     protected float _lastAttackTime = int.MinValue;
     protected float _reAggressiveTime = int.MinValue;
     public virtual void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         if (!isServer) _agent.enabled = false;
     }
 
     protected Transform GetClosestPlayer()
     {
         float minDist = int.MaxValue;
-        Transform closestPlayer = null;
+        PlayerController closestPlayer = null;
+
         _reAggressiveTime = Time.time;
         foreach (var player in GameManager.Instance.AllPlayers)
         {
@@ -41,11 +42,11 @@ public class ZombieController : NetworkBehaviour, IDamageable
             if (dist <= minDist)
             {
                 minDist = dist;
-                closestPlayer = player.transform;
+                closestPlayer = player;
             }
         }
         _targetToChase = closestPlayer;
-        return closestPlayer;
+        return closestPlayer.transform;
     }
     [Server]
     public virtual void TakeDamage(float damage)
@@ -101,20 +102,23 @@ public class ZombieController : NetworkBehaviour, IDamageable
         {
             case AIState.Chase:
                 _animator.speed = runAnimSpeed;
+                
                 _agent.speed = moveSpeed;
-                if(Time.time >=_reAggressiveTime+ reAggressiveCooldown)
+                if (Time.time >=_reAggressiveTime+ reAggressiveCooldown)
                 {
                     Transform targetPlayer = GetClosestPlayer();
+
                     _agent.SetDestination(targetPlayer.position);
                 }
                 else
                 {
-                    Transform targetPlayer = _targetToChase;
+                    Transform targetPlayer = _targetToChase.transform;
                     if (targetPlayer != null)
                     {
                         _agent.SetDestination(targetPlayer.position);
                     }
                 }
+                
                 
                 break;
         }
@@ -124,9 +128,10 @@ public class ZombieController : NetworkBehaviour, IDamageable
             if (_targetToAttack != null &&
                 Time.time >= _lastAttackTime + damageCooldown)
             {
+                Debug.Log("attack");
                 _lastAttackTime = Time.time;
                 _reAggressiveTime = Time.time;
-                _targetToChase = (_targetToAttack as PlayerController).transform;
+                _targetToChase = (_targetToAttack as PlayerController);
                 _targetToAttack.TakeDamage(attackDamage);
             }
         }

@@ -42,7 +42,7 @@ public class ExplosiveZombieController : ZombieController
                 }
                 else
                 {
-                    Transform targetPlayer = _targetToChase;
+                    Transform targetPlayer = _targetToChase.transform;
                     if (targetPlayer != null)
                     {
                         _agent.SetDestination(targetPlayer.position);

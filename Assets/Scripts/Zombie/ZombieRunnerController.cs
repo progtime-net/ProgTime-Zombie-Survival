@@ -37,7 +37,7 @@ public class ZombieRunnerController : ZombieController
                 }
                 else
                 {
-                    Transform targetPlayer = _targetToChase;
+                    Transform targetPlayer = _targetToChase.transform;
                     if (targetPlayer != null)
                     {
                         _agent.SetDestination(targetPlayer.position);
@@ -54,7 +54,7 @@ public class ZombieRunnerController : ZombieController
             {
                 _lastAttackTime = Time.time;
                 _reAggressiveTime = Time.time;
-                _targetToChase = (_targetToAttack as PlayerController).transform;
+                _targetToChase = (_targetToAttack as PlayerController);
                 _targetToAttack.TakeDamage(attackDamage);
             }
         }
