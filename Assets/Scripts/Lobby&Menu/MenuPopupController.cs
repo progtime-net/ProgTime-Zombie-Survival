@@ -1,17 +1,17 @@
 using TMPro;
 using UnityEngine;
 
-public class MenuPopupCntrl : MonoBehaviour
+public class MenuPopupController : MonoBehaviour
 {
-    public static MenuPopupCntrl Instance { get; private set; }
+    public static MenuPopupController Instance { get; private set; }
 
     [Header("UI")]
-    public GameObject panel;
-    public TMP_Text messageText;
+    [SerializeField] private GameObject panel;
+    [SerializeField] private TMP_Text messageText;
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != null)
         {
             Destroy(gameObject);
             return;

@@ -7,19 +7,19 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("UI References")]
-    public TMP_Text nicknameTxt;
-    public TMP_Text versionText;
-    public Slider sensSlider;
+    [SerializeField] private TMP_Text nicknameTxt;
+    [SerializeField] private TMP_Text versionText;
+    [SerializeField] private Slider sensSlider;
 
-    public GameObject loadingPanel;
-    public float startGameTimeout = 5f;
+    [SerializeField] private GameObject loadingPanel;
+    [SerializeField] private float startGameTimeout = 5f;
 
-    public TMP_InputField ipInputField;
-    public TMP_InputField nicknameInputField;
-    public Button connectBtn;
+    [SerializeField] private TMP_InputField ipInputField;
+    [SerializeField] private TMP_InputField nicknameInputField;
+    [SerializeField] private Button connectBtn;
 
-    private NetworkManager netManager;
-    private float sensitivity;
+    private NetworkManager _netManager;
+    private float _sensitivity;
 
     private void Awake()
     {
@@ -29,15 +29,15 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        netManager = NetworkManager.singleton;
+        _netManager = NetworkManager.singleton;
 
         var profile = PlayerProfileManager.Instance.profile;
         UpdateNickname();
 
         versionText.text = "v." + Application.version;
 
-        sensitivity = PlayerPrefs.GetFloat("sensitivity", 1.0f);
-        sensSlider.value = sensitivity;
+        _sensitivity = PlayerPrefs.GetFloat("sensitivity", 1.0f);
+        sensSlider.value = _sensitivity;
     }
 
     public void HostGameRequest()
@@ -54,28 +54,28 @@ public class MainMenuManager : MonoBehaviour
 
     private void HostGame()
     {
-        netManager.StartHost();
+        _netManager.StartHost();
 
         Invoke(nameof(HostGameTimeout), startGameTimeout);
     }
 
     private void JoinGame()
     {
-        netManager.networkAddress = ipInputField.text;
-        netManager.StartClient();
+        _netManager.networkAddress = ipInputField.text;
+        _netManager.StartClient();
 
         Invoke(nameof(JoinGameTimeout), startGameTimeout);
     }
 
     private void HostGameTimeout()
     {
-        MenuPopupCntrl.Instance.Show("Starting host timed out. Please try again.");
+        MenuPopupController.Instance.Show("Starting host timed out. Please try again.");
         loadingPanel.SetActive(false);
     }
 
     private void JoinGameTimeout()
     {
-        MenuPopupCntrl.Instance.Show("Failed to connect: Connection timed out.");
+        MenuPopupController.Instance.Show("Failed to connect: Connection timed out.");
         loadingPanel.SetActive(false);
     }
 
@@ -86,8 +86,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnSensitivityChanged(float value)
     {
-        sensitivity = value;
-        PlayerPrefs.SetFloat("sensitivity", sensitivity);
+        _sensitivity = value;
+        PlayerPrefs.SetFloat("sensitivity", _sensitivity);
         PlayerPrefs.Save();
     }
 
