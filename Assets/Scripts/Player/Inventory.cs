@@ -1,51 +1,61 @@
+using System;
 using System.Collections.Generic;
 
 public class Inventory
 {
-    public List<Weapon> Weapons { get; private set; } = new();
+    public event Action OnInventoryChanged;
+    public List<Item> Items { get; private set; } = new();
     public Weapon CurrentWeapon { get; private set; } = null;
-
-
-    public void AddWeapon(Weapon weapon)
-    {
-        Weapons.Add(weapon);
-    }
     
-    public void RemoveWeapon(Weapon weapon)
+    
+    private Weapon GetFirstWeapon() => GetWeapons().Count > 0 ? GetWeapons()[0] : null;
+    private List<Weapon> GetWeapons() => Items.FindAll(i => i is Weapon).ConvertAll(i => (Weapon)i);
+    
+    public void AddItem(Item item)
     {
-        if (Weapons.Contains(weapon))
+        Items.Add(item);
+        if (item is Weapon weapon && CurrentWeapon == null)
+            CurrentWeapon = weapon;
+        OnInventoryChanged?.Invoke();
+    }
+
+    public void RemoveItem(Item item)
+    {
+        if (Items.Contains(item))
         {
-            Weapons.Remove(weapon);
-            if (CurrentWeapon == weapon)
-            {
-                CurrentWeapon = Weapons.Count > 0 ? Weapons[0] : null;
-            }
+            Items.Remove(item);
+            if (item is Weapon weapon && CurrentWeapon == weapon)
+                CurrentWeapon = GetFirstWeapon();
+            OnInventoryChanged?.Invoke();
         }
     }
-    
+
     public void SetCurrentWeapon(Weapon weapon)
     {
-        if (Weapons.Contains(weapon))
+        if (Items.Contains(weapon))
         {
             CurrentWeapon = weapon;
+            OnInventoryChanged?.Invoke();
         }
     }
-    
+
     public void SetCurrentWeapon(int index)
     {
-        if (index >= 0 && index < Weapons.Count)
+        var weapons = GetWeapons();
+        if (index >= 0 && index < weapons.Count)
         {
-            CurrentWeapon = Weapons[index];
+            CurrentWeapon = weapons[index];
+            OnInventoryChanged?.Invoke();
         }
     }
 
-    
     public void SwitchWeapon(int move)
     {
-        if (Weapons.Count == 0) return;
-        int newIndex = ( Weapons.IndexOf(CurrentWeapon) + move) % Weapons.Count;
-        if (newIndex < 0) newIndex += Weapons.Count;
-        CurrentWeapon = Weapons[newIndex];
+        var weapons = GetWeapons();
+        if (weapons.Count == 0) return;
+        int newIndex = (weapons.IndexOf(CurrentWeapon) + move) % weapons.Count;
+        if (newIndex < 0) newIndex += weapons.Count;
+        CurrentWeapon = weapons[newIndex];
+        OnInventoryChanged?.Invoke();
     }
-
 }
