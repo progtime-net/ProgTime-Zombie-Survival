@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed;
     private PlayerControls controls;
     private Vector3 direction = Vector3.zero;
+
+    private float damage = 10f;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -112,5 +114,19 @@ public class PlayerMovement : MonoBehaviour
 
         t.rotation = Quaternion.Euler(0f, camX, 0f);
         cam.localRotation = Quaternion.Euler(-camY, 0f, 0f);
+    }
+
+    public void ChangeSpeed(float coefficient)
+    {
+        walkSpeed *= coefficient;
+        runSpeed *= coefficient;
+        Debug.Log($"walkSpeed({walkSpeed / coefficient} *= coefficent{coefficient} = {walkSpeed})");
+        Debug.Log($"runSpeed({runSpeed / coefficient} *= coefficent{coefficient} = {runSpeed})");
+    }
+
+    public void ChangeDamage(float coefficient)
+    {
+        damage *= coefficient;
+        Debug.Log($"damage({damage / coefficient} *= coefficent{coefficient} = {damage})");
     }
 }
