@@ -4148,7 +4148,7 @@ MonoBehaviour:
   runInBackground: 1
   headlessStartMode: 0
   editorAutoStart: 0
-  sendRate: 60
+  sendRate: 30
   unreliableBaselineRate: 1
   unreliableRedundancy: 0
   transport: {fileID: 1132160259}
@@ -4165,9 +4165,14 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
+  - {fileID: 38277012285562299, guid: d204962d579a67e45a4ba5dfe574422b, type: 3}
+  - {fileID: 8892643940039050805, guid: 5cf63a245b3f721468dd546ca5ad077c, type: 3}
   - {fileID: 2687588755383932976, guid: 024595be07e3b734e8b45149c30646c1, type: 3}
+  - {fileID: 9210088866820255921, guid: 6d9bcd1b55227a4449bf50476ee2b312, type: 3}
   - {fileID: 607893146106261737, guid: f2b9d2ada48c01f4a97c7a64d73de9dd, type: 3}
   - {fileID: 2021144843788509213, guid: f486cad8475f2b74e93054b2b990475f, type: 3}
+  - {fileID: 2021144843788509213, guid: 36ac76bbd6c995a49aac82aecdfdc302, type: 3}
+  - {fileID: 2021144843788509213, guid: 43bf4d1933f8d6846bfc1415309539af, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     bufferLimit: 32

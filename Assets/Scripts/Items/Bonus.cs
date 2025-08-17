@@ -2,7 +2,11 @@ using System.Collections;
 using Mirror;
 using UnityEngine;
 
+<<<<<<<< HEAD:Assets/Scripts/Items/Bonus.cs
 public abstract class Bonus : NetworkBehaviour, IInteractable
+========
+public abstract class Bonus : Item, IInteractable
+>>>>>>>> development:Assets/Scripts/Items/Bonuses/Bonus.cs
 {
     [Header("Display")]
     [SerializeField] private string displayName = "Bonus";
