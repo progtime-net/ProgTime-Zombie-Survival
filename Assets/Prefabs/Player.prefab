@@ -206,7 +206,6 @@ GameObject:
   - component: {fileID: 3010607506688801202}
   - component: {fileID: 6731274216103606005}
   - component: {fileID: 8492329498752469151}
-  - component: {fileID: 895514429673965114}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -353,33 +352,11 @@ MonoBehaviour:
   cam: {fileID: 8585369768983010056}
   mouseSensitivity: 40
   mouseClampY: {x: -90, y: 90}
-  playerAnimator: {fileID: 895514429673965114}
+  playerAnimator: {fileID: 3097928818186131561}
   camAnimator: {fileID: 4475915297401999727}
   walkAnimationSpeed: 0
   runAnimationSpeed: 0
   health: 100
---- !u!95 &895514429673965114
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9210088866820255921}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 15387c0ad5c9f424ca3c5db8afb94278, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1723707672272110965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -467,13 +444,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
-    'mixamorig:LeftHandThumb3'\n\tTransform 'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform
-    'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightFoot'\n\tand more ...\n\tFrom
-    animation clip 'DiyingPlayerAnimation'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
