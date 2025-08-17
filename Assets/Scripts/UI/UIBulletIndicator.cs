@@ -37,13 +37,19 @@ public class UIBulletIndicator : MonoBehaviour
 
      
     void Update()
-    {
-        print($"_targetBullets {_targetBullets }");
-        print($"_currentBullets {_currentBullets}");
+    { 
         if (_targetBullets == _currentBullets)
+        {
+            bulletText.text = _baseBulletText.Replace("XXX", _targetBullets.ToString()).Replace("YYY", _totalBullets.ToString());
             return;
-        
+        }
+
         _currentBullets = (int)Mathf.Lerp(_currentBullets, _targetBullets, changeBulletSmoothness);
+        if (Mathf.Abs(_currentBullets - _targetBullets) < 5)
+        {
+            _currentBullets = (int)Mathf.Lerp(_currentBullets, _targetBullets, 0.95f);
+
+        }
         if (Mathf.Abs(_currentBullets - _targetBullets) < 0.9)
         {
             _currentBullets = _targetBullets;

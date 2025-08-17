@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private UIScoreIndicator scoreIndicator;
     [SerializeField] private UIBulletIndicator bulletIndicator;
+    [SerializeField] private UITimeIndicator timeIndicator;
     [SerializeField] private UIIndicator bloodLevel;
     [SerializeField] private UIIndicator staminaLevel;
     [SerializeField] private UIDamageOverlay UIDamageOverlay;
@@ -53,7 +54,12 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="bulletsLeft"></param>
     public void UpdateBulletsLeft(int bulletsLeft) => bulletIndicator.UpdateBulletsLeft(bulletsLeft);
-
+    /// <summary>
+    /// Seconds of the day left
+    /// </summary>
+    /// <param name="dayLength"></param>
+    public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
+    
 
     #region debug
     public void ResetHealth()

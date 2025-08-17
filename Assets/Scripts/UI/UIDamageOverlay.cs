@@ -8,16 +8,11 @@ public class UIDamageOverlay : MonoBehaviour
     [SerializeField] private float alphaMultiplierBase = 0.7f;
     [SerializeField] private float alphaMultiplierSinusoid = 0.2f;
     private float _accumulatedDamage = 0;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+     
     void Start()
     {
-        image.color = new Color(1,0,0,0);
-
-    }
-
-    // Update is called once per frame
-
+        image.color = new Color(1,0,0,0); 
+    } 
     void Update()
     {
         if (_accumulatedDamage == 0)
