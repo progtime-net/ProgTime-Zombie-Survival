@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField] private Vector2 mouseClampY = new(-90f, 90f);
     
     [Header("Animation")]
-    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private NetworkAnimator playerAnimator;
     [SerializeField] private Animator camAnimator;
     [SerializeField] private float walkAnimationSpeed;
     [SerializeField] private float runAnimationSpeed;
@@ -173,6 +173,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             _velocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             playerAnimator.SetTrigger(JumpTrigger);
+            // CmdSetTrigger(JumpTrigger);
             _isJumping = false;
         }
     }
@@ -208,8 +209,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void HandleAnimation()
     {
-        playerAnimator.SetBool(IsWalking, _isWalking);
-        playerAnimator.SetBool(IsRunning, _isRunning);
+        playerAnimator.animator.SetBool(IsWalking, _isWalking);
+        playerAnimator.animator.SetBool(IsRunning, _isRunning);
     }
 
     private void HandleAttack()
@@ -250,4 +251,16 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         
     }
+    
+    // [Command]
+    // void CmdSetTrigger(int trigger)
+    // {
+    //     RpcSetTrigger(trigger);
+    // }
+    //
+    // [ClientRpc]
+    // void RpcSetTrigger(int trigger)
+    // {
+    //     playerAnimator.SetTrigger(trigger);
+    // }
 }
