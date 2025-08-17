@@ -10,7 +10,7 @@ public class WaveManagerScript : NetworkBehaviour
     [SerializeField] private int waveNamber = 1;
     [SerializeField] private Transform[] spawnPoints;
 
-    [SerializeField] public int playerCount = 1;
+    [SerializeField] public int playerCount;
     public List<GameObject> Zombies { get; } = new List<GameObject>();
     
     public static WaveManagerScript Instance { get; private set; }
@@ -34,6 +34,7 @@ public class WaveManagerScript : NetworkBehaviour
     [Server]
     public void SpawnWave()
     {
+        playerCount = GameManager.Instance.AllPlaeyrs.Count;
         for (int i = 0; i < zombieSpawnSettings.Length; ++i)
         {
             StartCoroutine(SpawnCoroutine(zombieSpawnSettings[i]));
