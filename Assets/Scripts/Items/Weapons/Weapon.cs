@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : Item
 {
     [SerializeField] protected float damage;
     [SerializeField] protected float range;
