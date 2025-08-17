@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Bson;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIIndicator bloodLevel;
     [SerializeField] private UIIndicator staminaLevel;
     [SerializeField] private UIDamageOverlay UIDamageOverlay;
-     
+    [SerializeField] private UIAnnouncer announcer;
+    [SerializeField] private Animator inventoryAnimator;
+    
     /// <summary>
     /// </summary>
     /// <param name="t">[0..1]</param>
@@ -59,7 +62,20 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="dayLength"></param>
     public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
-    
+
+    public void OpenInventory()
+    {
+        inventoryAnimator.Play("InventoryAppearing");
+    }
+    public void CloseInventory()
+    {
+        inventoryAnimator.Play("InventoryDisappearing");
+    }
+
+    public void Announce(string text)
+    {
+        announcer.Announce(text);
+    }
 
     #region debug
     public void ResetHealth()
