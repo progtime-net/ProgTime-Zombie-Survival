@@ -27,7 +27,6 @@ public class UIScoreIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print($"ScoreCurrent - ScoreTarget: {scoreCurrent - scoreTarget}");
         if (Math.Abs(scoreCurrent - scoreTarget) < 0.1)
             return;
 
