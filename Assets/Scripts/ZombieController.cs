@@ -16,7 +16,7 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
     private NavMeshAgent _agent;
     private Animator _animator;
 
-    private List<Transform> _targetPlayers = new List<Transform>();
+   
     [SyncVar] protected AIState _state = AIState.Chase;
     [SerializeField] [SyncVar] protected float _health = 20f;
     private IDamageable _targetToAttack = null;
@@ -110,7 +110,10 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
                 else
                 {
                     Transform targetPlayer = _targetToChase;
-                    _agent.SetDestination(targetPlayer.position);
+                    if (targetPlayer != null)
+                    {
+                        _agent.SetDestination(targetPlayer.position);
+                    }
                 }
                 
                 break;
