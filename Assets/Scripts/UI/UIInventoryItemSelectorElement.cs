@@ -1,4 +1,3 @@
-using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +6,7 @@ public class UIInventoryItemSelectorElement : MonoBehaviour
     private float _startWidth;
     private Image thisImage;
     private bool _isSelected;
-    private float animationTime = 1;
+    private float _animationTime = 1;
     private float _timeSnapshot;
     void Start()
     {
@@ -32,7 +31,7 @@ public class UIInventoryItemSelectorElement : MonoBehaviour
 
     private void UpdateSize()
     {
-        int _left = Mathf.CeilToInt(Mathf.Max(0f, animationTime - (Time.time - _timeSnapshot)));
+        int _left = Mathf.CeilToInt(Mathf.Max(0f, _animationTime - (Time.time - _timeSnapshot)));
 
 
         //color transition + expansion

@@ -1,7 +1,6 @@
 using Newtonsoft.Json.Bson;
 using UnityEngine;
-using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
+using UnityEngine.UI; 
 
 public class UIManager : MonoBehaviour
 {
