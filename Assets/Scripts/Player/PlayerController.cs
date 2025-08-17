@@ -80,7 +80,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
         
         LocalPLayer = this;
         _controls = new InputSystem();
-        _controls.Enable();
         Inventory = new Inventory();
         
 
@@ -103,6 +102,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
+        
+        _controls.Enable();
     }
 
     private void Interact() { }
@@ -126,13 +127,13 @@ public class PlayerController : NetworkBehaviour, IDamageable
         
     }
     
-    private void OnEnable() => _controls.Enable();
-    private void OnDisable() => _controls.Disable();
+    private void OnEnable() => _controls?.Enable();
+    private void OnDisable() => _controls?.Disable();
 
-    // private void OnDestroy()
-    // {
-    //     GameManager.Instance.PlayerDisconnected(this);
-    // }
+    private void OnDestroy()
+    {
+        GameManager.Instance.PlayerDisconnected(this);
+    }
 
     void Update()
     {
