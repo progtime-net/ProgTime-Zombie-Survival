@@ -1,5 +1,6 @@
 using UnityEngine;
 public class Item : MonoBehaviour
 {
-    [SerializeField] protected string itemName;  
+    [SerializeField] public string itemName;  
+    [SerializeField] public int maxStackSize = 1;
 }
