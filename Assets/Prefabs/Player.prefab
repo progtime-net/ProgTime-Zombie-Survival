@@ -357,6 +357,7 @@ MonoBehaviour:
   walkAnimationSpeed: 0
   runAnimationSpeed: 0
   health: 100
+  playerModel: {fileID: 1957587197341743140}
 --- !u!1001 &1723707672272110965
 PrefabInstance:
   m_ObjectHideFlags: 0

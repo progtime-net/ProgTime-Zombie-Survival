@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+    private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
+    private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;
@@ -33,6 +35,9 @@ public class PlayerController : MonoBehaviour
     // [SyncVar(hook = nameof(HealthChanged))]
     [SerializeField]
     private float health = 100f;
+    
+    [Header("Model")]
+    [SerializeField] private GameObject playerModel;
     
     
     private CharacterController _controller;
@@ -73,6 +78,8 @@ public class PlayerController : MonoBehaviour
         LocalPLayer = this;
         _controls = new InputSystem();
         _controls.Enable();
+        
+        playerModel.SetActive(false);
 
         _controls.Player.Move.performed += ctx => _moveVector = ctx.ReadValue<Vector2>();
         _controls.Player.Move.canceled += ctx => _moveVector = Vector2.zero;
@@ -139,7 +146,7 @@ public class PlayerController : MonoBehaviour
         if (_isJumping && _isGrounded && _velocity <= 0f)
         {
             _velocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            playerAnimator.Play("Jump");
+            playerAnimator.SetTrigger(JumpTrigger);
             _isJumping = false;
         }
     }
@@ -200,6 +207,7 @@ public class PlayerController : MonoBehaviour
         if (health <= 0)
         {
             isAlive = false;
+            playerAnimator.SetTrigger(DieTrigger);
             // System.Diagnostics.Process.Start("reboot");
         }
         Debug.Log(health);
