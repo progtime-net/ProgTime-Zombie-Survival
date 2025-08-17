@@ -36,6 +36,8 @@
 .vs/
 .vsconfig
 .vscode
+**/.vscode/
+.vscode/
 
 # Gradle cache directory
 .gradle/
@@ -103,3 +105,7 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
 .idea
+**/.idea/
+.idea/
+
+.DS_Store
