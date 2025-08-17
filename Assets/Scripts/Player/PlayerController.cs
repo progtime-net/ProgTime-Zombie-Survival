@@ -314,6 +314,7 @@ public class PlayerController : NetworkBehaviour
         cam.gameObject.SetActive(isLocalPlayer);
         Debug.Log($"isLocalPlayer: {isLocalPlayer}");
         Debug.Log($"isHost: {isHost}");
+        Debug.Log($"isClient: {isClient}");
 
         if (!isLocalPlayer)
         {
@@ -347,14 +348,12 @@ public class PlayerController : NetworkBehaviour
 
     private void OnEnable()
     {
-        if (isLocalPlayer)
-            _controls?.Enable();
+        _controls?.Enable();
     }
 
     private void OnDisable()
     {
-        if (isLocalPlayer)
-            _controls?.Disable();
+        _controls?.Disable();
     }
 
     void Update()

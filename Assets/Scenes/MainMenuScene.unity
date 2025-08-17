@@ -4161,8 +4161,8 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/MainMenuScene.unity
   onlineScene: Assets/Scenes/LobbyScene.unity
   offlineSceneLoadDelay: 0
-  playerPrefab: {fileID: 0}
-  autoCreatePlayer: 0
+  playerPrefab: {fileID: 9210088866820255921, guid: 6d9bcd1b55227a4449bf50476ee2b312, type: 3}
+  autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 2687588755383932976, guid: 024595be07e3b734e8b45149c30646c1, type: 3}
