@@ -48,7 +48,7 @@ public class LobbyPlayerController : NetworkBehaviour
 
         LobbyManager.Instance?.ClientSetLocalPlayerId(PlayerId);
 
-        CmdSetNickname(LocalGameData.Nickname);
+        CmdSetNickname(PlayerProfileManager.Instance.profile.nickname);
     }
 
     private void OnNicknameChanged(string oldNick, string newNick)
