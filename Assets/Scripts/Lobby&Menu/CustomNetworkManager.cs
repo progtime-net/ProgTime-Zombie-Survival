@@ -30,32 +30,26 @@ public class CustomNetworkManager : NetworkManager
 
         if (activeSceneName == "LobbyScene")
         {
-            Debug.Log("Add lobby player");
+            Debug.Log("[Davilkus] Spawning lobby player");
             GameObject lobbyPlayer = Instantiate(lobbyPlayerPrefab);
             NetworkServer.AddPlayerForConnection(conn, lobbyPlayer);
         }
         else
         {
-            Debug.Log("Add game player");
+            Debug.Log("[Davilkus] Spawning game player");
             SpawnGamePlayer(conn);
         }
     }
 
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
-        if (conn.identity == null)
-        {
-            Debug.LogError("NetworkManager is broken. If you see this error - Davilkus sucks at programming. " +
-                "Tell him to use GPT 5 instead of his total unskill. Mac sucks tho.");
-        }
-
         base.OnServerReady(conn);
 
         string sceneName = SceneManager.GetActiveScene().name;
 
         if (sceneName != "LobbyScene" && conn.identity == null)
         {
-            Debug.Log($"Spawning game player for conn {conn.connectionId}");
+            Debug.Log($"[Davilkus] Spawning game player for conn {conn.connectionId}");
             ReplaceWithGamePlayer(conn);
         }
     }
@@ -77,7 +71,6 @@ public class CustomNetworkManager : NetworkManager
         Quaternion rot = startPos ? startPos.rotation : Quaternion.identity;
 
         GameObject gamePlayerObj = Instantiate(gamePlayerPrefab, pos, rot);
-
         /* Pass data to game player
         var gp = gamePlayerObj.GetComponent<GamePlayerController>();
         gp.nickname = LobbyPlayerController.LocalInstance.Nickname;
