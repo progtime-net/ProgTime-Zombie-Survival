@@ -3,46 +3,49 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Image BloodLevel;
-    public Image BloodLevelBckgr;
+    public UIIndicator BloodLevel;
+    public UIIndicator EnergyLevel;
+    public UIDamageOverlay UIDamageOverlay;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        BloodLevel.type = Image.Type.Filled;
-        BloodLevel.fillMethod = Image.FillMethod.Horizontal;
-        BloodLevel.fillOrigin = (int)Image.OriginHorizontal.Left;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(BloodTarget);
-        print(BloodCurrent);
-        SetHealth(BloodCurrent);
-        BloodCurrent = (BloodTarget + BloodCurrent) / 2;
     }
 
-
-    float BloodTarget = 1;
-    float BloodCurrent = 1;
-
-    // ¬ариант 1 Ч полоска здоровь€ через fill (самый удобный)
-    public void SetHealth(float t) // t в [0..1]
+    /// <summary>
+    /// </summary>
+    /// <param name="t">[0..1]</param>
+    public void SetHealth(float t)
     {
-        print(t);
-        t = Mathf.Clamp01(t);
-        BloodLevel.rectTransform.anchorMax = new Vector2(t, BloodLevel.rectTransform.anchorMax.y);
-
+        BloodLevel.SetValue(t);
+        if (t < BloodLevel.IndicatorCurrent)
+        {
+            UIDamageOverlay.AddDamage(BloodLevel.IndicatorCurrent - t);
+        }
+    }
+    /// <summary>
+    /// </summary>
+    /// <param name="t">[0..1]</param>
+    public void SetEnergy(float t)
+    {
+        EnergyLevel.SetValue(t);
     }
 
     public void ResetHealth()
     {
-        BloodTarget = 1;
+        print("Health reset");
+        BloodLevel.SetValue(1);
+
     }
+    private float _debHeath = 1;
     public void MinusHealth()
     {
-        BloodTarget -= 0.1f;
+        _debHeath -= 0.1f;
+        SetHealth(_debHeath);
     }
 
 
