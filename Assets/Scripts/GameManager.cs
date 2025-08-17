@@ -1,35 +1,21 @@
-using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : NetworkBehaviour
+public class GameManager : MonoBehaviour
 {
-   
-    private List<PlayerController> allPlayers = new List<PlayerController>();
-    public List<PlayerController> AllPlayers => allPlayers;
-    
+    public List<PlayerController> AllPlaeyrs { get; private set; } = new List<PlayerController>();
+
     public static GameManager Instance { get; private set; }
-    
+
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        
+        if (Instance == null) return;
         Instance = this;
     }
-    
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Application.targetFrameRate = 60;
-    }
-    
-    private void OnDestroy()
-    {
-        Instance = null;
     }
 
     public void PlayerConnected(PlayerController player)
@@ -41,4 +27,11 @@ public class GameManager : NetworkBehaviour
     {
         AllPlaeyrs.Remove(player);
     }
+
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
+}
+
 }

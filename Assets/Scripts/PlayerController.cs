@@ -1,11 +1,17 @@
 using Mirror;
 using UnityEngine;
 
-public class PlayerController : NetworkBehaviour, IDamageable
+public class PlayerController : NetworkBehaviour
 {
-    public void TakeDamage(float damage)
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        throw new System.NotImplementedException();
+        
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
