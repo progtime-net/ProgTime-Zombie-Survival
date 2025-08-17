@@ -71,7 +71,6 @@ public class CustomNetworkManager : NetworkManager
         Quaternion rot = startPos ? startPos.rotation : Quaternion.identity;
 
         GameObject gamePlayerObj = Instantiate(gamePlayerPrefab, pos, rot);
-
         /* Pass data to game player
         var gp = gamePlayerObj.GetComponent<GamePlayerController>();
         gp.nickname = LobbyPlayerController.LocalInstance.Nickname;
