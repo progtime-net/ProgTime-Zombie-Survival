@@ -167,7 +167,7 @@ public class LobbyManager : NetworkBehaviour
         bool isAdmin = (playerId == hostConnectionId);
         bool isOnHost = IsLocalHost;
 
-        plash.Init(this, playerId, nickname, isAdmin, isOnHost);
+        plash.Init(KickFromUI, playerId, nickname, isAdmin, isOnHost);
         ClientUpdateLobbyTitle();
     }
 
