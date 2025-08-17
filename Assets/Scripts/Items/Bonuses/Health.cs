@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health : Bonus
 {
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 100;
@@ -20,5 +20,10 @@ public class Health : MonoBehaviour
     {
         currentHealth = Mathf.Max(currentHealth - Mathf.Abs(amount), 0);
         // TODO: death handling
+    }
+
+    protected override bool Apply(GameObject interactor)
+    {
+        throw new System.NotImplementedException();
     }
 }
