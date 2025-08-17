@@ -34,7 +34,7 @@ public class WaveManagerScript : NetworkBehaviour
     [Server]
     public void SpawnWave()
     {
-        playerCount = GameManager.Instance.AllPlaeyrs.Count;
+        playerCount = GameManager.Instance.AllPlayers.Count;
         for (int i = 0; i < zombieSpawnSettings.Length; ++i)
         {
             StartCoroutine(SpawnCoroutine(zombieSpawnSettings[i]));
