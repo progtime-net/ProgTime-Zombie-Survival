@@ -67,7 +67,7 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
         foreach (var coll in colls) coll.enabled = false;
 
         _agent.enabled = false;
-        //aнимации смерти
+        //aпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         Destroy(gameObject, 15f);
     }
