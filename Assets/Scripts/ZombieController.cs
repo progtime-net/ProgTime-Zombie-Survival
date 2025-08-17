@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class ZombieController : NetworkBehaviour,IDamageable
+public class ZombieController : NetworkBehaviour,IDamageable
 {
     protected enum AIState { Disabled, Idle, Chase}
     [Header("AI Settings")]
