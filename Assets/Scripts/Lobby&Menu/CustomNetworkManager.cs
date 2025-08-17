@@ -30,13 +30,13 @@ public class CustomNetworkManager : NetworkManager
 
         if (activeSceneName == "LobbyScene")
         {
-            Debug.Log("Add lobby player");
+            Debug.Log("[Davilkus] Spawning lobby player");
             GameObject lobbyPlayer = Instantiate(lobbyPlayerPrefab);
             NetworkServer.AddPlayerForConnection(conn, lobbyPlayer);
         }
         else
         {
-            Debug.Log("Add game player");
+            Debug.Log("[Davilkus] Spawning game player");
             SpawnGamePlayer(conn);
         }
     }
@@ -49,7 +49,7 @@ public class CustomNetworkManager : NetworkManager
 
         if (sceneName != "LobbyScene" && conn.identity == null)
         {
-            Debug.Log($"Spawning game player for conn {conn.connectionId}");
+            Debug.Log($"[Davilkus] Spawning game player for conn {conn.connectionId}");
             ReplaceWithGamePlayer(conn);
         }
     }
