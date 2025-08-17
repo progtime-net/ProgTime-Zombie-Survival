@@ -3,14 +3,19 @@ using UnityEngine.UI;
 
 public class UIInventoryItemSelectorElement : MonoBehaviour
 {
+    public string itemName;
     private float _startWidth;
     private Image thisImage;
     private bool _isSelected;
     private float _animationTime = 1;
     private float _timeSnapshot;
+    public void SetImage(Sprite image)
+    {
+        thisImage.sprite = image;
+    }
     void Start()
     {
-        //_startWidth = thisImage.rectTransform.rect.width;
+        _startWidth = thisImage.rectTransform.rect.width;
     }
     public void Select()
     {

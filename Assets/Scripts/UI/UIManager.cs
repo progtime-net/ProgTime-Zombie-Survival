@@ -1,6 +1,11 @@
 using Newtonsoft.Json.Bson;
+using System;
+using System.Collections.Generic;
+using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using Utils;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,8 +18,25 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIIndicator staminaLevel;
     [SerializeField] private UIDamageOverlay UIDamageOverlay;
     [SerializeField] private UIAnnouncer announcer;
-    [SerializeField] private Animator inventoryAnimator;
-    
+    [SerializeField] private UIInventory UIInventory;
+    [SerializeField] private DebugInventoryHolder inventoryHolder;
+
+    private void Start()
+    {
+        inventoryHolder.inventory.OnInventoryChanged += OnInventoryChanged;
+        gameObject.AddComponent<Image>().sprite = null;
+
+    }
+    public void OnInventoryChanged()
+    {
+        CheckWeaponsListOnAccuracy();
+        //inventory.Items[0].name;
+    }
+    public void CheckWeaponsListOnAccuracy()
+    {
+        UIInventory.SetItems(inventoryHolder.inventory);
+    }
+
     /// <summary>
     /// </summary>
     /// <param name="t">[0..1]</param>
@@ -64,11 +86,11 @@ public class UIManager : MonoBehaviour
 
     public void OpenInventory()
     {
-        inventoryAnimator.Play("InventoryAppearing");
+        UIInventory.OpenInventory();
     }
     public void CloseInventory()
     {
-        inventoryAnimator.Play("InventoryDisappearing");
+        UIInventory.CloseInventory();
     }
 
     public void Announce(string text)
