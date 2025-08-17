@@ -2,18 +2,10 @@ using UnityEngine;
 
 public class Shotgun : Gun
 {
-    void Start()
-    {
-        damage = 25f;
-        range = 10f;
-        fireRate = 0.8f; // скорострельность
-        clipSize = 2f; // размер обоймы
-        _currentAmmo = clipSize; // инициализация текущего количества патронов
-    }
     public override void Reload()
     {
         // Реализация перезарядки для Shotgun
-        Debug.Log("Shotgun Reloaded");
+        Debug.Log("Shotgun Reloading");
 
         //TODO: Animation
 

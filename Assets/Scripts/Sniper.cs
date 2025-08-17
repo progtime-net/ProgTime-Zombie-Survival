@@ -2,18 +2,10 @@ using UnityEngine;
 
 public class Sniper : Gun
 {
-    void Start()
-    {
-        damage = 30f;
-        range = 250f;
-        fireRate = 1.2f; // скорострельность
-        clipSize = 1f; // размер обоймы
-        _currentAmmo = clipSize; // инициализация текущего количества патронов
-    }
     public override void Reload()
     {
-        // Реализация перезарядки для AK
-        Debug.Log("AK Reloaded");
+        // Реализация перезарядки для Sniper
+        Debug.Log("Sniper Reloading");
 
         //TODO: Animation
 
@@ -23,8 +15,8 @@ public class Sniper : Gun
 
     public override void Attack()
     {
-        // Реализация стрельбы для AK
-        Debug.Log("AK Shot Fired");
+        // Реализация стрельбы для Sniper
+        Debug.Log("Sniper Shot Fired");
 
         //TODO: Animation
 

@@ -2,21 +2,10 @@ using UnityEngine;
 
 public class TT : Gun
 {
-    void Start()
-    {
-        damage = 5f;
-        range = 50f;
-        fireRate = 0.6f; // скорострельность
-        clipSize = 8f; // размер обоймы
-        if(totalAmmo < clipSize)
-            _currentAmmo = totalAmmo; // инициализация текущего количества патронов
-        else
-            _currentAmmo = clipSize;
-    }
     public override void Reload()
     {
         // Реализация перезарядки для TT
-        Debug.Log("TT Reloaded");
+        Debug.Log("TT Reloading");
 
         //TODO: Animation
 
