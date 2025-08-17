@@ -46,12 +46,7 @@ public class CustomNetworkManager : NetworkManager
             foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
             {
                 if (conn?.identity == null) continue;
-
-                var lobby = conn.identity.GetComponent<LobbyPlayerController>();
-                if (lobby != null)
-                {
-                    ReplaceWithGamePlayer(conn, lobby);
-                }
+                ReplaceWithGamePlayer(conn);
             }
         }
     }
@@ -66,7 +61,7 @@ public class CustomNetworkManager : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, gamePlayer);
     }
 
-    private void ReplaceWithGamePlayer(NetworkConnectionToClient conn, LobbyPlayerController lobby)
+    private void ReplaceWithGamePlayer(NetworkConnectionToClient conn)
     {
         Transform startPos = GetStartPosition();
         Vector3 pos = startPos ? startPos.position : Vector3.zero;
@@ -74,12 +69,10 @@ public class CustomNetworkManager : NetworkManager
 
         GameObject gamePlayerObj = Instantiate(gamePlayerPrefab, pos, rot);
 
-        /*
+        /* Pass data to game player
         var gp = gamePlayerObj.GetComponent<GamePlayerController>();
-        if (gp != null && lobby != null)
-        {
-            gp.nickname = lobby.Nickname;
-        }*/
+        gp.nickname = LobbyPlayerController.LocalInstance.Nickname;
+        */
 
         NetworkServer.ReplacePlayerForConnection(conn, gamePlayerObj, ReplacePlayerOptions.Destroy);
     }
