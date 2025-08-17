@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Bonus : MonoBehaviour, IInteractable
+public abstract class Bonus : Item, IInteractable
 {
     [Header("Display")]
     [SerializeField] private string displayName = "Bonus";

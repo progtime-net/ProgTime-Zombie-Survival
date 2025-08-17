@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageBoostController : MonoBehaviour
+public class DamageBoostController : Bonus
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -9,6 +9,11 @@ public class DamageBoostController : MonoBehaviour
     }
 
     // Update is called once per frame
+    protected override bool Apply(GameObject interactor)
+    {
+        throw new System.NotImplementedException();
+    }
+
     void Update()
     {
         
