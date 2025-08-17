@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMethod: 0
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.05
   target: {fileID: 1620206348696807081}
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMethod: 0
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
   clientAuthority: 0
@@ -193,9 +193,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  moveSpeed: 0
-  damageCooldown: 0
-  attackDamage: 0
+  moveSpeed: 4
+  runAnimSpeed: 1
+  damageCooldown: 1
+  reAggressiveCooldown: 10
+  attackDamage: 10
+  _health: 20
 --- !u!135 &496657664936318608
 SphereCollider:
   m_ObjectHideFlags: 0
