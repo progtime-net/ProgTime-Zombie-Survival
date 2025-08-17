@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("UI Settings")]
+    [SerializeField] private GameObject pauseMenuPanel;
     public Image BloodLevel;
     public Image BloodLevelBckgr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,14 +19,29 @@ public class UIManager : MonoBehaviour
         
     } 
 
-    // Вариант 1 — полоска здоровья через fill (самый удобный)
-    public void SetHealth(float t) // t в [0..1]
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ fill (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+    public void SetHealth(float t) // t пїЅ [0..1]
     {
         t = Mathf.Clamp01(t);
         BloodLevel.type = Image.Type.Filled;
         BloodLevel.fillMethod = Image.FillMethod.Horizontal;
         BloodLevel.fillOrigin = (int)Image.OriginHorizontal.Left;
-        BloodLevel.fillAmount = t;  // меняет “длину” без перелэйаута
+        BloodLevel.fillAmount = t;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
-     
+
+    public void Remuse()
+    {
+        pauseMenuPanel.SetActive(false);
+    }
+
+    public void OpenSettig()
+    {
+        
+    }
+
+    public void Exit()
+    {
+        
+    }
+
 }
