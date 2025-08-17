@@ -2,15 +2,37 @@ using UnityEngine;
 
 public class UIBulletIndicator : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int CurrentBullets = 0;
+    public int TargetBullets;
+    public int TotalBullets;
+    public float ChangeBulletSmoothness = 0.2f;
+
+    public void SetTotalBullets(int totalBullets)
     {
-        
+        TotalBullets = totalBullets;
+    }
+    /// <summary>
+    /// force set - when changing weapons
+    /// </summary>
+    public void SetCurrentBullets(int currentBullets)
+    {
+        CurrentBullets = currentBullets;
+        TargetBullets = currentBullets;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateBulletsLeft(int bulletsLeft)
     {
-        
+        TargetBullets = bulletsLeft;
     }
+
+     
+    void Start()
+    {
+        if (TargetBullets == CurrentBullets)
+            return;
+        
+        CurrentBullets = (int)Mathf.Lerp(CurrentBullets, TargetBullets, ChangeBulletSmoothness);
+
+    }
+     
 }

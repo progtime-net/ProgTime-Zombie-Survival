@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,16 +6,16 @@ public class UIManager : MonoBehaviour
 {
     [Header("UI Settings")]
     [SerializeField] private GameObject pauseMenuPanel;
-    
-    public UIIndicator BloodLevel;
-    public UIIndicator EnergyLevel;
-    public UIDamageOverlay UIDamageOverlay;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private UIScoreIndicator ScoreIndicator;
+    [SerializeField] private UIBulletIndicator BulletIndicator;
+    [SerializeField] private UIIndicator BloodLevel;
+    [SerializeField] private UIIndicator EnergyLevel;
+    [SerializeField] private UIDamageOverlay UIDamageOverlay;
+
     void Start()
     {
     }
-
-    // Update is called once per frame
+     
     void Update()
     {
     }
@@ -38,6 +39,31 @@ public class UIManager : MonoBehaviour
         EnergyLevel.SetValue(t);
     }
 
+    public void AddScore(float score)
+    {
+        print(score);
+        ScoreIndicator.AddScore(score);
+    }
+
+
+    /// <summary>
+    /// Set total Bullets
+    /// </summary>
+    /// <param name="totalBullets"></param>
+    public void SetTotalBullets(int totalBullets) => BulletIndicator.SetTotalBullets(totalBullets);
+    /// <summary>
+    /// force set - when changing weapons
+    /// </summary>
+    public void SetCurrentBullets(int currentBullets) => BulletIndicator.SetCurrentBullets(currentBullets);
+
+    /// <summary>
+    /// Use this method during shooting bullets
+    /// </summary>
+    /// <param name="bulletsLeft"></param>
+    public void UpdateBulletsLeft(int bulletsLeft) => BulletIndicator.UpdateBulletsLeft(bulletsLeft);
+
+
+    #region debug
     public void ResetHealth()
     {
         print("Health reset");
@@ -50,6 +76,19 @@ public class UIManager : MonoBehaviour
         _debHeath -= 0.1f;
         SetHealth(_debHeath);
     }
+    private int _bulLeft = 120;
+    public void DebugSetBullets()
+    {
+        SetTotalBullets(_bulLeft);
+
+    }
+    public void Shoot()
+    {
+        _bulLeft -= 1;
+        UpdateBulletsLeft(_bulLeft);
+    }
+
+    #endregion
 
     public void Remuse()
     {
