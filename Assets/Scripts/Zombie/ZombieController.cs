@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ZombieController : NetworkBehaviour,IDamageable
 {
-    protected enum AIState { Disabled, Idle, Chase}
+    protected enum AIState { Disabled, Idle, Chase, Attack }
     [Header("AI Settings")]
     [SerializeField] protected float moveSpeed=4f;
     [SerializeField] protected float runAnimSpeed=1f;
@@ -80,7 +80,7 @@ public class ZombieController : NetworkBehaviour,IDamageable
         if (obj.CompareTag("Player"))
         {
             _targetToAttack = obj.GetComponent<IDamageable>();
-
+            _state = AIState.Attack;
         }
     }
     [Server]
@@ -91,6 +91,7 @@ public class ZombieController : NetworkBehaviour,IDamageable
         if (obj.CompareTag("Player"))
         {
             _targetToAttack = null;
+            _state = AIState.Chase;
         }
     }
     [Server]
@@ -99,6 +100,20 @@ public class ZombieController : NetworkBehaviour,IDamageable
         if (!isServer) return;
         switch (_state)
         {
+            case AIState.Attack:
+                _animator.speed = runAnimSpeed;
+                _agent.speed = 0f;
+                if (_targetToAttack != null &&
+                Time.time >= _lastAttackTime + damageCooldown)
+                {
+                    //TODO attack anim
+                    _lastAttackTime = Time.time;
+                    _reAggressiveTime = Time.time;
+                    _targetToChase = (_targetToAttack as PlayerController).transform;
+                    _targetToAttack.TakeDamage(attackDamage);
+                }
+
+                break;
             case AIState.Chase:
                 _animator.speed = runAnimSpeed;
                 _agent.speed = moveSpeed;

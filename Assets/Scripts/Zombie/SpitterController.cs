@@ -3,18 +3,19 @@ using UnityEngine;
 
 public class SpitterController : ZombieController
 {
-    protected enum AIState { Disabled, Idle, Chase,Attack }
+    
     
     [SerializeField]private float shootDistance = 10f;
     [SerializeField] private float scatterAngle = 10f;
     private LayerMask shootMask;
+    
     [Server]
     public override void FixedUpdate()
     {
         if (!isServer) return;
         switch (_state)
         {
-            case (ZombieController.AIState)AIState.Attack:
+            case AIState.Attack:
                 _animator.speed = runAnimSpeed;
                 _agent.speed = 0f;
                 if (_targetToAttack != null &&
@@ -46,7 +47,7 @@ public class SpitterController : ZombieController
                     _targetToAttack.TakeDamage(attackDamage);
                 }
                 break;
-            case (ZombieController.AIState)AIState.Chase:
+            case AIState.Chase:
                 _animator.speed = runAnimSpeed;
                 _agent.speed = moveSpeed;
                 if (Time.time >= _reAggressiveTime + reAggressiveCooldown)

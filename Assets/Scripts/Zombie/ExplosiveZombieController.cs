@@ -32,7 +32,7 @@ public class ExplosiveZombieController : ZombieController
         if (!isServer) return;
         switch (_state)
         {
-            case AIState.Chase:
+            case AIState.Chase or AIState.Attack:
                 _animator.speed = runAnimSpeed;
                 _agent.speed = moveSpeed;
                 if (Time.time >= _reAggressiveTime + reAggressiveCooldown)
