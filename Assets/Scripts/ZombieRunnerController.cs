@@ -4,7 +4,7 @@ public class ZombieRunnerController : ZombieController
 {
 
     [SerializeField] private bool isInCharge = false;
-    [SerializeField] private float chargeÑooldown = 10f;
+    [SerializeField] private float chargeCooldown = 10f;
     [SerializeField] private float lastChargeTime = 0f;
     [SerializeField] private float chargeSpeed = 10f;
     [SerializeField] private float chargeTime = 5f;
@@ -15,7 +15,7 @@ public class ZombieRunnerController : ZombieController
         switch (_state)
         {
             case AIState.Chase:
-                if (!isInCharge && Time.time > lastChargeTime + chargeÑooldown) {
+                if (!isInCharge && Time.time > lastChargeTime + chargeCooldown) {
                     isInCharge = true;
                     lastChargeTime = Time.time;
                 }
