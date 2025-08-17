@@ -63,7 +63,7 @@ public abstract class Gun : Weapon
             GameObject hitObject = hit.collider.gameObject;
             if (hitObject.CompareTag("Enemy"))
             {
-                hitObject.GetComponent<IDamagable>().TakeDamage(damage);
+                hitObject.GetComponent<IDamageable>().TakeDamage(damage);
             }
         }
         else
