@@ -6,34 +6,34 @@ using UnityEngine.UI;
 public class UIScoreIndicator : MonoBehaviour
 {
 
-    private float ScoreCurrent = 0;
-    private float ScoreTarget = 0;
-    private string InitialTextValue;
-    public float ScoreAddSpeed = 0.02f;
-    public TextMeshProUGUI ScoreText;
+    private float scoreCurrent = 0;
+    private float scoreTarget = 0;
+    private string initialTextValue;
+    [SerializeField] private float scoreAddSpeed = 0.02f;
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     public void AddScore(float score)
     {
-        ScoreTarget += score;
+        scoreTarget += score;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InitialTextValue = ScoreText.text;
-        ScoreText.text = InitialTextValue.Replace("XXX", "0");
+        initialTextValue = scoreText.text;
+        scoreText.text = initialTextValue.Replace("XXX", "0");
     }
 
     // Update is called once per frame
     void Update()
     {
-        print($"ScoreCurrent - ScoreTarget: {ScoreCurrent - ScoreTarget}");
-        if (Math.Abs(ScoreCurrent - ScoreTarget) < 0.1)
+        print($"ScoreCurrent - ScoreTarget: {scoreCurrent - scoreTarget}");
+        if (Math.Abs(scoreCurrent - scoreTarget) < 0.1)
             return;
 
-        if (Math.Abs(ScoreCurrent - ScoreTarget) < 0.4) 
-            ScoreCurrent = ScoreTarget;  
-        ScoreCurrent = Mathf.Lerp(ScoreCurrent, ScoreTarget, ScoreAddSpeed);
-        ScoreText.text = InitialTextValue.Replace("XXX", Math.Floor(ScoreCurrent).ToString());
+        if (Math.Abs(scoreCurrent - scoreTarget) < 0.4) 
+            scoreCurrent = scoreTarget;  
+        scoreCurrent = Mathf.Lerp(scoreCurrent, scoreTarget, scoreAddSpeed);
+        scoreText.text = initialTextValue.Replace("XXX", Math.Floor(scoreCurrent).ToString());
     }
 }

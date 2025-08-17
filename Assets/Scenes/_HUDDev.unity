@@ -204,12 +204,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f58421efb6e19a44831252c66f6dd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndicatorLevel: {fileID: 808200100}
-  IndicatorLevelFollow: {fileID: 346285562}
-  IndicatorLevelBckgr: {fileID: 886452041}
+  indicatorLevel: {fileID: 808200100}
+  indicatorLevelFollow: {fileID: 346285562}
+  indicatorLevelBckgr: {fileID: 886452041}
   IndicatorCurrent: 1
-  MainLerpValue: 0.2
-  FolloLerpValue: 0.05
+  mainLerpValue: 0.2
+  followLerpValue: 0.02
+--- !u!1 &189681638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 189681639}
+  - component: {fileID: 189681640}
+  - component: {fileID: 189681641}
+  m_Layer: 5
+  m_Name: StaminaLevelFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &189681639
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189681638}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 800299499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &189681640
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189681638}
+  m_CullTransparentMesh: 1
+--- !u!114 &189681641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189681638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.85849047, g: 1, b: 0.9925005, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &244564061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,8 +1181,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 612369526}
+  - component: {fileID: 612369527}
   m_Layer: 5
-  m_Name: Energy
+  m_Name: Stamina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1133,6 +1209,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &612369527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612369525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f58421efb6e19a44831252c66f6dd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorLevel: {fileID: 704711974}
+  indicatorLevelFollow: {fileID: 189681641}
+  indicatorLevelBckgr: {fileID: 800299500}
+  IndicatorCurrent: 1
+  mainLerpValue: 0.2
+  followLerpValue: 0.02
 --- !u!1 &704711972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1239,7 @@ GameObject:
   - component: {fileID: 704711975}
   - component: {fileID: 704711974}
   m_Layer: 5
-  m_Name: EnergyLevel
+  m_Name: StaminaLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1166,10 +1260,10 @@ RectTransform:
   m_Father: {fileID: 800299499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 0}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &704711974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1356,7 +1450,7 @@ GameObject:
   - component: {fileID: 800299501}
   - component: {fileID: 800299500}
   m_Layer: 5
-  m_Name: EnergyLevelHolder
+  m_Name: StaminaLevelHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1374,6 +1468,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 189681639}
   - {fileID: 704711973}
   m_Father: {fileID: 612369526}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1924,8 +2019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b25b065d9c97c4e9726ad765d910e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreAddSpeed: 0.03
-  ScoreText: {fileID: 1862872590}
+  scoreAddSpeed: 0.02
+  scoreText: {fileID: 1862872590}
 --- !u!1 &1048625716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2201,10 +2296,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuPanel: {fileID: 0}
-  ScoreIndicator: {fileID: 1033663362}
-  BulletIndicator: {fileID: 0}
-  BloodLevel: {fileID: 65245952}
-  EnergyLevel: {fileID: 0}
+  scoreIndicator: {fileID: 1033663362}
+  bulletIndicator: {fileID: 1593661565}
+  bloodLevel: {fileID: 65245952}
+  staminaLevel: {fileID: 612369527}
   UIDamageOverlay: {fileID: 2071185659}
 --- !u!1 &1318538601
 GameObject:
@@ -2396,7 +2491,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 97/120
+  m_text: XXX/YYY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 34fdad057497965459d9a465d384e8e8, type: 2}
   m_sharedMaterial: {fileID: -757880367008280268, guid: 34fdad057497965459d9a465d384e8e8, type: 2}
@@ -2560,7 +2655,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1306478652}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: DebugSetBullets
+        m_MethodName: DebugShoot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2794,10 +2889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cbde2c51f9b83418fa11e27a34df75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentBullets: 0
-  TargetBullets: 0
-  TotalBullets: 0
-  ChangeBulletSmoothness: 0
+  changeBulletSmoothness: 0.2
+  bulletText: {fileID: 1320852716}
 --- !u!1 &1862872588
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,9 +3210,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 338378367}
-  DecaySpeed: 0.97
-  AlphaMultiplierBase: 0.7
-  AlphaMultiplierSinusoid: 0.4
+  decaySpeed: 0.99
+  alphaMultiplierBase: 0.7
+  alphaMultiplierSinusoid: 0.2
 --- !u!1 &2095950634
 GameObject:
   m_ObjectHideFlags: 0

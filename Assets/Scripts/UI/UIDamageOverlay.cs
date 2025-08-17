@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class UIDamageOverlay : MonoBehaviour
 {
-    public Image image;
-    public float DecaySpeed = 0.99f; 
-    public float AlphaMultiplierBase = 0.7f;
-    public float AlphaMultiplierSinusoid = 0.2f;
-    private float AccumulatedDamage = 0;
+    [SerializeField] private Image image;
+    [SerializeField] private float decaySpeed = 0.99f;
+    [SerializeField] private float alphaMultiplierBase = 0.7f;
+    [SerializeField] private float alphaMultiplierSinusoid = 0.2f;
+    private float _accumulatedDamage = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,23 +20,23 @@ public class UIDamageOverlay : MonoBehaviour
 
     void Update()
     {
-        if (AccumulatedDamage == 0)
+        if (_accumulatedDamage == 0)
             return;
         
-        if (AccumulatedDamage < 0.003)
-            AccumulatedDamage = 0;
+        if (_accumulatedDamage < 0.003)
+            _accumulatedDamage = 0;
         
-        image.color = new Color(1,0,0, AccumulatedDamage 
-            * AlphaMultiplierBase
-            + AlphaMultiplierSinusoid 
-            * Mathf.Clamp01(AccumulatedDamage) 
+        image.color = new Color(1,0,0, _accumulatedDamage 
+            * alphaMultiplierBase
+            + alphaMultiplierSinusoid 
+            * Mathf.Clamp01(_accumulatedDamage) 
             * Mathf.Sin(Time.time * 3.4f + 2)
             * Mathf.Cos(Time.time * 5));
-        AccumulatedDamage *= DecaySpeed;
+        _accumulatedDamage *= decaySpeed;
     }
 
     public void AddDamage(float damage)
     {
-        AccumulatedDamage += damage;
+        _accumulatedDamage += damage;
     }
 }

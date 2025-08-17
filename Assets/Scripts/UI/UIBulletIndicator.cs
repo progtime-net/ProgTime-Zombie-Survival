@@ -1,38 +1,55 @@
+using TMPro;
 using UnityEngine;
 
 public class UIBulletIndicator : MonoBehaviour
 {
-    public int CurrentBullets = 0;
-    public int TargetBullets;
-    public int TotalBullets;
-    public float ChangeBulletSmoothness = 0.2f;
+    private int _currentBullets = 0;
+    private int _targetBullets;
+    private int _totalBullets;
+    [SerializeField] private float changeBulletSmoothness = 0.2f;
+    [SerializeField] private TextMeshProUGUI bulletText;
+    private string _baseBulletText;
 
+    void Start()
+    {
+        _baseBulletText = bulletText.text;
+        bulletText.text = bulletText.text.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
+    }
     public void SetTotalBullets(int totalBullets)
     {
-        TotalBullets = totalBullets;
+        _totalBullets = totalBullets;
+        bulletText.text = _baseBulletText.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
     }
     /// <summary>
     /// force set - when changing weapons
     /// </summary>
     public void SetCurrentBullets(int currentBullets)
     {
-        CurrentBullets = currentBullets;
-        TargetBullets = currentBullets;
+        _currentBullets = currentBullets;
+        _targetBullets = currentBullets;
+        bulletText.text = _baseBulletText.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
     }
 
     public void UpdateBulletsLeft(int bulletsLeft)
     {
-        TargetBullets = bulletsLeft;
+        _targetBullets = bulletsLeft;
     }
 
      
-    void Start()
+    void Update()
     {
-        if (TargetBullets == CurrentBullets)
+        print($"_targetBullets {_targetBullets }");
+        print($"_currentBullets {_currentBullets}");
+        if (_targetBullets == _currentBullets)
             return;
         
-        CurrentBullets = (int)Mathf.Lerp(CurrentBullets, TargetBullets, ChangeBulletSmoothness);
+        _currentBullets = (int)Mathf.Lerp(_currentBullets, _targetBullets, changeBulletSmoothness);
+        if (Mathf.Abs(_currentBullets - _targetBullets) < 0.9)
+        {
+            _currentBullets = _targetBullets;
+        }
+        bulletText.text = _baseBulletText.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
 
     }
-     
+
 }
