@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Controls;
 
 //TODO: Uncomment everything and enable mirror stuff after adding network and guns
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : NetworkBehaviour, IDamageable
 {
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private float runAnimationSpeed;
 
     [Header("Stats")] 
-    // [SyncVar(hook = nameof(HealthChanged))]
+    [SyncVar(hook = nameof(HealthChanged))]
     [SerializeField]
     private float health = 100f;
     
@@ -68,22 +68,20 @@ public class PlayerController : MonoBehaviour, IDamageable
     
     void Start()
     {
-        // GameManager.Instance.PlayerConnected(this);
+        GameManager.Instance.PlayerConnected(this);
         _controller = GetComponent<CharacterController>();
         _t = transform;
                 
-        // cam.gameObject.SetActive(isLocalPlayer);
-        // playerModel.SetActive(!isLocalPlayer);
+        cam.gameObject.SetActive(isLocalPlayer);
+        playerModel.SetActive(!isLocalPlayer);
         
-        // if (!isLocalPlayer) return;
+        if (!isLocalPlayer) return;
         
         
         LocalPLayer = this;
         _controls = new InputSystem();
-        _controls.Enable();
         Inventory = new Inventory();
         
-        // playerModel.SetActive(false);
 
         _controls.Player.Move.performed += ctx => _moveVector = ctx.ReadValue<Vector2>();
         _controls.Player.Move.canceled += _ => _moveVector = Vector2.zero;
@@ -104,6 +102,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
+        
+        _controls.Enable();
     }
 
     private void Interact() { }
@@ -127,17 +127,17 @@ public class PlayerController : MonoBehaviour, IDamageable
         
     }
     
-    private void OnEnable() => _controls.Enable();
-    private void OnDisable() => _controls.Disable();
+    private void OnEnable() => _controls?.Enable();
+    private void OnDisable() => _controls?.Disable();
 
-    // private void OnDestroy()
-    // {
-    //     GameManager.Instance.PlayerDisconnected(this);
-    // }
+    private void OnDestroy()
+    {
+        GameManager.Instance.PlayerDisconnected(this);
+    }
 
     void Update()
     {
-        // if (!isLocalPlayer || !isAlive) return;
+        if (!isLocalPlayer || !isAlive) return;
         
         HandleMovement();
         HandleJump();
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void LateUpdate()
     {
-        // if (!isLocalPlayer || !isAlive) return;
+        if (!isLocalPlayer || !isAlive) return;
 
         HandleLook();
         HandleCamAnimation();
@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        // if (!isLocalPlayer || !isAlive) return;
+        if (!isLocalPlayer || !isAlive) return;
 
         HandleAttack();
     }
@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        // if (!isAlive || !isLocalPlayer) return;
+        if (!isAlive || !isLocalPlayer) return;
         
         health -= damage;
         if (health <= 0)
@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void HealthChanged(float prev, float now)
     {
-       // if (!isLocalPlayer) return;
+       if (!isLocalPlayer) return;
        // UIManager.Instance.UpdateHealthText($"{(int)health} HP");
     }
 

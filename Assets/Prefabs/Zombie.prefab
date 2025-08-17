@@ -55,7 +55,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  moveSpeed: 4
+  moveSpeed: 1
   runAnimSpeed: 1
   damageCooldown: 1
   reAggressiveCooldown: 10
@@ -80,7 +80,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &7904639629710297709
