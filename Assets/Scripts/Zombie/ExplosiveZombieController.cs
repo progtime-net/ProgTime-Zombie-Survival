@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class ExplosiveZombieController : ZombieController
 {
     private GameObject _explosiveRadius;
+    [Server]
     public override void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -12,6 +13,7 @@ public class ExplosiveZombieController : ZombieController
         _explosiveRadius = GetComponentInChildren<GameObject>();
         if (!isServer) _agent.enabled = false;
     }
+    [Server]
     public override void Death()
     {
         _state = AIState.Disabled;
@@ -24,7 +26,7 @@ public class ExplosiveZombieController : ZombieController
         _explosiveRadius.GetComponent<ExplodeController>().Explode(attackDamage);
         Destroy(gameObject);
     }
-    
+    [Server]
     public override void FixedUpdate()
     {
         if (!isServer) return;
