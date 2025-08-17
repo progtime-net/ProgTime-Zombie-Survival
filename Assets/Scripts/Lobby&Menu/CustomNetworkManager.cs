@@ -43,12 +43,6 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
-        if (conn.identity == null)
-        {
-            Debug.LogError("NetworkManager is broken. If you see this error - Davilkus sucks at programming. " +
-                "Tell him to use GPT 5 instead of his total unskill. Mac sucks tho.");
-        }
-
         base.OnServerReady(conn);
 
         string sceneName = SceneManager.GetActiveScene().name;
