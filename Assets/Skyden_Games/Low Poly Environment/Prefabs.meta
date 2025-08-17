@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Skyden_Games/Low Poly Environment/Prefabs.meta
 guid: 3353497000eb7ac4db66030058360861
+=======
+guid: 08be167e5aa834ac3af30070e47a755d
+>>>>>>> development:Assets/Prefabs.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
