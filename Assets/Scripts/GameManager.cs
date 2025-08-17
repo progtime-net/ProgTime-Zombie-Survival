@@ -34,11 +34,11 @@ public class GameManager : NetworkBehaviour
 
     public void PlayerConnected(PlayerController player)
     {
-        AllPlaeyrs.Add(player);
+        AllPlayers.Add(player);
     }
 
     public void PlayerDisconnected(PlayerController player)
     {
-        AllPlaeyrs.Remove(player);
+        AllPlayers.Remove(player);
     }
 }
