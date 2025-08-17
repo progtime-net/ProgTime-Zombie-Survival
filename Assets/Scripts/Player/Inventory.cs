@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-    private List<Weapon> Weapons { get; set; } = new();
-    private Weapon CurrentWeapon { get; set; } = null;
+    public List<Weapon> Weapons { get; set; } = new();
+    public Weapon CurrentWeapon { get; set; } = null;
 
 
     public void AddWeapon(Weapon weapon)

@@ -189,6 +189,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         direction = Vector3.Lerp(direction, moveVectorTransformed, Time.deltaTime * inertiaLerp);
 
         _controller.Move(direction * (moveSpeed * Time.deltaTime));
+        
     }
 
     private void HandleLook()
