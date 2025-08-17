@@ -15,7 +15,7 @@ namespace Entities.Player
 
         public int Add(int quantity = 1)
         {
-            int toAdd = Mathf.Min(quantity, Item.maxStackSize - Quantity);
+            int toAdd = Mathf.Min(quantity, Item.MaxStackSize - Quantity);
             Quantity += toAdd;
             return quantity - toAdd;
         }
