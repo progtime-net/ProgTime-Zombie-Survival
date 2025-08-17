@@ -12,7 +12,6 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
-
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1
 *.blend1.meta
@@ -35,9 +34,6 @@
 # Visual Studio cache directory
 .vs/
 .vsconfig
-.vscode
-**/.vscode/
-.vscode/
 
 # Gradle cache directory
 .gradle/
@@ -59,7 +55,6 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
-Assets/GFX/textures
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -103,9 +98,3 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
-
-.idea
-**/.idea/
-.idea/
-
-.DS_Store
