@@ -5,18 +5,18 @@ using UnityEngine.AI;
 
 public class ZombieController : NetworkBehaviour, IDamageable
 {
-    protected enum AIState { Disabled, Idle, Chase, Attack}
+    protected enum AIState { Disabled, Idle, Chase, Attack }
     [Header("AI Settings")]
-    [SerializeField] protected float moveSpeed=4f;
-    [SerializeField] protected float runAnimSpeed=1f;
-    [SerializeField] protected float damageCooldown=1f;
-    [SerializeField] protected float reAggressiveCooldown=10f;
-    [SerializeField] protected float attackDamage=10f;
+    [SerializeField] protected float moveSpeed = 4f;
+    [SerializeField] protected float runAnimSpeed = 1f;
+    [SerializeField] protected float damageCooldown = 1f;
+    [SerializeField] protected float reAggressiveCooldown = 10f;
+    [SerializeField] protected float attackDamage = 10f;
 
     protected NavMeshAgent _agent;
     protected Animator _animator;
 
-   
+
     [SyncVar] protected AIState _state = AIState.Chase;
     [SerializeField] [SyncVar] protected float _health = 20f;
     private List<PlayerController> players = new List<PlayerController>();
@@ -74,13 +74,13 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
         Destroy(gameObject, 15f);
     }
-    
+
     [Server]
     protected void OnTriggerEnter(Collider other)
     {
         if (!isServer) return;
         GameObject obj = other.gameObject;
-        
+
         if (obj.CompareTag("Player"))
         {
             Debug.Log("Поймал");
@@ -93,7 +93,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     {
         if (!isServer) return;
         GameObject obj = other.gameObject;
-        
+
         if (obj.CompareTag("Player"))
         {
             Debug.Log("Ушёл");
@@ -105,7 +105,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     public virtual void FixedUpdate()
     {
         if (!isServer) return;
-        if(players.Contains(_targetToChase))
+        if (_targetToChase != null && players.Contains(_targetToChase))
         {
             _state = AIState.Attack;
             Debug.Log("Начало атаки!");
@@ -113,7 +113,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
         }
         else
         {
-            
+
             _animator.SetBool("IsInAttack", false);
             isInAttack = false;
             _state = AIState.Chase;
@@ -121,12 +121,13 @@ public class ZombieController : NetworkBehaviour, IDamageable
         switch (_state)
         {
             case AIState.Attack:
-                if(!isInAttack)
+                if (!isInAttack)
                 {
                     _lastAttackTime = Time.time;
                     _animator.SetBool("IsInAttack", true);
                     isInAttack = true;
-                } else if(Time.time -_lastAttackTime >= damageCooldown)
+                }
+                else if (Time.time - _lastAttackTime >= damageCooldown)
                 {
                     _targetToChase = (_targetToAttack as PlayerController);
                     _targetToAttack.TakeDamage(attackDamage);
@@ -134,7 +135,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
                     isInAttack = false;
                 }
                 //if (players.Contains(_targetToChase) &&
-               //Time.time >= _lastAttackTime + damageCooldown)
+                //Time.time >= _lastAttackTime + damageCooldown)
                 //{
                 //    Debug.Log("attack");
                 //    _lastAttackTime = Time.time;
@@ -145,9 +146,9 @@ public class ZombieController : NetworkBehaviour, IDamageable
                 break;
             case AIState.Chase:
                 _animator.speed = runAnimSpeed;
-                
+
                 _agent.speed = moveSpeed;
-                if (Time.time >=_reAggressiveTime+ reAggressiveCooldown)
+                if (Time.time >= _reAggressiveTime + reAggressiveCooldown)
                 {
                     Transform targetPlayer = GetClosestPlayer();
 
@@ -161,11 +162,11 @@ public class ZombieController : NetworkBehaviour, IDamageable
                         _agent.SetDestination(targetPlayer.position);
                     }
                 }
-                
-                
+
+
                 break;
         }
 
-        
+
     }
 }
