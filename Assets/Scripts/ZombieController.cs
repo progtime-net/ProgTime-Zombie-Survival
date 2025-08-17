@@ -5,21 +5,24 @@ using UnityEngine.AI;
 
 public abstract class ZombieController : NetworkBehaviour,IDamageable
 {
-    protected enum AIState { Disabled, Idle, Patrol, Chase, Attack }
+    protected enum AIState { Disabled, Idle, Chase}
     [Header("AI Settings")]
-    [SerializeField] protected float moveSpeed;
-    [SerializeField] private float runAnimSpeed;
-    [SerializeField] protected float damageCooldown;
-    [SerializeField] protected float attackDamage;
+    [SerializeField] protected float moveSpeed=4f;
+    [SerializeField] protected float runAnimSpeed=1f;
+    [SerializeField] protected float damageCooldown=1f;
+    [SerializeField] protected float reAggressiveCooldown=10f;
+    [SerializeField] protected float attackDamage=10f;
 
     private NavMeshAgent _agent;
     private Animator _animator;
 
     private List<Transform> _targetPlayers = new List<Transform>();
     [SyncVar] protected AIState _state = AIState.Chase;
-    [SyncVar] protected float _health = 20f;
+    [SerializeField] [SyncVar] protected float _health = 20f;
     private IDamageable _targetToAttack = null;
+    private Transform _targetToChase = null;
     private float _lastAttackTime = int.MinValue;
+    private float _reAggressiveTime = int.MinValue;
     public virtual void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -31,6 +34,7 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
     {
         float minDist = int.MaxValue;
         Transform closestPlayer = null;
+        _reAggressiveTime = Time.time;
         foreach (var player in GameManager.Instance.AllPlayers)
         {
             float dist = Vector3.Distance(transform.position, player.transform.position);
@@ -40,6 +44,7 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
                 closestPlayer = player.transform;
             }
         }
+        _targetToChase = closestPlayer;
         return closestPlayer;
     }
     [Server]
@@ -75,6 +80,7 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
         if (obj.CompareTag("Player"))
         {
             _targetToAttack = obj.GetComponent<IDamageable>();
+
         }
     }
     [Server]
@@ -96,8 +102,17 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
             case AIState.Chase:
                 _animator.speed = runAnimSpeed;
                 _agent.speed = moveSpeed;
-                Transform targetPlayer = GetClosestPlayer();
-                _agent.SetDestination(targetPlayer.position);
+                if(Time.time >=_reAggressiveTime+ reAggressiveCooldown)
+                {
+                    Transform targetPlayer = GetClosestPlayer();
+                    _agent.SetDestination(targetPlayer.position);
+                }
+                else
+                {
+                    Transform targetPlayer = _targetToChase;
+                    _agent.SetDestination(targetPlayer.position);
+                }
+                
                 break;
         }
 
@@ -107,6 +122,8 @@ public abstract class ZombieController : NetworkBehaviour,IDamageable
                 Time.time >= _lastAttackTime + damageCooldown)
             {
                 _lastAttackTime = Time.time;
+                _reAggressiveTime = Time.time;
+                _targetToChase = (_targetToAttack as PlayerController).transform;
                 _targetToAttack.TakeDamage(attackDamage);
             }
         }
