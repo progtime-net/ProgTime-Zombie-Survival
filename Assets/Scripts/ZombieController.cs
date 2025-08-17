@@ -13,24 +13,24 @@ public class ZombieController : NetworkBehaviour,IDamageable
     [SerializeField] protected float reAggressiveCooldown=10f;
     [SerializeField] protected float attackDamage=10f;
 
-    private NavMeshAgent _agent;
-    private Animator _animator;
+    protected NavMeshAgent _agent;
+    protected Animator _animator;
 
    
     [SyncVar] protected AIState _state = AIState.Chase;
     [SerializeField] [SyncVar] protected float _health = 20f;
-    private IDamageable _targetToAttack = null;
-    private Transform _targetToChase = null;
-    private float _lastAttackTime = int.MinValue;
-    private float _reAggressiveTime = int.MinValue;
+    protected IDamageable _targetToAttack = null;
+    protected Transform _targetToChase = null;
+    protected float _lastAttackTime = int.MinValue;
+    protected float _reAggressiveTime = int.MinValue;
     public virtual void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         if (!isServer) _agent.enabled = false;
     }
-    
-    private Transform GetClosestPlayer()
+
+    protected Transform GetClosestPlayer()
     {
         float minDist = int.MaxValue;
         Transform closestPlayer = null;
@@ -73,7 +73,7 @@ public class ZombieController : NetworkBehaviour,IDamageable
     }
     
     [Server]
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (!isServer) return;
         GameObject obj = other.gameObject;
@@ -84,7 +84,7 @@ public class ZombieController : NetworkBehaviour,IDamageable
         }
     }
     [Server]
-    private void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
         if (!isServer) return;
         GameObject obj = other.gameObject;
