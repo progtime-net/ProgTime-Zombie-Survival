@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 public abstract class Bonus : MonoBehaviour, IInteractable
@@ -53,7 +54,8 @@ public abstract class Bonus : MonoBehaviour, IInteractable
 
     void Update()
     {
-        // UpdateRotation();
+        UpdateRotation();
+        UpdateYPosBySin();
     }
 
     protected virtual void UpdateRotation()

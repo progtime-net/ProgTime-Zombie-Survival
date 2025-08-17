@@ -4,10 +4,9 @@ public class FirstAidKitController : Bonus
 {
     [SerializeField] private int healAmount = 25;
 
-    [Header("Spin")]
-    [SerializeField] private float spinSpeed = 45f;
-    [SerializeField] private Vector3 spinAxis = Vector3.up;
-    [SerializeField] private bool spinInWorldSpace = true;
+    // [Header("Spin")]
+    // [SerializeField] private float spinSpeed = 45f;
+    // [SerializeField] private Vector3 spinAxis = Vector3.up;
 
     protected override string GetBonusHint() => $"+{healAmount} HP";
 
@@ -17,11 +16,11 @@ public class FirstAidKitController : Bonus
     //     // startPosition = transform.position;
     // }
 
-    void Update()
-    {
-        UpdateYPosBySin();
-        UpdateRotation();
-    }
+    // void Update()
+    // {
+    //     UpdateYPosBySin();
+    //     UpdateRotation();
+    // }
 
     protected override bool Apply(GameObject interactor)
     {

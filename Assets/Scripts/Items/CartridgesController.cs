@@ -14,9 +14,9 @@ public class CartridgesController : Bonus
         cartridges.Take();
         return true;
     }
-    void Update()
-    {
-        UpdateYPosBySin();
-        UpdateRotation();
-    }
+    // void Update()
+    // {
+    //     UpdateYPosBySin();
+    //     UpdateRotation();
+    // }
 }
