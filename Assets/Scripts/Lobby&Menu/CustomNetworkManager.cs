@@ -26,28 +26,37 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        string activeScene = SceneManager.GetActiveScene().name;
+        string activeSceneName = SceneManager.GetActiveScene().name;
 
-        if (activeScene == "LobbyScene")
+        if (activeSceneName == "LobbyScene")
         {
+            Debug.Log("Add lobby player");
             GameObject lobbyPlayer = Instantiate(lobbyPlayerPrefab);
             NetworkServer.AddPlayerForConnection(conn, lobbyPlayer);
         }
         else
         {
+            Debug.Log("Add game player");
             SpawnGamePlayer(conn);
         }
     }
 
-    public override void OnServerSceneChanged(string sceneName)
+    public override void OnServerReady(NetworkConnectionToClient conn)
     {
-        if (sceneName != "LobbyScene")
+        if (conn.identity == null)
         {
-            foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
-            {
-                if (conn?.identity == null) continue;
-                ReplaceWithGamePlayer(conn);
-            }
+            Debug.LogError("NetworkManager is broken. If you see this error - Davilkus sucks at programming. " +
+                "Tell him to use GPT 5 instead of his total unskill. Mac sucks tho.");
+        }
+
+        base.OnServerReady(conn);
+
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName != "LobbyScene" && conn.identity == null)
+        {
+            Debug.Log($"Spawning game player for conn {conn.connectionId}");
+            ReplaceWithGamePlayer(conn);
         }
     }
 
@@ -74,6 +83,6 @@ public class CustomNetworkManager : NetworkManager
         gp.nickname = LobbyPlayerController.LocalInstance.Nickname;
         */
 
-        NetworkServer.ReplacePlayerForConnection(conn, gamePlayerObj, ReplacePlayerOptions.Destroy);
+        NetworkServer.ReplacePlayerForConnection(conn, gamePlayerObj, ReplacePlayerOptions.KeepActive);
     }
 }

@@ -359,7 +359,7 @@ MonoBehaviour:
   walkAnimationSpeed: 0
   runAnimationSpeed: 0
   health: 100
-  playerModel: {fileID: 0}
+  playerModel: {fileID: 1581175357577912852}
 --- !u!114 &-6021968149124871184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,6 +480,11 @@ PrefabInstance:
 --- !u!4 &1428776024254203689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a0e826c61c7add48ba363e18bf996c6, type: 3}
+  m_PrefabInstance: {fileID: 1467805434788782274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1581175357577912852 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -9101836590829714730, guid: 2a0e826c61c7add48ba363e18bf996c6, type: 3}
   m_PrefabInstance: {fileID: 1467805434788782274}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &4986651291359485267 stripped
