@@ -5,28 +5,50 @@ public class UIManager : MonoBehaviour
 {
     [Header("UI Settings")]
     [SerializeField] private GameObject pauseMenuPanel;
-    public Image BloodLevel;
-    public Image BloodLevelBckgr;
+    
+    public UIIndicator BloodLevel;
+    public UIIndicator EnergyLevel;
+    public UIDamageOverlay UIDamageOverlay;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    } 
+    }
 
-    // ������� 1 � ������� �������� ����� fill (����� �������)
-    public void SetHealth(float t) // t � [0..1]
+    /// <summary>
+    /// </summary>
+    /// <param name="t">[0..1]</param>
+    public void SetHealth(float t)
     {
-        t = Mathf.Clamp01(t);
-        BloodLevel.type = Image.Type.Filled;
-        BloodLevel.fillMethod = Image.FillMethod.Horizontal;
-        BloodLevel.fillOrigin = (int)Image.OriginHorizontal.Left;
-        BloodLevel.fillAmount = t;  // ������ ������ ��� �����������
+        BloodLevel.SetValue(t);
+        if (t < BloodLevel.IndicatorCurrent)
+        {
+            UIDamageOverlay.AddDamage(BloodLevel.IndicatorCurrent - t);
+        }
+    }
+    /// <summary>
+    /// </summary>
+    /// <param name="t">[0..1]</param>
+    public void SetEnergy(float t)
+    {
+        EnergyLevel.SetValue(t);
+    }
+
+    public void ResetHealth()
+    {
+        print("Health reset");
+        BloodLevel.SetValue(1);
+
+    }
+    private float _debHeath = 1;
+    public void MinusHealth()
+    {
+        _debHeath -= 0.1f;
+        SetHealth(_debHeath);
     }
 
     public void Remuse()
