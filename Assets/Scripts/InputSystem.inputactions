@@ -1,5 +1,6 @@
 {
-    "name": "PlayerControls",
+    "version": 1,
+    "name": "InputSystem",
     "maps": [
         {
             "name": "Player",
@@ -90,6 +91,15 @@
                     "name": "Reload",
                     "type": "Button",
                     "id": "4dd2ebb9-b6d5-4dd1-99e4-c4cd78c270be",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectWeapon",
+                    "type": "Button",
+                    "id": "522c3252-9e2c-40bc-aae4-f828c31bd37b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -490,6 +500,50 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4339cb98-6887-48b1-8bc0-8359f61d3722",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eda0e407-6f11-48d4-825d-d749ef1730d8",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c905054-a5b4-46a3-b021-3707c2b62245",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42fda1a7-9b35-4b1e-8818-c0a2107e138f",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

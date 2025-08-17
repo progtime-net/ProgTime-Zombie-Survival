@@ -2,6 +2,7 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 //TODO: Uncomment everything and enable mirror stuff after adding network and guns
 [RequireComponent(typeof(CharacterController))]
@@ -97,10 +98,17 @@ public class PlayerController : MonoBehaviour
         _controls.Player.Sprint.canceled += ctx => _isRunning = false;
 
         _controls.Player.Interact.performed += ctx => Interact();
+
+        _controls.Player.SelectWeapon.performed += ctx => SelectWeapon(ctx);
     }
 
     private void Interact() { }
 
+    private void SelectWeapon(InputAction.CallbackContext ctx)
+    {
+        Debug.Log((ctx.control as KeyControl).keyCode.ToString());
+    }
+    
     private void OnEnable() => _controls.Enable();
     private void OnDisable() => _controls.Disable();
 
