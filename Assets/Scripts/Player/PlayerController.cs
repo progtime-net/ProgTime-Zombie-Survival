@@ -2,13 +2,16 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 //TODO: Uncomment everything and enable mirror stuff after adding network and guns
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+    private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
+    private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;
@@ -34,6 +37,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float health = 100f;
     
+    [Header("Model")]
+    [SerializeField] private GameObject playerModel;
+    
+    
+    public Inventory Inventory {get; private set;}
     
     private CharacterController _controller;
     private InputSystem _controls;
@@ -73,27 +81,52 @@ public class PlayerController : MonoBehaviour
         LocalPLayer = this;
         _controls = new InputSystem();
         _controls.Enable();
+        Inventory = new Inventory();
+        
+        // playerModel.SetActive(false);
 
         _controls.Player.Move.performed += ctx => _moveVector = ctx.ReadValue<Vector2>();
-        _controls.Player.Move.canceled += ctx => _moveVector = Vector2.zero;
+        _controls.Player.Move.canceled += _ => _moveVector = Vector2.zero;
 
         _controls.Player.Look.performed += ctx => _lookVector = ctx.ReadValue<Vector2>();
-        _controls.Player.Look.canceled += ctx => _lookVector = Vector2.zero;
+        _controls.Player.Look.canceled += _ => _lookVector = Vector2.zero;
 
-        _controls.Player.Jump.performed += ctx => _isJumping = true;
-        _controls.Player.Jump.canceled += ctx => _isJumping = false;
+        _controls.Player.Jump.performed += _ => _isJumping = true;
+        _controls.Player.Jump.canceled += _ => _isJumping = false;
 
-        _controls.Player.Attack.performed += ctx => _isAttacking = true;
-        _controls.Player.Attack.canceled += ctx => _isAttacking = false;
+        _controls.Player.Attack.performed += _ => _isAttacking = true;
+        _controls.Player.Attack.canceled += _ => _isAttacking = false;
 
-        _controls.Player.Sprint.performed += ctx => _isRunning = true;
-        _controls.Player.Sprint.canceled += ctx => _isRunning = false;
+        _controls.Player.Sprint.performed += _ => _isRunning = true;
+        _controls.Player.Sprint.canceled += _ => _isRunning = false;
 
-        _controls.Player.Interact.performed += ctx => Interact();
+        _controls.Player.Interact.performed += _ => Interact();
+        _controls.Player.SelectWeapon.performed += SelectWeapon;
+        _controls.Player.DropItem.performed += _ => DropItem();
+        _controls.Player.ScrollWeapon.performed += ScrollWeapon;
     }
 
     private void Interact() { }
 
+    private void SelectWeapon(InputAction.CallbackContext ctx)
+    {
+        if (ctx.control is KeyControl key)
+        {
+            Inventory.SetCurrentWeapon(key.keyCode - Key.Digit1);
+        }
+    }
+
+    private void ScrollWeapon(InputAction.CallbackContext ctx)
+    {
+        Vector2 scroll = ctx.ReadValue<Vector2>();
+        Inventory.SwitchWeapon((int)Mathf.Sign(scroll.y));
+    }
+
+    private void DropItem()
+    {
+        
+    }
+    
     private void OnEnable() => _controls.Enable();
     private void OnDisable() => _controls.Disable();
 
@@ -139,7 +172,7 @@ public class PlayerController : MonoBehaviour
         if (_isJumping && _isGrounded && _velocity <= 0f)
         {
             _velocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            playerAnimator.Play("Jump");
+            playerAnimator.SetTrigger(JumpTrigger);
             _isJumping = false;
         }
     }
@@ -156,6 +189,7 @@ public class PlayerController : MonoBehaviour
         direction = Vector3.Lerp(direction, moveVectorTransformed, Time.deltaTime * inertiaLerp);
 
         _controller.Move(direction * (moveSpeed * Time.deltaTime));
+        
     }
 
     private void HandleLook()
@@ -200,6 +234,7 @@ public class PlayerController : MonoBehaviour
         if (health <= 0)
         {
             isAlive = false;
+            playerAnimator.SetTrigger(DieTrigger);
             // System.Diagnostics.Process.Start("reboot");
         }
         Debug.Log(health);
