@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class FirstAidKitController : Bonus
 {
-    [SerializeField] private int healAmount = 25;
+    [SerializeField] private float healAmount = 1;
 
     protected override string GetBonusHint() => $"+{healAmount} HP";
 
     protected override bool Apply(GameObject interactor)
     {
         print("test Apply");
-        var isApply = PlayerController.LocalPlayer.ChangeHealth(1f);
+        var isApply = PlayerController.LocalPlayer.ChangeHealth(healAmount);
         return isApply;
     }
 

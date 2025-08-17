@@ -4,7 +4,7 @@ public class DamageBoostController : Bonus
 {
     public override void StopBoost()
     {
-        PlayerController.LocalPlayer.ChangeDamage(5/6f); // возвращаем к исходному(*5/6)
+        PlayerController.LocalPlayer.ChangeDamage(5f/6f); // возвращаем к исходному(*5/6)
     }
 
     protected override bool Apply(GameObject interactor)
