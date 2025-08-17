@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
         _controls = new InputSystem();
         _controls.Enable();
         
-        playerModel.SetActive(false);
+        // playerModel.SetActive(false);
 
         _controls.Player.Move.performed += ctx => _moveVector = ctx.ReadValue<Vector2>();
         _controls.Player.Move.canceled += ctx => _moveVector = Vector2.zero;
