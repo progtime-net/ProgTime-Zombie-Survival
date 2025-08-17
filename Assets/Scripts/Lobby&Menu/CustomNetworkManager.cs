@@ -8,11 +8,27 @@ public class CustomNetworkManager : NetworkManager
     public GameObject lobbyPlayerPrefab;
     public GameObject gamePlayerPrefab;
 
+    public override void Awake()
+    {
+        base.Awake();
+        autoCreatePlayer = false;  
+        playerPrefab = null;      
+    }
+
+    public override void OnClientConnect()
+    {
+        if (!NetworkClient.ready)
+            NetworkClient.Ready();
+
+        if (NetworkClient.localPlayer == null)
+            NetworkClient.AddPlayer();  
+    }
+
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        string sceneName = SceneManager.GetActiveScene().name;
+        string activeScene = SceneManager.GetActiveScene().name;
 
-        if (sceneName == "LobbyScene")
+        if (activeScene == "LobbyScene") 
         {
             GameObject lobbyPlayer = Instantiate(lobbyPlayerPrefab);
             NetworkServer.AddPlayerForConnection(conn, lobbyPlayer);
@@ -25,51 +41,39 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        if (sceneName != "Lobby")
+        if (sceneName != "LobbyScene")
         {
             foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
             {
-                if (conn.identity != null && conn.identity.GetComponent<LobbyPlayerController>() != null)
-                {
-                    ReplaceWithGamePlayer(conn);
-                }
+                if (conn?.identity == null) continue;
+                ReplaceWithGamePlayer(conn);
             }
         }
     }
 
     private void SpawnGamePlayer(NetworkConnectionToClient conn)
     {
-        Transform startPos = GetStartPosition();
-        GameObject gamePlayer = Instantiate(
-            gamePlayerPrefab,
-            startPos != null ? startPos.position : Vector3.zero,
-            startPos != null ? startPos.rotation : Quaternion.identity
-        );
+        Transform startPos = GetStartPosition(); 
+        Vector3 pos = startPos ? startPos.position : Vector3.zero;
+        Quaternion rot = startPos ? startPos.rotation : Quaternion.identity;
 
+        GameObject gamePlayer = Instantiate(gamePlayerPrefab, pos, rot);
         NetworkServer.AddPlayerForConnection(conn, gamePlayer);
     }
 
     private void ReplaceWithGamePlayer(NetworkConnectionToClient conn)
     {
-        string nickname = LobbyPlayerController.LocalInstance.Nickname;
-
         Transform startPos = GetStartPosition();
-        GameObject gamePlayerObj = Instantiate(
-            gamePlayerPrefab,
-            startPos != null ? startPos.position : Vector3.zero,
-            startPos != null ? startPos.rotation : Quaternion.identity
-        );
+        Vector3 pos = startPos ? startPos.position : Vector3.zero;
+        Quaternion rot = startPos ? startPos.rotation : Quaternion.identity;
 
-        //gamePlayer.nickname = nickname;
+        GameObject gamePlayerObj = Instantiate(gamePlayerPrefab, pos, rot);
+
+        /* Pass data to game player
+        var gp = gamePlayerObj.GetComponent<GamePlayerController>();
+        gp.nickname = LobbyPlayerController.LocalInstance.Nickname;
+        */
 
         NetworkServer.ReplacePlayerForConnection(conn, gamePlayerObj, ReplacePlayerOptions.Destroy);
-    }
-
-    public override void OnClientConnect()
-    {
-        base.OnClientConnect();
-
-        if (!NetworkClient.ready) NetworkClient.Ready();
-        if (NetworkClient.localPlayer == null) NetworkClient.AddPlayer();
     }
 }
