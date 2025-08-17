@@ -1,13 +1,14 @@
+using System.Collections;
 using Mirror;
 using UnityEngine;
 
-public abstract class Bonus : MonoBehaviour, IInteractable
+public abstract class Bonus : NetworkBehaviour, IInteractable
 {
     [Header("Display")]
     [SerializeField] private string displayName = "Bonus";
 
     [Header("Spin")]
-    [SerializeField] private float spinSpeed = 45f;
+    [SerializeField] private float spinSpeed = 130f;
     [SerializeField] private Vector3 spinAxis = Vector3.up;
     [SerializeField] private bool spinInWorldSpace = true;
 
@@ -21,6 +22,8 @@ public abstract class Bonus : MonoBehaviour, IInteractable
     [Header("Move by Y(real Z)")]
     [SerializeField] private float amplitude = 1f;    // Высота волны
     [SerializeField] private float frequency = 1f;    // Частота колебаний
+
+    [SerializeField] private float timeBoost = 7f; // время действия буста в секундах
 
     private bool _consumed;
 
@@ -41,16 +44,44 @@ public abstract class Bonus : MonoBehaviour, IInteractable
     {
         if (_consumed) return;
 
-        if (Apply(interactor))
+        print("test3");
+        // var playerController = interactor.GetComponent<PlayerController>();
+        if (Apply(interactor) && interactor.CompareTag("Player"))
         {
+            print("test4");
             _consumed = true;
-            if (pickupVfx) Instantiate(pickupVfx, transform.position, Quaternion.identity);
-            if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position);
+            // if (pickupVfx) Instantiate(pickupVfx, transform.position, Quaternion.identity);
+            // if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position);
             Destroy(gameObject); // or pool/disable if preferred
         }
     }
 
-    protected abstract bool Apply(GameObject interactor);
+    [Server]
+    protected void OnTriggerEnter(Collider other)
+    {
+        print("test");
+        // if (!isServer) return;
+        GameObject obj = other.gameObject;
+        print(obj);
+        if (obj.CompareTag("Player"))
+        {
+            print("test2");
+
+            Interact(obj);
+        }
+    }
+    protected virtual bool Apply(GameObject interactor)
+    {
+        StartCoroutine(StopBoostCoroutine());
+        return false;
+    }
+
+    private IEnumerator StopBoostCoroutine()
+    {
+        yield return new WaitForSeconds(timeBoost);
+        StopBoost();
+    }
+    public abstract void StopBoost();
 
     void Update()
     {

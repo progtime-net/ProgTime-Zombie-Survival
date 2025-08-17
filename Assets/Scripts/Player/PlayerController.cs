@@ -277,8 +277,11 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float runAnimationSpeed;
 
     [Header("Stats")]
-    [SyncVar(hook = nameof(HealthChanged))]
-    [SerializeField] private float health = 100f;
+    // [SyncVar(hook = nameof(HealthChanged))]
+    // [SerializeField] private float curHealth = 1f;
+
+    [SerializeField] private float curHealth = 1f;
+    [SerializeField] private float maxHealth = 100f;
 
     [Header("Damage")]
     [SerializeField] private float damageMultiplayer = 10f;
@@ -442,12 +445,12 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isAlive) return;
 
-        health -= damage;
-        if (health <= 0)
+        curHealth -= damage;
+        if (curHealth <= 0)
         {
             isAlive = false;
         }
-        Debug.Log(health);
+        Debug.Log(curHealth);
     }
 
     private void HealthChanged(float prev, float now) { }
@@ -472,5 +475,20 @@ public class PlayerController : NetworkBehaviour
     {
         jumpHeight *= coefficent;
         Debug.Log($"jumpHeight({jumpHeight / coefficent} *= coefficent{coefficent} = {jumpHeight})");
+    }
+
+    public bool ChangeHealth(float count)
+    {
+        print("Changing health player...");
+        if (curHealth == maxHealth)
+        {
+            print("curHealth = maxHealth\nreturn false;");
+            return false;
+        }
+
+        var prevHealth = curHealth;
+        curHealth = Mathf.Min(maxHealth, curHealth + count);
+        print($"Health changed from {prevHealth} to {curHealth}");
+        return true;
     }
 }

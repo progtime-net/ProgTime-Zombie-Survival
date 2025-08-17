@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: -3789803667377907223}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +361,8 @@ MonoBehaviour:
   camAnimator: {fileID: 4475915297401999727}
   walkAnimationSpeed: 0
   runAnimationSpeed: 0
-  health: 100
+  curHealth: 100
+  maxHealth: 100
   damageMultiplayer: 10
 --- !u!114 &-3789803667377907223
 MonoBehaviour:
