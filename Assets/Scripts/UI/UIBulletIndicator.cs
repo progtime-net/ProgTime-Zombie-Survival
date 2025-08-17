@@ -37,9 +37,7 @@ public class UIBulletIndicator : MonoBehaviour
 
      
     void Update()
-    {
-        print($"_targetBullets {_targetBullets }");
-        print($"_currentBullets {_currentBullets}");
+    { 
         if (_targetBullets == _currentBullets)
             return;
         
