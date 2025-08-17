@@ -11,8 +11,8 @@ public class CustomNetworkManager : NetworkManager
     public override void Awake()
     {
         base.Awake();
-        autoCreatePlayer = false;  
-        playerPrefab = null;      
+        autoCreatePlayer = false;
+        playerPrefab = null;
     }
 
     public override void OnClientConnect()
@@ -21,14 +21,14 @@ public class CustomNetworkManager : NetworkManager
             NetworkClient.Ready();
 
         if (NetworkClient.localPlayer == null)
-            NetworkClient.AddPlayer();  
+            NetworkClient.AddPlayer();
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         string activeScene = SceneManager.GetActiveScene().name;
 
-        if (activeScene == "LobbyScene") 
+        if (activeScene == "LobbyScene")
         {
             GameObject lobbyPlayer = Instantiate(lobbyPlayerPrefab);
             NetworkServer.AddPlayerForConnection(conn, lobbyPlayer);
@@ -53,7 +53,7 @@ public class CustomNetworkManager : NetworkManager
 
     private void SpawnGamePlayer(NetworkConnectionToClient conn)
     {
-        Transform startPos = GetStartPosition(); 
+        Transform startPos = GetStartPosition();
         Vector3 pos = startPos ? startPos.position : Vector3.zero;
         Quaternion rot = startPos ? startPos.rotation : Quaternion.identity;
 
