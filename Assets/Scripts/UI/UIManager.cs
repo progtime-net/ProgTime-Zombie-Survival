@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("UI Settings")]
+    [SerializeField] private GameObject pauseMenuPanel;
+    
     public UIIndicator BloodLevel;
     public UIIndicator EnergyLevel;
     public UIDamageOverlay UIDamageOverlay;
@@ -48,5 +51,19 @@ public class UIManager : MonoBehaviour
         SetHealth(_debHeath);
     }
 
+    public void Remuse()
+    {
+        pauseMenuPanel.SetActive(false);
+    }
+
+    public void OpenSettig()
+    {
+        
+    }
+
+    public void Exit()
+    {
+        
+    }
 
 }
