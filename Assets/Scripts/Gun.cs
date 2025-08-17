@@ -16,22 +16,23 @@ public abstract class Gun : Weapon
 
     public virtual void Reload()
     {
-        if (totalAmmo <= 0)
-        {
-            Debug.Log("No ammo to reload");
-            return;
-        }
-        totalAmmo -= clipSize - _currentAmmo; // уменьшаем общее количество патронов на количество, которое было использовано
-        Debug.Log("Gun Reloaded");
-        _currentAmmo = clipSize; // восстановление текущего количества патронов
-    }
+        float currentAmmo = _currentAmmo;
 
-    void Update()
-    {
-        if(totalAmmo < clipSize)
+        if (totalAmmo < clipSize)
             _currentAmmo = totalAmmo; // инициализация текущего количества патронов
         else
             _currentAmmo = clipSize;
+
+        totalAmmo -= clipSize - currentAmmo; // уменьшаем общее количество патронов на количество, которое было использовано
+
+        if (totalAmmo <= 0)
+        {
+            totalAmmo = 0;
+            Debug.Log("No ammo to reload");
+            return;
+        }
+
+        Debug.Log("Gun Reloaded");
     }
 
     public override void Attack()
