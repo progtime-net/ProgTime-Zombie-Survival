@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ZombieController : NetworkBehaviour, IDamageable
 {
-    protected enum AIState { Disabled, Idle, Chase}
+    protected enum AIState { Disabled, Idle, Chase, Attack}
     [Header("AI Settings")]
     [SerializeField] protected float moveSpeed=4f;
     [SerializeField] protected float runAnimSpeed=1f;
@@ -19,10 +19,12 @@ public class ZombieController : NetworkBehaviour, IDamageable
    
     [SyncVar] protected AIState _state = AIState.Chase;
     [SerializeField] [SyncVar] protected float _health = 20f;
+    private List<PlayerController> players = new List<PlayerController>();
     protected IDamageable _targetToAttack = null;
     protected PlayerController _targetToChase = null;
     protected float _lastAttackTime = int.MinValue;
     protected float _reAggressiveTime = int.MinValue;
+    private bool isInAttack = false;
     public virtual void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -78,10 +80,12 @@ public class ZombieController : NetworkBehaviour, IDamageable
     {
         if (!isServer) return;
         GameObject obj = other.gameObject;
+        
         if (obj.CompareTag("Player"))
         {
+            Debug.Log("Поймал");
             _targetToAttack = obj.GetComponent<IDamageable>();
-
+            players.Add(obj.GetComponent<PlayerController>());
         }
     }
     [Server]
@@ -89,17 +93,56 @@ public class ZombieController : NetworkBehaviour, IDamageable
     {
         if (!isServer) return;
         GameObject obj = other.gameObject;
+        
         if (obj.CompareTag("Player"))
         {
+            Debug.Log("Ушёл");
             _targetToAttack = null;
+            players.Remove(obj.GetComponent<PlayerController>());
         }
     }
     [Server]
     public virtual void FixedUpdate()
     {
         if (!isServer) return;
+        if(players.Contains(_targetToChase))
+        {
+            _state = AIState.Attack;
+            Debug.Log("Начало атаки!");
+
+        }
+        else
+        {
+            
+            _animator.SetBool("IsInAttack", false);
+            isInAttack = false;
+            _state = AIState.Chase;
+        }
         switch (_state)
         {
+            case AIState.Attack:
+                if(!isInAttack)
+                {
+                    _lastAttackTime = Time.time;
+                    _animator.SetBool("IsInAttack", true);
+                    isInAttack = true;
+                } else if(Time.time -_lastAttackTime >= damageCooldown)
+                {
+                    _targetToChase = (_targetToAttack as PlayerController);
+                    _targetToAttack.TakeDamage(attackDamage);
+                    _animator.SetBool("IsInAttack", false);
+                    isInAttack = false;
+                }
+                //if (players.Contains(_targetToChase) &&
+               //Time.time >= _lastAttackTime + damageCooldown)
+                //{
+                //    Debug.Log("attack");
+                //    _lastAttackTime = Time.time;
+                //    _reAggressiveTime = Time.time;
+                //    _targetToChase = (_targetToAttack as PlayerController);
+                //    _targetToAttack.TakeDamage(attackDamage);
+                //}
+                break;
             case AIState.Chase:
                 _animator.speed = runAnimSpeed;
                 
@@ -123,17 +166,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
                 break;
         }
 
-        if (_state != AIState.Disabled)
-        {
-            if (_targetToAttack != null &&
-                Time.time >= _lastAttackTime + damageCooldown)
-            {
-                Debug.Log("attack");
-                _lastAttackTime = Time.time;
-                _reAggressiveTime = Time.time;
-                _targetToChase = (_targetToAttack as PlayerController);
-                _targetToAttack.TakeDamage(attackDamage);
-            }
-        }
+        
     }
 }
