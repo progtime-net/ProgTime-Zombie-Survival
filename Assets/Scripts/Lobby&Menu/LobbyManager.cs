@@ -10,13 +10,13 @@ public class LobbyManager : NetworkBehaviour
     public static LobbyManager Instance { get; private set; }
 
     [Header("UI")]
-    public Transform scrollContent;
-    public GameObject plashPrefab;
-    public TextMeshProUGUI lobbyTitleTxt;
-    public GameObject startGameBtn;
+    [SerializeField] private Transform scrollContent;
+    [SerializeField] private GameObject plashPrefab;
+    [SerializeField] private TextMeshProUGUI lobbyTitleTxt;
+    [SerializeField] private GameObject startGameBtn;
 
     [Header("Scenes")]
-    public string gameSceneName = "GameScene";
+    [SerializeField] private string gameSceneName = "GameScene";
 
     private readonly Dictionary<int, PlayerPlashController> _uiPlashes = new Dictionary<int, PlayerPlashController>();
     // SERVER ONLY:
@@ -140,7 +140,7 @@ public class LobbyManager : NetworkBehaviour
 
         if (_uiPlashes.TryGetValue(hostConnectionId, out var hostPlash))
         {
-            lobbyTitleTxt.text = $"Лобби игрока {hostPlash.nicknameTxt.text}";
+            lobbyTitleTxt.text = $"Лобби игрока {hostPlash.GetNickname()}";
         }
     }
 
@@ -184,9 +184,9 @@ public class LobbyManager : NetworkBehaviour
     [Client]
     public void ClientUpdatePlashNickname(int playerId, string nickname)
     {
-        if (_uiPlashes.TryGetValue(playerId, out var plash) && plash != null && plash.nicknameTxt != null)
+        if (_uiPlashes.TryGetValue(playerId, out var plash) && plash != null && plash.GetNickname() != null)
         {
-            plash.nicknameTxt.text = nickname;
+            plash.UpdateNickname(nickname);
         }
         ClientUpdateLobbyTitle();
     }

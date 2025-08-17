@@ -3,29 +3,29 @@ using TMPro;
 
 public class PlayerPlashController: MonoBehaviour
 {
-    public TextMeshProUGUI nicknameTxt;
-    public TextMeshProUGUI pingTxt;
-    public GameObject adminIcon;
-    public GameObject kickBtn;
+    [SerializeField] private TextMeshProUGUI nicknameTxt;
+    [SerializeField] private TextMeshProUGUI pingTxt;
+    [SerializeField] private GameObject adminIcon;
+    [SerializeField] private GameObject kickBtn;
 
-    private LobbyManager manager;
+    private LobbyManager _manager;
 
-    private int playerId;
-    private string playerNickname;
-    private bool isAdmin;
-    private bool isOnHost;
+    private int _playerId;
+    private string _playerNickname;
+    private bool _isAdmin;
+    private bool _isOnHost;
 
     public void Init(LobbyManager manager,
         int playerId, 
         string playerNickname, 
         bool isAdmin, bool isOnHost)
     {
-        this.manager = manager;
+        _manager = manager;
 
-        this.playerId = playerId;
-        this.playerNickname = playerNickname;
-        this.isAdmin = isAdmin;
-        this.isOnHost = isOnHost;
+        _playerId = playerId;
+        _playerNickname = playerNickname;
+        _isAdmin = isAdmin;
+        _isOnHost = isOnHost;
 
         nicknameTxt.text = playerNickname;
         adminIcon.SetActive(isAdmin);
@@ -36,7 +36,18 @@ public class PlayerPlashController: MonoBehaviour
 
     public void KickBtnPressed()
     {
-        if (!isOnHost) return;
-        manager.KickFromUI(playerId);
+        if (!_isOnHost) return;
+        _manager.KickFromUI(_playerId);
+    }
+
+    public string GetNickname()
+    {
+        return nicknameTxt.text;
+    }
+
+    public void UpdateNickname(string nickname)
+    {
+        _playerNickname = nickname;
+        nicknameTxt.text = nickname;
     }
 }

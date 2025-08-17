@@ -51,7 +51,7 @@ public class LobbyPlayerController : NetworkBehaviour
         CmdSetNickname(LocalGameData.Nickname);
     }
 
-    void OnNicknameChanged(string oldNick, string newNick)
+    private void OnNicknameChanged(string oldNick, string newNick)
     {
         LobbyManager.Instance?.ClientUpdatePlashNickname(PlayerId, newNick);
     }
