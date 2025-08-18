@@ -12,6 +12,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [SerializeField] protected float damageCooldown = 1f;
     [SerializeField] protected float reAggressiveCooldown = 10f;
     [SerializeField] protected float attackDamage = 10f;
+    [SerializeField] protected GameObject ragdoll;
 
     protected NavMeshAgent _agent;
     protected Animator _animator;
@@ -71,9 +72,29 @@ public class ZombieController : NetworkBehaviour, IDamageable
         foreach (var coll in colls) coll.enabled = false;
 
         _agent.enabled = false;
-        //a������� ������
+        GameObject rag = Instantiate(
+            ragdoll,
+            transform.position,
+            transform.rotation
+        );
 
-        Destroy(gameObject, 15f);
+        ragdoll.transform.localScale = transform.localScale;
+        CopyTransform(transform, rag.transform);
+        
+        Destroy(gameObject);
+    }
+
+    protected void CopyTransform(Transform source, Transform target)
+    {
+        target.position = source.position;
+        target.rotation = source.rotation;
+
+        foreach (Transform targetChild in target)
+        {
+            Transform sourceChild = source.Find(targetChild.name);
+            if (sourceChild != null)
+                CopyTransform(sourceChild, targetChild);
+        }
     }
 
     [Server]
