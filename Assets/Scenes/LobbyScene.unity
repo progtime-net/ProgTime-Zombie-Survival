@@ -1173,7 +1173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -132.66666, y: 39.333313}
+  m_AnchoredPosition: {x: -132.66666, y: 39.333374}
   m_SizeDelta: {x: 200, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1301195856
@@ -1653,7 +1653,7 @@ MonoBehaviour:
   plashPrefab: {fileID: 761770847995416280, guid: 61eb924489525914cb0edd71deba4418, type: 3}
   lobbyTitleTxt: {fileID: 788192806}
   startGameBtn: {fileID: 1301195854}
-  gameSceneName: _playerTest
+  gameSceneName: GameScene
 --- !u!114 &1942366034
 MonoBehaviour:
   m_ObjectHideFlags: 0
