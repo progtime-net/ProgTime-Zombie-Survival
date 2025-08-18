@@ -5,9 +5,9 @@ using UnityEngine.AI;
 public class ExplosiveZombieController : ZombieController
 {
     [SerializeField]private ExplodeController _explosiveRadius;
-    public float timeToExplode = 2f;   // Время до взрыва
-    public float pulseSpeed = 10f;     // Скорость пульсации
-    public float pulseAmount = 0.2f;   // Насколько увеличивается масштаб при пульсе
+    public float timeToExplode = 2f;   // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    public float pulseSpeed = 10f;     // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float pulseAmount = 0.2f;   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private bool _IsAlive = true;
     private Vector3 originalScale;
     private float timer;
@@ -40,18 +40,6 @@ public class ExplosiveZombieController : ZombieController
 
         ragdoll.transform.localScale = transform.localScale;
         CopyTransform(transform, rag.transform);
-        Rigidbody[] bodies = ragdoll.GetComponentsInChildren<Rigidbody>();
-
-        foreach (Rigidbody rb in bodies)
-        {
-            rb.AddExplosionForce(
-                explosionForce,
-                transform.position,
-                explosionRadius,
-                0.5f,
-                ForceMode.Impulse
-            );
-        }
         Destroy(gameObject);
     }
     private void OnDestroy()
@@ -70,7 +58,7 @@ public class ExplosiveZombieController : ZombieController
             _IsAlive = false;
             
             //_state = AIState.Attack;
-            //Debug.Log("Начало атаки!");
+            //Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!");
 
         }
         if(!_IsAlive)
@@ -79,7 +67,7 @@ public class ExplosiveZombieController : ZombieController
             float t = (timeToExplode - timer) / timeToExplode;
             float speedMultiplier = Mathf.Lerp(1f, 5f, t);
 
-            // Пульсируем с помощью sin
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ sin
             float scaleOffset = Mathf.Sin(Time.time * pulseSpeed * speedMultiplier) * pulseAmount * t;
             transform.localScale = originalScale * (1f + scaleOffset);
         }
