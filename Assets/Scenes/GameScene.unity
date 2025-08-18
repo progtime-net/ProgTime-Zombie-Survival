@@ -12733,6 +12733,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5bc5cbd2067e372409c260b3be2aba72, type: 3}
   m_PrefabInstance: {fileID: 459404015}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &461602492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 461602493}
+  m_Layer: 0
+  m_Name: Animation1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &461602493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461602492}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &478426186
 Mesh:
   m_ObjectHideFlags: 0
@@ -37864,6 +37895,67 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1001 &1577732423
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 61.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620206348696807081, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021144843788509213, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: m_Name
+      value: Zombie Crawler_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904639629710297709, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+      propertyPath: sceneId
+      value: 1264882361
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
 --- !u!1001 &1596947593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47225,3 +47317,5 @@ SceneRoots:
   - {fileID: 2096576065}
   - {fileID: 2051271048}
   - {fileID: 16440130}
+  - {fileID: 461602493}
+  - {fileID: 1577732423}
