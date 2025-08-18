@@ -1,7 +1,9 @@
+using System;
 using Mirror;
 using System.Net;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
@@ -9,7 +11,6 @@ public class MainMenuManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TMP_Text nicknameTxt;
     [SerializeField] private TMP_Text versionText;
-    [SerializeField] private Slider sensSlider;
 
     [SerializeField] private GameObject loadingPanel;
     [SerializeField] private float startGameTimeout = 5f;
@@ -19,7 +20,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button connectBtn;
 
     private NetworkManager _netManager;
-    private float _sensitivity;
 
     private void Awake()
     {
@@ -35,9 +35,6 @@ public class MainMenuManager : MonoBehaviour
         UpdateNickname();
 
         versionText.text = "v." + Application.version;
-
-        _sensitivity = PlayerPrefs.GetFloat("sensitivity", 1.0f);
-        sensSlider.value = _sensitivity;
     }
 
     public void HostGameRequest()
@@ -82,13 +79,6 @@ public class MainMenuManager : MonoBehaviour
     public void OnIPChanged(string value)
     {
         connectBtn.interactable = IsValidIP(value);
-    }
-
-    public void OnSensitivityChanged(float value)
-    {
-        _sensitivity = value;
-        PlayerPrefs.SetFloat("sensitivity", _sensitivity);
-        PlayerPrefs.Save();
     }
 
     public void UpdateNickname() => UpdateNickname(PlayerProfileManager.Instance.profile);
