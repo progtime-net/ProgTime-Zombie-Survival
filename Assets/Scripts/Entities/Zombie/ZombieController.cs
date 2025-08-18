@@ -19,12 +19,12 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
     protected AIState _state = AIState.Chase;
     [SerializeField] [SyncVar] protected float _health = 20f;
-    private List<PlayerController> players = new List<PlayerController>();
+    protected List<PlayerController> players = new List<PlayerController>();
     protected IDamageable _targetToAttack = null;
     protected PlayerController _targetToChase = null;
     protected float _lastAttackTime = int.MinValue;
     protected float _reAggressiveTime = int.MinValue;
-    private bool isInAttack = false;
+    protected bool isInAttack = false;
     public virtual void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
