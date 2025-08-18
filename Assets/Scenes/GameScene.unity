@@ -30142,7 +30142,7 @@ MonoBehaviour:
   syncInterval: 0
   skyboxMaterial: {fileID: 2100000, guid: 0b846be1b116429409a7669cacf2a62e, type: 2}
   sun: {fileID: 218869705}
-  cycleDuration: 600
+  cycleDuration: 3
   timeOfDay: 0
 --- !u!4 &1189415327
 Transform:
