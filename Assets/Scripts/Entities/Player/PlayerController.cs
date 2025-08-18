@@ -29,13 +29,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [Header("Animation")]
     [SerializeField] private NetworkAnimator playerAnimator;
     [SerializeField] private Animator camAnimator;
-    [SerializeField] private float walkAnimationSpeed;
-    [SerializeField] private float runAnimationSpeed;
+    [SerializeField] private float walkAnimationSpeed = 1f;
+    [SerializeField] private float runAnimationSpeed = 1f;
 
     [Header("Stats")] 
     [SyncVar(hook = nameof(HealthChanged))]
     [SerializeField]
     private float health = 100f;
+    [SerializeField] private float maxHealth = 100f;
+
+    [Header("Damage")]
+    [SerializeField] private float damageMultiplier = 10f;
     
     [Header("Model")]
     [SerializeField] private GameObject playerModel;
@@ -47,7 +51,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private InputSystem _controls;
     private Transform _t;
     private Vector2 _camPosition = new(0f, 0f);
-    
+
 
     private Vector2 _moveVector;
     private Vector2 _lookVector;
@@ -62,7 +66,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private float moveSpeed = 0f;
     private Vector3 direction = Vector3.zero;
 
-    /*[SyncVar(hook = nameof(AliveStateChanged))]*/ private bool isAlive = true;
+    [SyncVar(hook = nameof(AliveStateChanged))] 
+    private bool isAlive = true;
+    public bool IsAlive => isAlive;
 
     public bool IsAlive { get { return isAlive; } }
 
@@ -80,7 +86,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!isLocalPlayer) return;
         
         
-        LocalPLayer = this;
+        LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
         
@@ -252,6 +258,41 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private void AliveStateChanged(bool prev, bool now)
     {
         
+    }
+
+    public void ChangeSpeed(float coefficient)
+    {
+        walkSpeed *= coefficient;
+        runSpeed *= coefficient;
+        Debug.Log($"walkSpeed({walkSpeed / coefficient} *= coefficent{coefficient} = {walkSpeed})");
+        Debug.Log($"runSpeed({runSpeed / coefficient} *= coefficent{coefficient} = {runSpeed})");
+    }
+
+    public void ChangeDamage(float coefficient)
+    {
+        damageMultiplier *= coefficient;
+        Debug.Log($"damage({damageMultiplier / coefficient} *= coefficent{coefficient} = {damageMultiplier})");
+    }
+
+    public void ChangeJump(float coefficient)
+    {
+        jumpHeight *= coefficient;
+        Debug.Log($"jumpHeight({jumpHeight / coefficient} *= coefficent{coefficient} = {jumpHeight})");
+    }
+
+    public bool ChangeHealth(float count)
+    {
+        print("Changing health player...");
+        if (health == maxHealth)
+        {
+            print("curHealth = maxHealth\nreturn false;");
+            return false;
+        }
+
+        var prevHealth = health;
+        health = Mathf.Min(maxHealth, health + count);
+        print($"Health changed from {prevHealth} to {health}");
+        return true;
     }
     
     // [Command]

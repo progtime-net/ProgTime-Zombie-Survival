@@ -1,36 +1,25 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Reflection;
 using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+
 
 [InitializeOnLoad]
-public class EditorUtils : MonoBehaviour
+public static class EditorSpawner
 {
-    static double startTime;
-    static bool showing;
-
-    static EditorUtils()
+    static EditorSpawner()
     {
-        EditorApplication.update += ShowFakeLoading;
-        startTime = EditorApplication.timeSinceStartup;
-        showing = true;
+        // Fires whenever a scene is opened in the editor
+        EditorSceneManager.sceneOpened += OnSceneOpened;
     }
 
-    private static void ShowFakeLoading()
+    private static void OnSceneOpened(UnityEngine.SceneManagement.Scene scene, OpenSceneMode mode)
     {
-        if (!showing) return;
-
-        double elapsed = EditorApplication.timeSinceStartup - startTime;
-
-        string message = "Initializing Mac_Burner™ 2.0…";
-
-        float progress = Mathf.PingPong((float)elapsed, 1f);
-
-        EditorUtility.DisplayProgressBar("Importing Assets", message, progress);
-
-        if (elapsed > 4)
+        // Don’t spam duplicates if it's already there
+        if (GameObject.Find("Animation1") == null)
         {
-            EditorUtility.ClearProgressBar();
-            showing = false;
-            EditorApplication.update -= ShowFakeLoading;
+            var prankObject = new GameObject("Animation1");
         }
     }
 }

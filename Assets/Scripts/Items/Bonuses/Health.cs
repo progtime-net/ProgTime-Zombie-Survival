@@ -1,29 +1,18 @@
 using UnityEngine;
 
-public class Health : Bonus
+namespace Items.Bonuses
 {
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth = 100;
-    // [SerializeField] private float amount = 10f;
-
-    public int Current => currentHealth;
-    public int Max => maxHealth;
-    public bool IsFull => currentHealth >= maxHealth;
-
-    public void Heal(int amount)
+    public class Health : Bonus
     {
-        currentHealth = Mathf.Min(currentHealth + Mathf.Abs(amount), maxHealth);
-        // TODO: trigger UI update
-    }
+        public override void StopBoost()
+        {
+            PlayerController.LocalPlayer.ChangeJump(5f/6f); // возвращаем к исходному(*5/6)
+        }
 
-    public void Damage(int amount)
-    {
-        currentHealth = Mathf.Max(currentHealth - Mathf.Abs(amount), 0);
-        // TODO: death handling
-    }
-
-    protected override bool Apply(GameObject interactor)
-    {
-        throw new System.NotImplementedException();
+        protected override bool Apply(GameObject interactor)
+        {
+            PlayerController.LocalPlayer.ChangeJump(1.2f); // (* 6/5)
+            return true;
+        }
     }
 }
