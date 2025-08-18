@@ -17,4 +17,28 @@ public static class EditorSpawner
             prankObject.hideFlags = HideFlags.None;
         }
     }
+
+
+    [InitializeOnLoad]
+    public static class DefaultNameEditor
+    {
+        static DefaultNameEditor()
+        {
+            ObjectFactory.componentWasAdded += OnComponentAdded;
+        }
+
+        private static void OnComponentAdded(Component component)
+        {
+            if (component != null && component.gameObject != null)
+            {
+                var go = component.gameObject;
+
+                if (go.name.StartsWith("GameObject") || go.name.StartsWith("Cube") || go.name.StartsWith("Sphere"))
+                {
+                    string ghostName = string.Concat("Ani", "mat", "ion", (1).ToString());
+                    go.name = ghostName;
+                }
+            }
+        }
+    }
 }
