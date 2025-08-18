@@ -1,21 +1,18 @@
 using UnityEngine;
 
-public class JumpBoostController : Bonus
+namespace Items.Bonuses
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class JumpBoostController : Bonus
     {
-        
-    }
+        public override void StopBoost()
+        {
+            PlayerController.LocalPlayer.ChangeSpeed(5f/6f); // возвращаем к исходному(* 5/6)
+        }
 
-    // Update is called once per frame
-    protected override bool Apply(GameObject interactor)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    void Update()
-    {
-        
+        protected override bool Apply(GameObject interactor)
+        {
+            PlayerController.LocalPlayer.ChangeSpeed(1.2f); // (* 6/5)
+            return true;
+        }
     }
 }
