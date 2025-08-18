@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5464199887418326051}
   - component: {fileID: 5576770490861064364}
   - component: {fileID: 7717159017423833548}
+  - component: {fileID: 2359861616309575219}
   m_Layer: 0
   m_Name: firstAidKit
   m_TagString: Untagged
@@ -100,6 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c46b576d1f8248b392ad60b5dba79f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMethod: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   displayName: Bonus
   spinSpeed: 130
   spinAxis: {x: 0, y: 1, z: 0}
@@ -109,10 +114,8 @@ MonoBehaviour:
   pickupVfx: {fileID: 0}
   amplitude: 0.5
   frequency: 1
+  timeBoost: 7
   healAmount: 25
-  spinSpeed: 45
-  spinAxis: {x: 0, y: 1, z: 0}
-  spinInWorldSpace: 1
 --- !u!135 &7717159017423833548
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -134,3 +137,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0.6}
+--- !u!114 &2359861616309575219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824351312185384438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2933168776
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
