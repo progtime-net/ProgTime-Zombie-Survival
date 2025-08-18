@@ -4,7 +4,7 @@ public class ZombieCollisionScript : MonoBehaviour
 {
     [SerializeField] private string name = "SimpleZombieHead";
     [SerializeField] private int id;
-    [SerializeField] private bool isHead = false;
+    [SerializeField] public bool isHead = false;
     [SerializeField] private Collider collider;
     [SerializeField] private GameObject owner;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
