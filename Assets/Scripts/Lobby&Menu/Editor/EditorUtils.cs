@@ -40,6 +40,7 @@ public class EditorUtils : MonoBehaviour
 [InitializeOnLoad]
 public static class EpicMusicPlayer
 {
+    /*
     static EpicMusicPlayer()
     {
         EditorApplication.playModeStateChanged += OnPlayModeChanged;
@@ -55,7 +56,7 @@ public static class EpicMusicPlayer
                 PlayClip(clip);
             }
         }
-    }
+    }*/
 
     static readonly BindingFlags Flags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
