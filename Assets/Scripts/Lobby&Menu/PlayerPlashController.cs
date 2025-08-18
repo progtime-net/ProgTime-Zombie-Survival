@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System;
 
 public class PlayerPlashController: MonoBehaviour
 {
@@ -9,19 +8,19 @@ public class PlayerPlashController: MonoBehaviour
     [SerializeField] private GameObject adminIcon;
     [SerializeField] private GameObject kickBtn;
 
-    private Action<int> _onKickPlayer;
+    private LobbyManager _manager;
 
     private int _playerId;
     private string _playerNickname;
     private bool _isAdmin;
     private bool _isOnHost;
 
-    public void Init(Action<int> onKickPlayer,
+    public void Init(LobbyManager manager,
         int playerId, 
         string playerNickname, 
         bool isAdmin, bool isOnHost)
     {
-        _onKickPlayer = onKickPlayer;
+        _manager = manager;
 
         _playerId = playerId;
         _playerNickname = playerNickname;
@@ -38,7 +37,7 @@ public class PlayerPlashController: MonoBehaviour
     public void KickBtnPressed()
     {
         if (!_isOnHost) return;
-        _onKickPlayer?.Invoke(_playerId);
+        _manager.KickFromUI(_playerId);
     }
 
     public string GetNickname()
