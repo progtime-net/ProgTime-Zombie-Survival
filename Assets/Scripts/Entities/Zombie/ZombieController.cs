@@ -17,7 +17,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     protected Animator _animator;
 
 
-    [SyncVar] protected AIState _state = AIState.Chase;
+    protected AIState _state = AIState.Chase;
     [SerializeField] [SyncVar] protected float _health = 20f;
     private List<PlayerController> players = new List<PlayerController>();
     protected IDamageable _targetToAttack = null;
