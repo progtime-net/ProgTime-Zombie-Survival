@@ -244,6 +244,9 @@ MonoBehaviour:
   damageCooldown: 1
   reAggressiveCooldown: 10
   attackDamage: 100
+  ragdoll: {fileID: 4939223125470821130, guid: 02bcb945570cef04c8a25b578686c271, type: 3}
+  explosionForce: 100
+  explosionRadius: 4
   _health: 20
   _explosiveRadius: {fileID: 8878896532395597281}
   timeToExplode: 2

@@ -32,8 +32,26 @@ public class ExplosiveZombieController : ZombieController
 
         _agent.enabled = false;
         //TODO: death anim
-       
+        GameObject rag = Instantiate(
+            ragdoll,
+            transform.position,
+            transform.rotation
+        );
 
+        ragdoll.transform.localScale = transform.localScale;
+        CopyTransform(transform, rag.transform);
+        Rigidbody[] bodies = ragdoll.GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody rb in bodies)
+        {
+            rb.AddExplosionForce(
+                explosionForce,
+                transform.position,
+                explosionRadius,
+                0.5f,
+                ForceMode.Impulse
+            );
+        }
         Destroy(gameObject);
     }
     private void OnDestroy()
