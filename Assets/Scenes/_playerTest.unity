@@ -893,7 +893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3078366825486382421, guid: f486cad8475f2b74e93054b2b990475f, type: 3}
       propertyPath: attackDamage
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7608520801619127336, guid: f486cad8475f2b74e93054b2b990475f, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -1035,7 +1035,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6089258729252366138, guid: 7dfffd72e0780e44d8fbf7c908f47795, type: 3}
       propertyPath: attackDamage
-      value: 0
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089258729252366138, guid: 7dfffd72e0780e44d8fbf7c908f47795, type: 3}
+      propertyPath: damageCooldown
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7904639629710297709, guid: 7dfffd72e0780e44d8fbf7c908f47795, type: 3}
       propertyPath: sceneId

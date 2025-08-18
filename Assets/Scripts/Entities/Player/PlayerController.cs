@@ -64,6 +64,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     /*[SyncVar(hook = nameof(AliveStateChanged))]*/ private bool isAlive = true;
 
+    public bool IsAlive { get { return isAlive; } }
+
     public static PlayerController LocalPLayer { get; private set; }
     
     void Start()

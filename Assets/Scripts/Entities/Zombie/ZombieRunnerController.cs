@@ -12,7 +12,7 @@ public class ZombieRunnerController : ZombieController
     public virtual void FixedUpdate()
     {
         if (!isServer) return;
-        if (_targetToChase != null && players.Contains(_targetToChase))
+        if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
         {
             _state = AIState.Attack;
             Debug.Log("Начало атаки!");
