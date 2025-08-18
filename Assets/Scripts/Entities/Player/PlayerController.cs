@@ -66,7 +66,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private bool isAlive = true;
     public bool IsAlive => isAlive;
 
-    public static PlayerController LocalPLayer { get; private set; }
+    public static PlayerController LocalPlayer { get; private set; }
     
     void Start()
     {
