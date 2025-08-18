@@ -8,6 +8,7 @@ public class GameManager : NetworkBehaviour
     private List<PlayerController> allPlayers = new List<PlayerController>();
     public List<PlayerController> AllPlayers => allPlayers;
     
+    
     public static GameManager Instance { get; private set; }
     
     private void Awake()

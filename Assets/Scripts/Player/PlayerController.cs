@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -37,11 +38,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField]
     private float health = 100f;
     
-    [Header("Model")]
+    [Header("Models")]
     [SerializeField] private GameObject playerModel;
+    [SerializeField] private MonoBehaviour pistolBehaviour;
     
     
-    public Inventory Inventory {get; private set;}
+    public Inventory Inventory { get; private set; }
     
     private CharacterController _controller;
     private InputSystem _controls;
@@ -58,31 +60,41 @@ public class PlayerController : MonoBehaviour, IDamageable
     private bool _isRunning;
     private bool _isJumping;
     private bool _isAttacking;
-    
+    private Gun gun;
     private float moveSpeed = 0f;
     private Vector3 direction = Vector3.zero;
 
     /*[SyncVar(hook = nameof(AliveStateChanged))]*/ private bool isAlive = true;
 
     public static PlayerController LocalPLayer { get; private set; }
-    
+
     void Start()
     {
         // GameManager.Instance.PlayerConnected(this);
-        _controller = GetComponent<CharacterController>();
+        _controller = GetComponentInChildren<CharacterController>();
         _t = transform;
-                
+        pistolBehaviour = GetComponentInChildren<Gun>();
+        gun = pistolBehaviour as Gun;
+
+        if (gun == null)
+        {
+            Debug.LogError("Gun component not found on player!");
+            return;
+        }
+
         // cam.gameObject.SetActive(isLocalPlayer);
         // playerModel.SetActive(!isLocalPlayer);
-        
+
         // if (!isLocalPlayer) return;
-        
-        
+
+
         LocalPLayer = this;
         _controls = new InputSystem();
         _controls.Enable();
         Inventory = new Inventory();
-        
+        Inventory.AddWeapon(gun);
+        Inventory.SetCurrentWeapon(0);
+
         // playerModel.SetActive(false);
 
         _controls.Player.Move.performed += ctx => _moveVector = ctx.ReadValue<Vector2>();
@@ -94,8 +106,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         _controls.Player.Jump.performed += _ => _isJumping = true;
         _controls.Player.Jump.canceled += _ => _isJumping = false;
 
-        _controls.Player.Attack.performed += _ => _isAttacking = true;
-        _controls.Player.Attack.canceled += _ => _isAttacking = false;
+        // _controls.Player.Attack.performed += _ => _isAttacking = true;
+        // _controls.Player.Attack.canceled += _ => _isAttacking = false;
 
         _controls.Player.Sprint.performed += _ => _isRunning = true;
         _controls.Player.Sprint.canceled += _ => _isRunning = false;
@@ -104,6 +116,36 @@ public class PlayerController : MonoBehaviour, IDamageable
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
+        print("event attack");
+        _controls.Player.Attack.performed += ctx => { _isAttacking = true; print("_isAttacking true"); Attack(); };
+        _controls.Player.Attack.canceled += ctx => { _isAttacking = false; print("_isAttacking false"); };
+        print("event reload");
+        _controls.Player.Reload.performed += _ => Reload();;
+        
+    }
+
+    private void Reload()
+    {
+        print("method reload");
+
+        if (isAlive)
+        {
+            print("gun reloading");
+
+            gun.Reload();
+            print("_isReloading false");
+        }
+    }
+
+    private void Attack()
+    {
+        print("method attack");
+
+        if (isAlive && _isAttacking)
+        {
+            print("gun attacking");
+            gun.Attack();
+        }
     }
 
     private void Interact() { }
@@ -127,8 +169,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         
     }
     
-    private void OnEnable() => _controls.Enable();
-    private void OnDisable() => _controls.Disable();
+    private void OnEnable() => _controls?.Enable();
+    private void OnDisable() => _controls?.Disable();
 
     // private void OnDestroy()
     // {

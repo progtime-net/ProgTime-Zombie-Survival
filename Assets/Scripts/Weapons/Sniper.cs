@@ -2,6 +2,18 @@ using UnityEngine;
 
 public class Sniper : Gun
 {
+    public override void Start()
+    {
+        damage = 30;
+        range = 200;
+        fireRate = 1.2f;
+        clipSize = 1; // размер обоймы
+        totalAmmo = 25;
+
+        // обязательно после инициализации других переменных
+        base.Start(); // Initialize base class
+    }
+
     public override void Reload()
     {
         // Реализация перезарядки для Sniper

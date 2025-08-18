@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 30
-  range: 250
+  range: 200
   fireRate: 1.2
   clipSize: 1
   totalAmmo: 25
@@ -54,6 +54,8 @@ MonoBehaviour:
   shootMask:
     serializedVersion: 2
     m_Bits: 0
+  shootClip: {fileID: 0}
+  reloadClip: {fileID: 0}
   bulletPrefab: {fileID: 0}
   muzzlePoint: {fileID: 0}
   bulletSpeed: 50
