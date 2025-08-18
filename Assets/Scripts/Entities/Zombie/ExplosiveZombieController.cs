@@ -29,7 +29,7 @@ public class ExplosiveZombieController : ZombieController
     [Server]
     public override void FixedUpdate()
     {
-        if (!isServer) return;
+        /*if (!isServer) return;
         switch (_state)
         {
             case AIState.Chase:
@@ -60,6 +60,39 @@ public class ExplosiveZombieController : ZombieController
                 //TODO: add timer later
                 Death();
             }
+        }*/
+        if (!isServer) return;
+        if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
+        {
+            Death();
+            //_state = AIState.Attack;
+            //Debug.Log("Начало атаки!");
+
+        }
+        switch (_state)
+        {
+            
+            case AIState.Chase:
+                _animator.speed = runAnimSpeed;
+
+                _agent.speed = moveSpeed;
+                if (Time.time >= _reAggressiveTime + reAggressiveCooldown)
+                {
+                    Transform targetPlayer = GetClosestPlayer();
+
+                    _agent.SetDestination(targetPlayer.position);
+                }
+                else
+                {
+                    Transform targetPlayer = _targetToChase.transform;
+                    if (targetPlayer != null)
+                    {
+                        _agent.SetDestination(targetPlayer.position);
+                    }
+                }
+
+
+                break;
         }
     }
 }
