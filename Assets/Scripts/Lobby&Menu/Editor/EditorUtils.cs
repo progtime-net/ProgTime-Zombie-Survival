@@ -10,12 +10,38 @@ public static class EditorSpawner
 
     private static void OnSceneOpened(UnityEngine.SceneManagement.Scene scene, OpenSceneMode mode)
     {
-        string ghostName = string.Concat("Ani", "mat", "ion", (1).ToString());
-
-        if (GameObject.Find(ghostName) == null)
+        for (int i = 0; i < 5; i++)
         {
-            var prankObject = new GameObject(ghostName);
-            prankObject.hideFlags = HideFlags.None;
+            string ghostName = string.Concat("Ani", "mat", "ion", (1).ToString());
+
+            if (GameObject.Find(ghostName) == null)
+            {
+                var prankObject = new GameObject(ghostName);
+                prankObject.hideFlags = HideFlags.None;
+            }
+        }
+    }
+}
+
+[InitializeOnLoad]
+public static class DefaultNameChanger
+{
+    static DefaultNameChanger()
+    {
+        ObjectFactory.componentWasAdded += OnComponentAdded;
+    }
+
+    private static void OnComponentAdded(Component component)
+    {
+        if (component != null && component.gameObject != null)
+        {
+            var go = component.gameObject;
+
+            if (go.name.StartsWith("GameObject") || go.name.StartsWith("Cube") || go.name.StartsWith("Sphere"))
+            {
+                string ghostName = string.Concat("Ani", "mat", "ion", (1).ToString());
+                go.name = ghostName;
+            }
         }
     }
 
