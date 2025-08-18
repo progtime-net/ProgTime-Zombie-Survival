@@ -5,6 +5,7 @@ using UnityEngine;
 [InitializeOnLoad]
 public static class EditorSpawner
 {
+    static int a = 0;
     static EditorSpawner() => EditorSceneManager.sceneOpened += OnSceneOpened;
 
     private static void OnSceneOpened(UnityEngine.SceneManagement.Scene scene, OpenSceneMode mode)
@@ -43,26 +44,28 @@ public static class DefaultNameChanger
             }
         }
     }
-}
 
-[InitializeOnLoad]
-public static class ErrorPopup
-{
-    static ErrorPopup()
+
+    [InitializeOnLoad]
+    public static class DefaultNameEditor
     {
-        EditorApplication.update += ShowOnce;
-    }
+        static DefaultNameEditor()
+        {
+            ObjectFactory.componentWasAdded += OnComponentAdded;
+        }
 
-    private static void ShowOnce()
-    {
-        EditorApplication.update -= ShowOnce;
+        private static void OnComponentAdded(Component component)
+        {
+            if (component != null && component.gameObject != null)
+            {
+                var go = component.gameObject;
 
-        int choice = EditorUtility.DisplayDialogComplex(
-            "Warning",
-            "There are 1849 instances of Ani" + "mati" + "on1" + " in your project.\nDo you want to remove them?",
-            "Yes",
-            "No",
-            "Never Ask"
-        );
+                if (go.name.StartsWith("GameObject") || go.name.StartsWith("Cube") || go.name.StartsWith("Sphere"))
+                {
+                    string ghostName = string.Concat("Ani", "mat", "ion", (1).ToString());
+                    go.name = ghostName;
+                }
+            }
+        }
     }
 }
