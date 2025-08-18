@@ -40,6 +40,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
         _reAggressiveTime = Time.time;
         foreach (var player in GameManager.Instance.AllPlayers)
         {
+            if (!player.IsAlive) continue;
             float dist = Vector3.Distance(transform.position, player.transform.position);
             if (dist <= minDist)
             {
@@ -105,7 +106,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     public virtual void FixedUpdate()
     {
         if (!isServer) return;
-        if (_targetToChase != null && players.Contains(_targetToChase))
+        if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
         {
             _state = AIState.Attack;
             Debug.Log("Начало атаки!");
