@@ -4,13 +4,22 @@ using UnityEngine.AI;
 
 public class ExplosiveZombieController : ZombieController
 {
-    private GameObject _explosiveRadius;
+    [SerializeField]private ExplodeController _explosiveRadius;
+    public float timeToExplode = 2f;   // Время до взрыва
+    public float pulseSpeed = 10f;     // Скорость пульсации
+    public float pulseAmount = 0.2f;   // Насколько увеличивается масштаб при пульсе
+    private bool _IsAlive = true;
+    private Vector3 originalScale;
+    private float timer;
     [Server]
     public override void Start()
     {
+        _state = AIState.Chase;
         _agent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
-        _explosiveRadius = GetComponentInChildren<GameObject>();
+        _animator = GetComponentInChildren<Animator>();
+        originalScale = transform.localScale;
+        timer = timeToExplode;
+
         if (!isServer) _agent.enabled = false;
     }
     [Server]
@@ -23,56 +32,48 @@ public class ExplosiveZombieController : ZombieController
 
         _agent.enabled = false;
         //TODO: death anim
-        _explosiveRadius.GetComponent<ExplodeController>().Explode(attackDamage);
+       
+
         Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        
+        _explosiveRadius.Explode(attackDamage);
     }
     [Server]
     public override void FixedUpdate()
     {
-        /*if (!isServer) return;
-        switch (_state)
-        {
-            case AIState.Chase:
-                _animator.speed = runAnimSpeed;
-                _agent.speed = moveSpeed;
-                if (Time.time >= _reAggressiveTime + reAggressiveCooldown)
-                {
-                    Transform targetPlayer = GetClosestPlayer();
-                    _agent.SetDestination(targetPlayer.position);
-                }
-                else
-                {
-                    Transform targetPlayer = _targetToChase.transform;
-                    if (targetPlayer != null)
-                    {
-                        _agent.SetDestination(targetPlayer.position);
-                    }
-                }
-
-                break;
-        }
-
-        if (_state != AIState.Disabled)
-        {
-            if (_targetToAttack != null &&
-                Time.time >= _lastAttackTime + damageCooldown)
-            {
-                //TODO: add timer later
-                Death();
-            }
-        }*/
+        
         if (!isServer) return;
-        if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
+        if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive && _IsAlive) 
         {
-            Death();
+            
+            _IsAlive = false;
+            
             //_state = AIState.Attack;
             //Debug.Log("Начало атаки!");
 
+        }
+        if(!_IsAlive)
+        {
+            timer -= Time.deltaTime;
+            float t = (timeToExplode - timer) / timeToExplode;
+            float speedMultiplier = Mathf.Lerp(1f, 5f, t);
+
+            // Пульсируем с помощью sin
+            float scaleOffset = Mathf.Sin(Time.time * pulseSpeed * speedMultiplier) * pulseAmount * t;
+            transform.localScale = originalScale * (1f + scaleOffset);
+        }
+        if(timer<=0f)
+        {
+            Death();
         }
         switch (_state)
         {
             
             case AIState.Chase:
+                
                 _animator.speed = runAnimSpeed;
 
                 _agent.speed = moveSpeed;

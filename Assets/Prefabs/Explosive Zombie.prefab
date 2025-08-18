@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3212852343878914740}
-  - component: {fileID: 1261581589826412617}
   - component: {fileID: 2872608719601775610}
+  - component: {fileID: 8878896532395597281}
   m_Layer: 0
   m_Name: Explode
   m_TagString: Untagged
@@ -33,22 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1620206348696807081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1261581589826412617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952776859737582782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6ff21fbe86fef4b99b273c58755919, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMethod: 0
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
 --- !u!135 &2872608719601775610
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -70,6 +54,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8878896532395597281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952776859737582782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6ff21fbe86fef4b99b273c58755919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMethod: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &2021144843788509213
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,12 +82,13 @@ GameObject:
   - component: {fileID: 9004721022551790852}
   - component: {fileID: 7904639629710297709}
   - component: {fileID: 1439390338609484717}
-  - component: {fileID: 496657664936318608}
   - component: {fileID: 3155943136996319863}
+  - component: {fileID: 496657664936318608}
   - component: {fileID: 5162731359212785427}
+  - component: {fileID: 4870022281746491853}
   m_Layer: 0
   m_Name: Explosive Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,6 +184,24 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &3155943136996319863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021144843788509213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMethod: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 7608520801619127336}
 --- !u!135 &496657664936318608
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -204,24 +223,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3155943136996319863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021144843788509213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMethod: 0
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 0
-  animator: {fileID: 7608520801619127336}
 --- !u!114 &5162731359212785427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,8 +243,39 @@ MonoBehaviour:
   runAnimSpeed: 1
   damageCooldown: 1
   reAggressiveCooldown: 10
-  attackDamage: 1
+  attackDamage: 100
   _health: 20
+  _explosiveRadius: {fileID: 8878896532395597281}
+  timeToExplode: 2
+  pulseSpeed: 10
+  pulseAmount: 0.2
+--- !u!54 &4870022281746491853
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021144843788509213}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &4106281147177963961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,7 +331,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 097749444b1b453488e7ab942525a014, type: 2}
+      objectReference: {fileID: 9100000, guid: 5097b38c70c2f33468937970cdf8bc7c, type: 2}
     - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
       propertyPath: m_CullingMode
       value: 0
@@ -309,6 +341,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -316,9 +352,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1891858596799588093}
     - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5501850301605038603}
@@ -445,30 +478,7 @@ MonoBehaviour:
   id: 1
   isHead: 0
   collider: {fileID: 2163543823833143260}
-  owner: {fileID: 2021144843788509213}
---- !u!1 &3764192503299845352 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1891858596799588093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3764192503299845352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMethod: 0
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 0
-  animator: {fileID: 7608520801619127336}
+  owner: {fileID: 5162731359212785427}
 --- !u!1 &4033378560059232179 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}

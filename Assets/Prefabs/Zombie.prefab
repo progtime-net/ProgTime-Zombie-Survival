@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 1439390338609484717}
   - component: {fileID: 496657664936318608}
   - component: {fileID: 3155943136996319863}
+  - component: {fileID: 4185320696630382674}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,6 +174,33 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 0
   animator: {fileID: 7608520801619127336}
+--- !u!54 &4185320696630382674
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021144843788509213}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &4106281147177963961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,7 +402,7 @@ MonoBehaviour:
   id: 1
   isHead: 0
   collider: {fileID: 2163543823833143260}
-  owner: {fileID: 2021144843788509213}
+  owner: {fileID: 3078366825486382421}
 --- !u!1 &3764192503299845352 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
@@ -492,7 +520,7 @@ MonoBehaviour:
   id: 4
   isHead: 0
   collider: {fileID: 7973334070389556485}
-  owner: {fileID: 2021144843788509213}
+  owner: {fileID: 3078366825486382421}
 --- !u!1 &6898152809408123613 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1781356600409242780, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
@@ -537,7 +565,7 @@ MonoBehaviour:
   id: 3
   isHead: 1
   collider: {fileID: 7708071539174231133}
-  owner: {fileID: 2021144843788509213}
+  owner: {fileID: 3078366825486382421}
 --- !u!95 &7608520801619127336 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
@@ -587,4 +615,4 @@ MonoBehaviour:
   id: 0
   isHead: 0
   collider: {fileID: 6731838250616626514}
-  owner: {fileID: 2021144843788509213}
+  owner: {fileID: 3078366825486382421}
