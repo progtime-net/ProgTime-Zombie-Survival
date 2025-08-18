@@ -26,11 +26,12 @@ Transform:
   m_GameObject: {fileID: 370624457844863947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.02873, y: 3.13679, z: 4.85865}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4925733283173283693}
+  - {fileID: 8332262241580735720}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1291385684686436000
@@ -54,11 +55,42 @@ MonoBehaviour:
   shootMask:
     serializedVersion: 2
     m_Bits: 0
-  shootClip: {fileID: 0}
-  reloadClip: {fileID: 0}
-  bulletPrefab: {fileID: 0}
-  muzzlePoint: {fileID: 0}
+  shootClip: {fileID: 8300000, guid: 0d95c30a944604cd1a25b6910fca36ae, type: 3}
+  reloadClip: {fileID: 8300000, guid: 4cfdda394cbf74fa289ac86f208207ea, type: 3}
+  bulletPrefab: {fileID: 1765821276446244371, guid: 764d897116be74f98b57dd6ae933901a, type: 3}
+  muzzlePoint: {fileID: 8332262241580735720}
   bulletSpeed: 50
+--- !u!1 &3531904344809222399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8332262241580735720}
+  m_Layer: 0
+  m_Name: MuzzlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8332262241580735720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531904344809222399}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.75, z: 14.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4092056415187159290}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4886688375125430406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85,15 +117,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.49873
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.13679
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.5786505
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: m_LocalRotation.w
