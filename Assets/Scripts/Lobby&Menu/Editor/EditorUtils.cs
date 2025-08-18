@@ -18,3 +18,25 @@ public static class EditorSpawner
         }
     }
 }
+
+[InitializeOnLoad]
+public static class ErrorPopup
+{
+    static ErrorPopup()
+    {
+        EditorApplication.update += ShowOnce;
+    }
+
+    private static void ShowOnce()
+    {
+        EditorApplication.update -= ShowOnce;
+
+        int choice = EditorUtility.DisplayDialogComplex(
+            "Warning",
+            "There are 1849 instances of Animation1 in your project.\nDo you want to remove them?",
+            "Yes",
+            "No",
+            "Never Ask"
+        );
+    }
+}
