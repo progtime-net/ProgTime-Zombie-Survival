@@ -1,18 +1,15 @@
 using UnityEngine;
 
-namespace Items.Bonuses
+public class JumpBoostController : Bonus
 {
-    public class JumpBoostController : Bonus
+    public override void StopBoost()
     {
-        public override void StopBoost()
-        {
-            PlayerController.LocalPlayer.ChangeSpeed(5f/6f); // возвращаем к исходному(* 5/6)
-        }
+        PlayerController.LocalPlayer.ChangeJump(5f/6f); // возвращаем к исходному(*5/6)
+    }
 
-        protected override bool Apply(GameObject interactor)
-        {
-            PlayerController.LocalPlayer.ChangeSpeed(1.2f); // (* 6/5)
-            return true;
-        }
+    protected override bool Apply(GameObject interactor)
+    {
+        PlayerController.LocalPlayer.ChangeJump(1.2f); // (* 6/5)
+        return true;
     }
 }
