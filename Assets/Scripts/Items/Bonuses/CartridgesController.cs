@@ -1,22 +1,15 @@
-using System;
 using UnityEngine;
 
-public class CartridgesController : Bonus
+namespace Items.Bonuses
 {
-
-    protected override bool Apply(GameObject interactor)
+    public class CartridgesController : Bonus
     {
-        var cartridges = interactor.GetComponent<Cartridges>();
-        if (!cartridges) return false;
+        public override void StopBoost() { }
 
-        if (cartridges.IsFull) return false;
-
-        cartridges.Take();
-        return true;
-    }
-    void Update()
-    {
-        UpdateYPosBySin();
-        UpdateRotation();
+        protected override bool Apply(GameObject interactor)
+        {
+            return false; // DELETE
+            /// TODO: Do this when Gun will complete
+        }
     }
 }

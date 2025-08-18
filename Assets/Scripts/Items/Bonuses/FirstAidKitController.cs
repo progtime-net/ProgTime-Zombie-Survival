@@ -1,37 +1,20 @@
 using UnityEngine;
 
-public class FirstAidKitController : Bonus
+namespace Items.Bonuses
 {
-    [SerializeField] private int healAmount = 25;
-
-    [Header("Spin")]
-    [SerializeField] private float spinSpeed = 45f;
-    [SerializeField] private Vector3 spinAxis = Vector3.up;
-    [SerializeField] private bool spinInWorldSpace = true;
-
-    protected override string GetBonusHint() => $"+{healAmount} HP";
-
-    // private Vector3 startPosition;
-    // void Start()
-    // {
-    //     // startPosition = transform.position;
-    // }
-
-    void Update()
+    public class FirstAidKitController : Bonus
     {
-        UpdateYPosBySin();
-        UpdateRotation();
-    }
+        [SerializeField] private float healAmount = 1;
 
-    protected override bool Apply(GameObject interactor)
-    {
-        var health = interactor.GetComponent<Health>();
-        if (!health) return false;
+        protected override string GetBonusHint() => $"+{healAmount} HP";
 
-        // Option: prevent pickup if already full
-        if (health.IsFull) return false;
+        protected override bool Apply(GameObject interactor)
+        {
+            print("test Apply");
+            var isApply = PlayerController.LocalPlayer.ChangeHealth(healAmount);
+            return isApply;
+        }
 
-        health.Heal(healAmount);
-        return true;
+        public override void StopBoost() { }
     }
 }
