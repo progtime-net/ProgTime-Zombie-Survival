@@ -1,52 +1,70 @@
 using System;
 using System.Collections.Generic;
+using Entities.Player;
+using UnityEngine.Events;
 
 public class Inventory
 {
-    public event Action OnInventoryChanged;
-    public List<Item> Items { get; private set; } = new();
+    public UnityEvent OnInventoryChanged { get; private set; } = new UnityEvent();
+    public UnityEvent OnWeaponChanged { get; private set; } = new UnityEvent();
+    public List<InventoryEntry> Items { get; private set; } = new();
     public Weapon CurrentWeapon { get; private set; } = null;
     
     
     private Weapon GetFirstWeapon() => GetWeapons().Count > 0 ? GetWeapons()[0] : null;
-    private List<Weapon> GetWeapons() => Items.FindAll(i => i is Weapon).ConvertAll(i => (Weapon)i);
+    private List<Weapon> GetWeapons() => Items.FindAll(i => i.Item is Weapon).ConvertAll(i => (Weapon)i.Item);
+
     
-    public void AddItem(Item item)
+    public void AddItem(Item item, int quantity = 1) 
     {
-        Items.Add(item);
-        if (item is Weapon weapon && CurrentWeapon == null)
-            CurrentWeapon = weapon;
+        var existingEntry = Items.Find(i => i.Item == item);
+        if (existingEntry != null)
+        {
+            quantity = existingEntry.Add(quantity);
+        }
+        while (quantity > 0)
+        {
+            InventoryEntry newEntry = new(item);
+            quantity = newEntry.Add(quantity);
+            Items.Add(newEntry);
+        }
         OnInventoryChanged?.Invoke();
     }
 
-    public void RemoveItem(Item item)
+    public bool RemoveItem(Item item)
     {
-        if (Items.Contains(item))
+        var existingEntry = Items.FindLast(i => i.Item == item);
+        if (existingEntry == null) return false;
+        existingEntry.Quantity--;
+        if (existingEntry.Quantity <= 0)
         {
-            Items.Remove(item);
-            if (item is Weapon weapon && CurrentWeapon == weapon)
-                CurrentWeapon = GetFirstWeapon();
-            OnInventoryChanged?.Invoke();
+            Items.Remove(existingEntry);
         }
+        OnInventoryChanged?.Invoke();
+        return true;
     }
-
-    public void SetCurrentWeapon(Weapon weapon)
+    
+    public bool SetCurrentWeapon(Weapon weapon)
     {
-        if (Items.Contains(weapon))
+        if (Items.Exists(i => i.Item == weapon))
         {
             CurrentWeapon = weapon;
-            OnInventoryChanged?.Invoke();
+            OnWeaponChanged?.Invoke();
+            return true;
         }
+        return false;
     }
-
-    public void SetCurrentWeapon(int index)
+    
+    public bool SetCurrentWeapon(int index)
     {
         var weapons = GetWeapons();
         if (index >= 0 && index < weapons.Count)
         {
             CurrentWeapon = weapons[index];
-            OnInventoryChanged?.Invoke();
+            OnWeaponChanged?.Invoke();
+            return true;
         }
+        return false;
     }
 
     public void SwitchWeapon(int move)
@@ -56,6 +74,6 @@ public class Inventory
         int newIndex = (weapons.IndexOf(CurrentWeapon) + move) % weapons.Count;
         if (newIndex < 0) newIndex += weapons.Count;
         CurrentWeapon = weapons[newIndex];
-        OnInventoryChanged?.Invoke();
+        OnWeaponChanged?.Invoke();
     }
 }
