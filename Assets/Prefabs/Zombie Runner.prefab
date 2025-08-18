@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 496657664936318608}
   - component: {fileID: 3155943136996319863}
   - component: {fileID: 6089258729252366138}
+  - component: {fileID: -4257509913901121777}
   m_Layer: 0
   m_Name: Zombie Runner
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,6 +173,7 @@ MonoBehaviour:
   damageCooldown: 1
   reAggressiveCooldown: 10
   attackDamage: 10
+  ragdoll: {fileID: 8061531558246577150, guid: 1fdd257a84b487145a249059ad636f1e, type: 3}
   _health: 20
   isInCharge: 0
   chargeCooldown: 10
@@ -179,6 +181,33 @@ MonoBehaviour:
   chargeSpeed: 10
   chargeTime: 5
   chargeAnimSpeed: 2
+--- !u!54 &-4257509913901121777
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021144843788509213}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &4106281147177963961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -234,7 +263,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 097749444b1b453488e7ab942525a014, type: 2}
+      objectReference: {fileID: 9100000, guid: 3588c20f272effa4e96bfdb4e842d42b, type: 2}
     - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
       propertyPath: m_CullingMode
       value: 0
