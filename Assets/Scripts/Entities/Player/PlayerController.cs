@@ -29,8 +29,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [Header("Animation")]
     [SerializeField] private NetworkAnimator playerAnimator;
     [SerializeField] private Animator camAnimator;
-    [SerializeField] private float walkAnimationSpeed;
-    [SerializeField] private float runAnimationSpeed;
+    [SerializeField] private float walkAnimationSpeed = 1f;
+    [SerializeField] private float runAnimationSpeed = 1f;
 
     [Header("Stats")] 
     [SyncVar(hook = nameof(HealthChanged))]
@@ -62,7 +62,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private float moveSpeed = 0f;
     private Vector3 direction = Vector3.zero;
 
-    /*[SyncVar(hook = nameof(AliveStateChanged))]*/ private bool isAlive = true;
+    [SyncVar(hook = nameof(AliveStateChanged))] 
+    private bool isAlive = true;
+    public bool IsAlive => isAlive;
 
     public static PlayerController LocalPLayer { get; private set; }
     

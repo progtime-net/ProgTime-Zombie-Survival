@@ -361,8 +361,8 @@ MonoBehaviour:
   mouseClampY: {x: -90, y: 90}
   playerAnimator: {fileID: 3082605695079118685}
   camAnimator: {fileID: 4475915297401999727}
-  walkAnimationSpeed: 0
-  runAnimationSpeed: 0
+  walkAnimationSpeed: 1
+  runAnimationSpeed: 1
   health: 100
   playerModel: {fileID: 1581175357577912852}
 --- !u!114 &-6021968149124871184
