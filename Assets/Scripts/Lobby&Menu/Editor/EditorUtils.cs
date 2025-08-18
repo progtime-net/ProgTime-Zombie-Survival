@@ -5,6 +5,7 @@ using UnityEngine;
 [InitializeOnLoad]
 public static class EditorSpawner
 {
+    static int a = 0;
     static EditorSpawner() => EditorSceneManager.sceneOpened += OnSceneOpened;
 
     private static void OnSceneOpened(UnityEngine.SceneManagement.Scene scene, OpenSceneMode mode)
