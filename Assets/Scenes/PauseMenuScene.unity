@@ -551,8 +551,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuPanel: {fileID: 1569279809}
-  BloodLevel: {fileID: 0}
-  BloodLevelBckgr: {fileID: 0}
+  scoreIndicator: {fileID: 0}
+  bulletIndicator: {fileID: 0}
+  timeIndicator: {fileID: 0}
+  bloodLevel: {fileID: 0}
+  staminaLevel: {fileID: 0}
+  UIDamageOverlay: {fileID: 0}
+  announcer: {fileID: 0}
+  inventoryAnimator: {fileID: 0}
 --- !u!4 &511541007
 Transform:
   m_ObjectHideFlags: 0
