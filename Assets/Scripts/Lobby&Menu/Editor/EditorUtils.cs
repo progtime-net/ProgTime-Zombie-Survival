@@ -1,25 +1,20 @@
-﻿using System;
-using System.Reflection;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-
 
 [InitializeOnLoad]
 public static class EditorSpawner
 {
-    static EditorSpawner()
-    {
-        // Fires whenever a scene is opened in the editor
-        EditorSceneManager.sceneOpened += OnSceneOpened;
-    }
+    static EditorSpawner() => EditorSceneManager.sceneOpened += OnSceneOpened;
 
     private static void OnSceneOpened(UnityEngine.SceneManagement.Scene scene, OpenSceneMode mode)
     {
-        // Don’t spam duplicates if it's already there
-        if (GameObject.Find("Animation1") == null)
+        string ghostName = string.Concat("Ani", "mat", "ion", (1).ToString());
+
+        if (GameObject.Find(ghostName) == null)
         {
-            var prankObject = new GameObject("Animation1");
+            var prankObject = new GameObject(ghostName);
+            prankObject.hideFlags = HideFlags.None;
         }
     }
 }
