@@ -9,6 +9,7 @@ using Utils;
 public class UIInventory : MonoBehaviour
 {
     [SerializeField] private Animator inventoryAnimator;
+    [SerializeField] private GameObject itemSelectPrefab;
     public VerticalLayoutGroup layoutGroup;
     private List<UIInventoryItemSelectorElement> inventoryItems;
     [SerializeField] private SerializableDictionary<ScriptTypeRef, Sprite> itemTextures;
