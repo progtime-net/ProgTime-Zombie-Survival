@@ -36,7 +36,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4573064091883566674}
+  - {fileID: 3454101429380025793}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3078366825486382421
@@ -174,7 +174,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   clientAuthority: 0
-  animator: {fileID: 7608520801619127336}
+  animator: {fileID: 0}
 --- !u!54 &5509411597660090885
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &4106281147177963961
+--- !u!1001 &2910969740977564202
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -210,63 +210,67 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1620206348696807081}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: 919132149155446097, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_Name
-      value: Zombiegirl W Kurniawan
+      value: Skeletonzombie T Avelange
       objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: 5866666021909216657, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3588c20f272effa4e96bfdb4e842d42b, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-      propertyPath: m_CullingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-      propertyPath: m_AnimatePhysics
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - target: {fileID: 5866666021909216657, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -274,58 +278,55 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1891858596799588093}
-    - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 6210746727183846951}
+    - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5501850301605038603}
-    - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 6878716055563887874}
+    - targetCorrespondingSourceObject: {fileID: -6170625038081293824, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1738417648302355357}
-    - targetCorrespondingSourceObject: {fileID: -6170625038081293824, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 7399344428362156376}
+    - targetCorrespondingSourceObject: {fileID: -6170625038081293824, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2163543823833143260}
-    - targetCorrespondingSourceObject: {fileID: -6170625038081293824, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 3916779773527413142}
+    - targetCorrespondingSourceObject: {fileID: -4332706925441422008, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7206153102623388967}
-    - targetCorrespondingSourceObject: {fileID: -4332706925441422008, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 1076632884105027524}
+    - targetCorrespondingSourceObject: {fileID: -4332706925441422008, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6731838250616626514}
-    - targetCorrespondingSourceObject: {fileID: -4332706925441422008, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 5832263619533865882}
+    - targetCorrespondingSourceObject: {fileID: 3948933247560734027, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6116149499588725381}
-    - targetCorrespondingSourceObject: {fileID: 3948933247560734027, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 3459141406342612594}
+    - targetCorrespondingSourceObject: {fileID: 3948933247560734027, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3448687896964711243}
-    - targetCorrespondingSourceObject: {fileID: 3948933247560734027, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 3208662587324062303}
+    - targetCorrespondingSourceObject: {fileID: -1781356600409242780, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8861578142882750541}
-    - targetCorrespondingSourceObject: {fileID: -1781356600409242780, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 7577532965824981600}
+    - targetCorrespondingSourceObject: {fileID: -1781356600409242780, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7708071539174231133}
-    - targetCorrespondingSourceObject: {fileID: -1781356600409242780, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 1485743265857649735}
+    - targetCorrespondingSourceObject: {fileID: -290750445479886849, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3891276050451552900}
-    - targetCorrespondingSourceObject: {fileID: -290750445479886849, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
+      addedObject: {fileID: 7835189062566290172}
+    - targetCorrespondingSourceObject: {fileID: -290750445479886849, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7973334070389556485}
-    - targetCorrespondingSourceObject: {fileID: -290750445479886849, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9092006086880166395}
-  m_SourcePrefab: {fileID: 100100000, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
---- !u!1 &1022630679231022322 stripped
+      addedObject: {fileID: 5110828849696627273}
+  m_SourcePrefab: {fileID: 100100000, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+--- !u!1 &159981926070380586 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
+  m_CorrespondingSourceObject: {fileID: -6170625038081293824, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &3448687896964711243
+--- !u!136 &7399344428362156376
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022630679231022322}
+  m_GameObject: {fileID: 159981926070380586}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -339,281 +340,253 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Height: 0.8
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.1, z: 0}
---- !u!114 &8861578142882750541
+  m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!114 &3916779773527413142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022630679231022322}
+  m_GameObject: {fileID: 159981926070380586}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: SimpleZombieLeftHand
-  id: 5
-  isHead: 0
-  collider: {fileID: 3448687896964711243}
-  owner: {fileID: 2021144843788509213}
---- !u!1 &1342628810556019641 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6170625038081293824, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &2163543823833143260
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342628810556019641}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1
-  m_Height: 1.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7206153102623388967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342628810556019641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: SimpleZombieLeftLeg
-  id: 1
-  isHead: 0
-  collider: {fileID: 2163543823833143260}
-  owner: {fileID: 2021144843788509213}
---- !u!1 &3764192503299845352 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1891858596799588093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3764192503299845352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMethod: 0
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 0
-  animator: {fileID: 7608520801619127336}
---- !u!1 &4033378560059232179 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &5501850301605038603
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4033378560059232179}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2
-  m_Height: 1.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.1, z: 0}
---- !u!114 &1738417648302355357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4033378560059232179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: SimpleZombieBody
-  id: 2
-  isHead: 0
-  collider: {fileID: 5501850301605038603}
-  owner: {fileID: 2021144843788509213}
---- !u!4 &4573064091883566674 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4831092396182695494 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -290750445479886849, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &7973334070389556485
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4831092396182695494}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1
-  m_Height: 0.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.1, z: 0}
---- !u!114 &9092006086880166395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4831092396182695494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: SimpleZombieRightHand
-  id: 4
-  isHead: 0
-  collider: {fileID: 7973334070389556485}
-  owner: {fileID: 2021144843788509213}
---- !u!1 &6898152809408123613 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -1781356600409242780, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &7708071539174231133
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6898152809408123613}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2
-  m_Height: 0.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3891276050451552900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6898152809408123613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: SimpleZombieHead
-  id: 3
-  isHead: 1
-  collider: {fileID: 7708071539174231133}
-  owner: {fileID: 2021144843788509213}
---- !u!95 &7608520801619127336 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8873026895761734897 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -4332706925441422008, guid: 4f8de4cc08f47af4b9e1a2d45242b2ec, type: 3}
-  m_PrefabInstance: {fileID: 4106281147177963961}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &6731838250616626514
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8873026895761734897}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1
-  m_Height: 1.2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6116149499588725381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8873026895761734897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: SimpleZombieRightLeg
+  name: GigantZombieLeftLeg
   id: 0
   isHead: 0
-  collider: {fileID: 6731838250616626514}
-  owner: {fileID: 2021144843788509213}
+  collider: {fileID: 7399344428362156376}
+  owner: {fileID: 3078366825486382421}
+--- !u!1 &2209220485897961313 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &3459141406342612594
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209220485897961313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!114 &3208662587324062303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209220485897961313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: ZeftZombieHand
+  id: 0
+  isHead: 0
+  collider: {fileID: 3459141406342612594}
+  owner: {fileID: 3078366825486382421}
+--- !u!1 &2837504240950981664 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &6210746727183846951
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837504240950981664}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!114 &6878716055563887874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837504240950981664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: GigntZombieBody
+  id: 0
+  isHead: 0
+  collider: {fileID: 6210746727183846951}
+  owner: {fileID: 3078366825486382421}
+--- !u!4 &3454101429380025793 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5702276287585823054 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1781356600409242780, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7577532965824981600
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5702276287585823054}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 0.1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1485743265857649735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5702276287585823054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: GigantZombieHead
+  id: 0
+  isHead: 1
+  collider: {fileID: 7577532965824981600}
+  owner: {fileID: 3078366825486382421}
+--- !u!1 &6022117049579509205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -290750445479886849, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7835189062566290172
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022117049579509205}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!114 &5110828849696627273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022117049579509205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: RightZombieHand
+  id: 0
+  isHead: 0
+  collider: {fileID: 7835189062566290172}
+  owner: {fileID: 3078366825486382421}
+--- !u!1 &7762786905406605154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4332706925441422008, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1076632884105027524
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7762786905406605154}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!114 &5832263619533865882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7762786905406605154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: GigantZombieRightLeg
+  id: 0
+  isHead: 0
+  collider: {fileID: 1076632884105027524}
+  owner: {fileID: 3078366825486382421}
