@@ -85,13 +85,14 @@ public class PlayerController : NetworkBehaviour, IDamageable
         GameManager.Instance.PlayerConnected(this);
         _audio = GetComponent<AudioSource>();
         _audio.PlayOneShot(clip);
-        
-        foreach (var part in playerModel.GetComponentsInChildren<SkinnedMeshRenderer>())
+
+        var components = playerModel.GetComponentsInChildren<Transform>();
+        foreach (var part in components)
         {
-            Debug.Log("PN:" + part.name);
             if (part.CompareTag("Dont_Render"))
             {
-                part.enabled = false;
+                Debug.Log("Disabling part: " + part.name);
+                part.gameObject.SetActive(false);
             }
         }
 
