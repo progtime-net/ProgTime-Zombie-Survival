@@ -8,6 +8,10 @@ public class GameManager : NetworkBehaviour
     private List<PlayerController> allPlayers = new List<PlayerController>();
     public List<PlayerController> AllPlayers => allPlayers;
     
+    [SerializeField]
+    private DayNightCycle dayNightCycle;
+    public DayNightCycle DayNightCycle => dayNightCycle;
+    
     public static GameManager Instance { get; private set; }
     
     private void Awake()

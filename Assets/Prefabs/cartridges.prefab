@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 4317353676089978727}
   - component: {fileID: 6629485344409765313}
   - component: {fileID: 4369244971418392322}
-  - component: {fileID: 2565283194841555718}
+  - component: {fileID: 2475054963657951950}
   - component: {fileID: 4696472266850009476}
+  - component: {fileID: 1204092040595059242}
   m_Layer: 0
   m_Name: cartridges
   m_TagString: Untagged
@@ -354,7 +355,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &2565283194841555718
+--- !u!114 &2475054963657951950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,9 +364,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7607508574940066547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc31faf138e8b4c328110f0a2b7b6440, type: 3}
+  m_Script: {fileID: 11500000, guid: c7e8a1ed06b3d45208da2264d1011c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMethod: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   displayName: Bonus
   spinSpeed: 130
   spinAxis: {x: 0, y: 1, z: 0}
@@ -375,6 +380,7 @@ MonoBehaviour:
   pickupVfx: {fileID: 0}
   amplitude: 1
   frequency: 1
+  timeBoost: 7
 --- !u!135 &4696472266850009476
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -396,3 +402,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1204092040595059242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7607508574940066547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3603671553
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

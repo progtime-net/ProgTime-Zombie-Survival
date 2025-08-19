@@ -1,6 +1,8 @@
+using System;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -8,6 +10,10 @@ using UnityEngine.InputSystem.Controls;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : NetworkBehaviour, IDamageable
 {
+    public static event Action<PlayerController> OnPlayerSpawned;
+    public event Action<float> OnUpdateHealth;
+    public event Action<float> OnUpdateStamina;
+    
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
@@ -25,29 +31,42 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public Transform cam;
     [SerializeField] private float mouseSensitivity = 40f;
     [SerializeField] private Vector2 mouseClampY = new(-90f, 90f);
+
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip clip;
+
     
     [Header("Animation")]
-    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private NetworkAnimator playerAnimator;
     [SerializeField] private Animator camAnimator;
-    [SerializeField] private float walkAnimationSpeed;
-    [SerializeField] private float runAnimationSpeed;
+    [SerializeField] private float walkAnimationSpeed = 1f;
+    [SerializeField] private float runAnimationSpeed = 1f;
 
     [Header("Stats")] 
     [SyncVar(hook = nameof(HealthChanged))]
     [SerializeField]
     private float health = 100f;
+    [SerializeField] private float maxHealth = 100f;
+
+    [Header("Damage")]
+
+
+    private AudioSource _audio;
+
+    [SerializeField] private float damageMultiplier = 10f;
     
-    [Header("Model")]
+    [Header("Models")]
     [SerializeField] private GameObject playerModel;
+    [SerializeField] private MonoBehaviour pistolBehaviour;
     
     
-    public Inventory Inventory {get; private set;}
+    public Inventory Inventory { get; private set; }
     
     private CharacterController _controller;
     private InputSystem _controls;
     private Transform _t;
     private Vector2 _camPosition = new(0f, 0f);
-    
+
 
     private Vector2 _moveVector;
     private Vector2 _lookVector;
@@ -62,25 +81,40 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private float moveSpeed = 0f;
     private Vector3 direction = Vector3.zero;
 
-    /*[SyncVar(hook = nameof(AliveStateChanged))]*/ private bool isAlive = true;
+    [SyncVar(hook = nameof(AliveStateChanged))] 
+    private bool isAlive = true;
+    public bool IsAlive => isAlive;
 
-    public static PlayerController LocalPLayer { get; private set; }
+    public static PlayerController LocalPlayer { get; private set; }
     
     void Start()
     {
         GameManager.Instance.PlayerConnected(this);
+        _audio = GetComponent<AudioSource>();
+        _audio.PlayOneShot(clip);
+
+        var components = playerModel.GetComponentsInChildren<Transform>();
+        foreach (var part in components)
+        {
+            if (part.CompareTag("Dont_Render"))
+            {
+                Debug.Log("Disabling part: " + part.name);
+                part.gameObject.SetActive(false);
+            }
+        }
+
         _controller = GetComponent<CharacterController>();
         _t = transform;
-                
         cam.gameObject.SetActive(isLocalPlayer);
-        playerModel.SetActive(!isLocalPlayer);
-        
+        Debug.Log($"isLocalPlayer: {isLocalPlayer}");
+        Debug.Log($"isHost: {isHost}");
+        Debug.Log($"isClient: {isClient}");
+
         if (!isLocalPlayer) return;
-        
-        
-        LocalPLayer = this;
+        LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
+        OnPlayerSpawned?.Invoke(this);
         
 
         _controls.Player.Move.performed += ctx => _moveVector = ctx.ReadValue<Vector2>();
@@ -173,6 +207,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             _velocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             playerAnimator.SetTrigger(JumpTrigger);
+            // CmdSetTrigger(JumpTrigger);
             _isJumping = false;
         }
     }
@@ -208,8 +243,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void HandleAnimation()
     {
-        playerAnimator.SetBool(IsWalking, _isWalking);
-        playerAnimator.SetBool(IsRunning, _isRunning);
+        playerAnimator.animator.SetBool(IsWalking, _isWalking);
+        playerAnimator.animator.SetBool(IsRunning, _isRunning);
     }
 
     private void HandleAttack()
@@ -231,6 +266,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!isAlive || !isLocalPlayer) return;
         
         health -= damage;
+        OnUpdateHealth?.Invoke(health / maxHealth);
         if (health <= 0)
         {
             isAlive = false;
@@ -250,4 +286,51 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         
     }
+
+    public void ChangeSpeed(float coefficient)
+    {
+        walkSpeed *= coefficient;
+        runSpeed *= coefficient;
+        Debug.Log($"walkSpeed({walkSpeed / coefficient} *= coefficent{coefficient} = {walkSpeed})");
+        Debug.Log($"runSpeed({runSpeed / coefficient} *= coefficent{coefficient} = {runSpeed})");
+    }
+
+    public void ChangeDamage(float coefficient)
+    {
+        damageMultiplier *= coefficient;
+        Debug.Log($"damage({damageMultiplier / coefficient} *= coefficent{coefficient} = {damageMultiplier})");
+    }
+
+    public void ChangeJump(float coefficient)
+    {
+        jumpHeight *= coefficient;
+        Debug.Log($"jumpHeight({jumpHeight / coefficient} *= coefficent{coefficient} = {jumpHeight})");
+    }
+
+    public bool ChangeHealth(float count)
+    {
+        print("Changing health player...");
+        if (health == maxHealth)
+        {
+            print("curHealth = maxHealth\nreturn false;");
+            return false;
+        }
+
+        var prevHealth = health;
+        health = Mathf.Min(maxHealth, health + count);
+        print($"Health changed from {prevHealth} to {health}");
+        return true;
+    }
+    
+    // [Command]
+    // void CmdSetTrigger(int trigger)
+    // {
+    //     RpcSetTrigger(trigger);
+    // }
+    //
+    // [ClientRpc]
+    // void RpcSetTrigger(int trigger)
+    // {
+    //     playerAnimator.SetTrigger(trigger);
+    // }
 }

@@ -1,3 +1,5 @@
+using System;
+using Mirror;
 using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
@@ -17,26 +19,44 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIIndicator bloodLevel;
     [SerializeField] private UIIndicator staminaLevel;
     [SerializeField] private UIDamageOverlay UIDamageOverlay;
-    [SerializeField] private UIAnnouncer announcer;
+    [SerializeField] private UIAnnouncer announcer; 
     [SerializeField] private UIInventory UIInventory;
     [SerializeField] private DebugInventoryHolder inventoryHolder;
+      
+    [SerializeField] private Animator inventoryAnimator;
+    
+    private InputSystem _controls;
+    private bool _isInventoryOpen = false;
+
+    void Awake()
+    {
+        PlayerController.OnPlayerSpawned += _ => RegisterEvents();
+    }
 
     private void Start()
     {
-        inventoryHolder.inventory.OnInventoryChanged += OnInventoryChanged;
-        gameObject.AddComponent<Image>().sprite = null;
-
-    }
-    public void OnInventoryChanged()
-    {
-        CheckWeaponsListOnAccuracy();
-        //inventory.Items[0].name;
-    }
-    public void CheckWeaponsListOnAccuracy()
-    {
-        UIInventory.SetItems(inventoryHolder.inventory);
+        Debug.Log("Starting UI Manager");
+        _controls = new InputSystem();
+        _controls.UI.InventoryOpen.performed += _ => ChangeInventoryState();
+        _controls.Enable();
+        
     }
 
+    private void RegisterEvents()
+    {
+        PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
+        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+    }
+
+    private void ChangeInventoryState()
+    {
+
+
+        Debug.Log("Changing inventory state");
+        if (_isInventoryOpen) CloseInventory();
+        else OpenInventory();
+    }
+     
     /// <summary>
     /// </summary>
     /// <param name="t">[0..1]</param>
@@ -54,7 +74,7 @@ public class UIManager : MonoBehaviour
     public void SetStamina(float t)
     {
         staminaLevel.SetValue(t);
-    } 
+    }
 
     public void AddScore(float score)
     {
@@ -84,13 +104,20 @@ public class UIManager : MonoBehaviour
     /// <param name="dayLength"></param>
     public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
 
+
     public void OpenInventory()
     {
-        UIInventory.OpenInventory();
+
+
+        //UIInventory.OpenInventory();
+        _isInventoryOpen = true;
+        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen);
     }
     public void CloseInventory()
     {
-        UIInventory.CloseInventory();
+        //UIInventory.CloseInventory();
+        _isInventoryOpen = false;
+        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen); 
     }
 
     public void Announce(string text)
@@ -132,12 +159,12 @@ public class UIManager : MonoBehaviour
 
     public void OpenSettig()
     {
-        
+
     }
 
     public void Exit()
     {
-        
+
     }
 
 }
