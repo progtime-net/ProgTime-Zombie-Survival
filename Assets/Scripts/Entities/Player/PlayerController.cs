@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -49,11 +50,12 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     [SerializeField] private float damageMultiplier = 10f;
     
-    [Header("Model")]
+    [Header("Models")]
     [SerializeField] private GameObject playerModel;
+    [SerializeField] private MonoBehaviour pistolBehaviour;
     
     
-    public Inventory Inventory {get; private set;}
+    public Inventory Inventory { get; private set; }
     
     private CharacterController _controller;
     private InputSystem _controls;

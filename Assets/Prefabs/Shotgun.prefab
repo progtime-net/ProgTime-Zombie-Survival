@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7700023423507745708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7033462491457809490}
+  m_Layer: 0
+  m_Name: MuzzlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7033462491457809490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7700023423507745708}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2, z: -5.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9001402200422807247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7961165114621727421
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,11 +57,12 @@ Transform:
   m_GameObject: {fileID: 7961165114621727421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.02873, y: 3.13679, z: 4.85865}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5359183078805083581}
+  - {fileID: 7033462491457809490}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8197237447811923130
@@ -54,8 +86,10 @@ MonoBehaviour:
   shootMask:
     serializedVersion: 2
     m_Bits: 0
-  bulletPrefab: {fileID: 0}
-  muzzlePoint: {fileID: 0}
+  shootClip: {fileID: 8300000, guid: d69361631de5d4ee0bafbe29c1d3dfcd, type: 3}
+  reloadClip: {fileID: 8300000, guid: f73abc9a51e1c46259568972ca60622c, type: 3}
+  bulletPrefab: {fileID: 1765821276446244371, guid: 764d897116be74f98b57dd6ae933901a, type: 3}
+  muzzlePoint: {fileID: 7033462491457809490}
   bulletSpeed: 50
 --- !u!1001 &5608421762305585750
 PrefabInstance:
@@ -79,15 +113,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.30873
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.13679
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5513496
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: m_LocalRotation.w
