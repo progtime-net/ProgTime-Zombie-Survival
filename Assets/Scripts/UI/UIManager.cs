@@ -91,7 +91,6 @@ public class UIManager : MonoBehaviour
     /// Seconds of the day left
     /// </summary>
     /// <param name="dayLength"></param>
-    public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
     
 
     public void OpenInventory()

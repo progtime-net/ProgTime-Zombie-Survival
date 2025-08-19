@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Mirror;
         
@@ -15,6 +16,7 @@ public class DayNightCycle : NetworkBehaviour
     [Header("State")]
     [SyncVar(hook = nameof(OnIsDayChanged))]
     [SerializeField] private bool isDay = true;
+    
         
     private float _currentBlend; 
     private float _startBlend;
@@ -74,6 +76,7 @@ public class DayNightCycle : NetworkBehaviour
     {
         isDay = value;
     }
+    
         
 #if UNITY_EDITOR
     // Editor helpers (works in play mode). Uses server path if available.
