@@ -2513,7 +2513,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1188876941073600325}
-  - component: {fileID: 3561176831033132247}
   - component: {fileID: 5867279472057027736}
   - component: {fileID: 1646413857019752670}
   - component: {fileID: 4302761377295610638}
@@ -2542,23 +2541,6 @@ Transform:
   - {fileID: 2596470867092394351}
   m_Father: {fileID: 9106793443173117344}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3561176831033132247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6449239356183787512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a36fa4e7f8e34883240d6a1dc611f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: SimpleZombieHead
-  id: 3
-  isHead: 1
-  collider: {fileID: 0}
-  owner: {fileID: 1940860959213772389}
 --- !u!135 &5867279472057027736
 SphereCollider:
   m_ObjectHideFlags: 0
