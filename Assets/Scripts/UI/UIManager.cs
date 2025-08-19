@@ -4,7 +4,7 @@ using Newtonsoft.Json.Bson;
 using UnityEngine;
 using UnityEngine.UI; 
 
-public class UIManager : NetworkBehaviour
+public class UIManager : MonoBehaviour
 {
     [Header("UI Settings")]
     [SerializeField] private GameObject pauseMenuPanel;
