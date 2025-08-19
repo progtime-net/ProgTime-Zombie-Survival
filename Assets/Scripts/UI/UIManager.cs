@@ -1,3 +1,5 @@
+using System;
+using Mirror;
 using Newtonsoft.Json.Bson;
 using UnityEngine;
 using UnityEngine.UI; 
@@ -14,6 +16,35 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDamageOverlay UIDamageOverlay;
     [SerializeField] private UIAnnouncer announcer;
     [SerializeField] private Animator inventoryAnimator;
+    
+    private InputSystem _controls;
+    private bool _isInventoryOpen = false;
+
+    void Awake()
+    {
+        PlayerController.OnPlayerSpawned += _ => RegisterEvents();
+    }
+
+    private void Start()
+    {
+        Debug.Log("Starting UI Manager");
+        _controls = new InputSystem();
+        _controls.UI.InventoryOpen.performed += _ => ChangeInventoryState();
+        _controls.Enable();
+    }
+
+    private void RegisterEvents()
+    {
+        PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
+        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+    }
+
+    private void ChangeInventoryState()
+    {
+        Debug.Log("Changing inventory state");
+        if (_isInventoryOpen) CloseInventory();
+        else OpenInventory();
+    }
     
     /// <summary>
     /// </summary>
@@ -61,14 +92,17 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="dayLength"></param>
     public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
+    
 
     public void OpenInventory()
     {
-        inventoryAnimator.Play("InventoryAppearing");
+        _isInventoryOpen = true;
+        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen);
     }
     public void CloseInventory()
     {
-        inventoryAnimator.Play("InventoryDisappearing");
+        _isInventoryOpen = false;
+        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen);
     }
 
     public void Announce(string text)
