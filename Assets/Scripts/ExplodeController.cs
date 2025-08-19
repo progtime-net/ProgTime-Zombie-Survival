@@ -44,9 +44,9 @@ public class ExplodeController : NetworkBehaviour
             _damageables.Remove(obj.GetComponent<IDamageable>());
         }
         ZombieCollisionScript zcs = obj.GetComponent<ZombieCollisionScript>();
-        if (zcs != null && !_damageables.Contains(zcs.owner))
+        if (zcs != null && _damageables.Contains(zcs.owner))
         {
-            _damageables.Add((zcs.owner));
+            _damageables.Remove((zcs.owner));
         }
     }
 }
