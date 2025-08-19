@@ -9,6 +9,6 @@ public class UIAnnouncer : MonoBehaviour
     {
         print(text);
         announcementText.text = text;
-        animator.Play("AnnouncerAppear");
+        animator.SetTrigger("announce");
     }
 }
