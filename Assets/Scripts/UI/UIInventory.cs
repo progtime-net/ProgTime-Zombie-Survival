@@ -8,36 +8,48 @@ using Utils;
 
 public class UIInventory : MonoBehaviour
 {
-    [SerializeField] private Animator inventoryAnimator;
-    [SerializeField] private GameObject itemSelectPrefab;
     public VerticalLayoutGroup layoutGroup;
-    private List<UIInventoryItemSelectorElement> inventoryItems;
-    [SerializeField] private SerializableDictionary<ScriptTypeRef, Sprite> itemTextures;
-    private Dictionary<string, Sprite> _itemTexturesHash;
+    [SerializeField] private List<string> inventoryItemPanelNames;
+    [SerializeField] private List<UIInventoryItemSelectorElement> inventoryItemPanelElements;
+    Dictionary<string, UIInventoryItemSelectorElement> _map;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventoryItems = new List<UIInventoryItemSelectorElement>();
-        _itemTexturesHash = itemTextures.ToDictionary(k => k.Key.Type.ToString(), v => v.Value);
-    }
-    public void SetItems(Inventory inventory)
-    { 
-    }
+        _map = new Dictionary<string, UIInventoryItemSelectorElement>();
+        for (int i = 0; i < inventoryItemPanelNames.Count; i++)
+        {
+            _map.Add(inventoryItemPanelNames[i], inventoryItemPanelElements[i]);
+        }
+    } 
+      
 
-    // Update is called once per frame
-    void Update()
+    internal void UpdateState()
     {
 
-    }
+        //PlayerController.LocalPlayer.Inventory.Items;
 
-    public void OpenInventory()
-    {
-        inventoryAnimator.Play("InventoryAppearing");
-    }
+        //disable elements which are not presented
+        foreach (var item in PlayerController.LocalPlayer.Inventory.Items)
+        {
+            string type = item.GetType().ToString();
+            var el = _map[type];
+            print(item.Quantity);
+            print($"Updating State {PlayerController.LocalPlayer.Inventory.CurrentWeapon.name}");
+            if (item.Quantity == 0)
+            {
+                el.HideElement();
+            }
+            else
+            {
+                el.ShowElement();
+                if (type == PlayerController.LocalPlayer.Inventory.CurrentWeapon.GetType().ToString())
+                    el.Select();                
+                else
+                    el.Deselect();
+            }
+        };
 
-    public void CloseInventory()
-    {
-        inventoryAnimator.Play("InventoryDisappearing");
     }
 }
 

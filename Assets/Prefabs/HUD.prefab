@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 4717245269888793627}
   - component: {fileID: 5453432107569930262}
   m_Layer: 5
-  m_Name: Image_4
+  m_Name: Item_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5717,7 +5717,7 @@ MonoBehaviour:
   staminaLevel: {fileID: 7006796066337192840}
   UIDamageOverlay: {fileID: 6213361885616970762}
   announcer: {fileID: 7282825896620596131}
-  UIInventory: {fileID: 0}
+  UIInventory: {fileID: 591267720143414927}
   inventoryHolder: {fileID: 0}
   inventoryAnimator: {fileID: 2300086840319492120}
 --- !u!1 &6649311238972875379
@@ -6910,6 +6910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2265175548539011503}
   - component: {fileID: 2300086840319492120}
+  - component: {fileID: 591267720143414927}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -6960,6 +6961,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &591267720143414927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827656101730162083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e902ae4d2545948b055631109033e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layoutGroup: {fileID: 6871351883335721649}
+  inventoryItemPanelNames:
+  - Pistol
+  - Shotgun
+  - Sniper
+  - AK
+  - Medkit
+  inventoryItemPanelElements:
+  - {fileID: 869016789927766757}
+  - {fileID: 356995873736508881}
+  - {fileID: 292793234869072224}
+  - {fileID: 2565530112337536081}
+  - {fileID: 4717245269888793627}
 --- !u!1 &9128783812519481753
 GameObject:
   m_ObjectHideFlags: 0

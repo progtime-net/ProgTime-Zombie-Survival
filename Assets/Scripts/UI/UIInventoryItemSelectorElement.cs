@@ -37,5 +37,13 @@ public class UIInventoryItemSelectorElement : MonoBehaviour
     {
         Deselect();
     }
+
+    internal void ShowElement()
+    {
+    }
+
+    internal void HideElement()
+    {
+    }
 #endif
 }
