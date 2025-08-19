@@ -37,6 +37,19 @@ public class UIManager : MonoBehaviour
     {
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
         PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+        WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
+    }
+    
+    private void WaveStateChanged(int wave, bool state)
+    {
+        if (state)
+        {
+            Announce($"Волна {wave} началась!");
+        }
+        else
+        {
+            Announce($"Волна {wave} успешно зачищена!");
+        }
     }
 
     private void ChangeInventoryState()

@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : NetworkBehaviour
 {
+    public event Action<int, bool> OnWaveStateChanged;
+    
     public ZombieSpawnSetting[] zombieSpawnSettings;
     [SerializeField] private int waveNumber = 1;
     [SerializeField] private Transform[] spawnPoints;
@@ -49,6 +51,7 @@ public class WaveManager : NetworkBehaviour
         {
             ++zombieSpawnSettings[i].ZombieSpawnFactor;
         }
+        OnWaveStateChanged?.Invoke(waveNumber, true);
     }
     [Server]
     private IEnumerator SpawnCoroutine(ZombieSpawnSetting spawnSetting)
@@ -83,6 +86,7 @@ public class WaveManager : NetworkBehaviour
         if (Zombies.Count == 0)
         {
             Debug.Log("All zombies are dead, spawning next wave.");
+            OnWaveStateChanged?.Invoke(waveNumber, false);
             GameManager.Instance.WaveEnd();
         }
     }
