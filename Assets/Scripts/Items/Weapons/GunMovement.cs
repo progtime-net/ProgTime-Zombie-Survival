@@ -17,8 +17,8 @@ public class GunMovement : MonoBehaviour
     {
         if (_targetT == null)
         {
-            if (PlayerController.LocalPLayer != null)
-                _targetT = PlayerController.LocalPLayer.transform;
+            if (PlayerController.LocalPlayer != null)
+                _targetT = PlayerController.LocalPlayer.transform;
         }
     }
 
