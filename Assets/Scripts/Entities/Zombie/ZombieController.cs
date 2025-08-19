@@ -84,7 +84,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
         ragdoll.transform.localScale = transform.localScale;
         CopyTransform(transform, rag.transform);
-        
+        Destroy(rag, 15f);
         Destroy(gameObject);
     }
 
