@@ -21,17 +21,7 @@ public class UIInventory : MonoBehaviour
         _itemTexturesHash = itemTextures.ToDictionary(k => k.Key.Type.ToString(), v => v.Value);
     }
     public void SetItems(Inventory inventory)
-    {
-        while (inventoryItems.Count > 0)
-        {
-            Destroy(inventoryItems[0]);
-        }
-        foreach (var item in inventory.Items)
-        {
-            inventoryItems.Add(Instantiate(new UIInventoryItemSelectorElement(),
-                layoutGroup.transform));
-            inventoryItems.Last().SetImage(_itemTexturesHash[item.GetType().ToString()]);
-        }
+    { 
     }
 
     // Update is called once per frame

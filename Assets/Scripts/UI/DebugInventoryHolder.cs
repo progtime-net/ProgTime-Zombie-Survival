@@ -7,13 +7,13 @@ public class DebugInventoryHolder : MonoBehaviour
     {
         inventory.AddItem(new AK());
         inventory.AddItem(new Sniper());
-        inventory.AddItem(new TT());
+        //inventory.AddItem(new TT());
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
