@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.AI;
 
 public class ZombieController : NetworkBehaviour, IDamageable
 {
+    public event Action<ZombieController> OnDeath;
+    
     protected enum AIState { Disabled, Idle, Chase, Attack }
     [Header("AI Settings")]
     [SerializeField] protected float moveSpeed = 4f;
@@ -66,6 +69,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [Server]
     public virtual void Death()
     {
+        OnDeath?.Invoke(this);
         _state = AIState.Disabled;
 
         Collider[] colls = GetComponents<Collider>();

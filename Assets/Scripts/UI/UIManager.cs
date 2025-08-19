@@ -37,6 +37,19 @@ public class UIManager : MonoBehaviour
     {
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
         PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+        WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
+    }
+    
+    private void WaveStateChanged(int wave, bool state)
+    {
+        if (state)
+        {
+            Announce($"Волна {wave} началась!");
+        }
+        else
+        {
+            Announce($"Волна {wave} успешно зачищена!");
+        }
     }
 
     private void ChangeInventoryState()
@@ -91,7 +104,6 @@ public class UIManager : MonoBehaviour
     /// Seconds of the day left
     /// </summary>
     /// <param name="dayLength"></param>
-    public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
     
 
     public void OpenInventory()
