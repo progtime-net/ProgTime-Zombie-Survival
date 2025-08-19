@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UIBulletIndicator : MonoBehaviour
 {
-    private int _currentBullets = 0;
+    private float _currentBullets = 0;
     private int _targetBullets;
     private int _totalBullets;
     [SerializeField] private float changeBulletSmoothness = 0.2f;

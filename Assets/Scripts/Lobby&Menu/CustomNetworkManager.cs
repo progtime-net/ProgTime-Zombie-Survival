@@ -11,8 +11,8 @@ public class CustomNetworkManager : NetworkManager
     public override void Awake()
     {
         base.Awake();
-        autoCreatePlayer = false;  
-        playerPrefab = null;      
+        autoCreatePlayer = false;
+        playerPrefab = null;
     }
 
     public override void OnClientConnect()
@@ -21,39 +21,42 @@ public class CustomNetworkManager : NetworkManager
             NetworkClient.Ready();
 
         if (NetworkClient.localPlayer == null)
-            NetworkClient.AddPlayer();  
+            NetworkClient.AddPlayer();
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        string activeScene = SceneManager.GetActiveScene().name;
+        string activeSceneName = SceneManager.GetActiveScene().name;
 
-        if (activeScene == "LobbyScene") 
+        if (activeSceneName == "LobbyScene")
         {
+            Debug.Log("[Davilkus] Spawning lobby player");
             GameObject lobbyPlayer = Instantiate(lobbyPlayerPrefab);
             NetworkServer.AddPlayerForConnection(conn, lobbyPlayer);
         }
         else
         {
+            Debug.Log("[Davilkus] Spawning game player");
             SpawnGamePlayer(conn);
         }
     }
 
-    public override void OnServerSceneChanged(string sceneName)
+    public override void OnServerReady(NetworkConnectionToClient conn)
     {
-        if (sceneName != "LobbyScene")
+        base.OnServerReady(conn);
+
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName != "LobbyScene" && conn.identity == null)
         {
-            foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
-            {
-                if (conn?.identity == null) continue;
-                ReplaceWithGamePlayer(conn);
-            }
+            Debug.Log($"[Davilkus] Spawning game player for conn {conn.connectionId}");
+            ReplaceWithGamePlayer(conn);
         }
     }
 
     private void SpawnGamePlayer(NetworkConnectionToClient conn)
     {
-        Transform startPos = GetStartPosition(); 
+        Transform startPos = GetStartPosition();
         Vector3 pos = startPos ? startPos.position : Vector3.zero;
         Quaternion rot = startPos ? startPos.rotation : Quaternion.identity;
 
@@ -68,12 +71,11 @@ public class CustomNetworkManager : NetworkManager
         Quaternion rot = startPos ? startPos.rotation : Quaternion.identity;
 
         GameObject gamePlayerObj = Instantiate(gamePlayerPrefab, pos, rot);
-
         /* Pass data to game player
         var gp = gamePlayerObj.GetComponent<GamePlayerController>();
         gp.nickname = LobbyPlayerController.LocalInstance.Nickname;
         */
 
-        NetworkServer.ReplacePlayerForConnection(conn, gamePlayerObj, ReplacePlayerOptions.Destroy);
+        NetworkServer.ReplacePlayerForConnection(conn, gamePlayerObj, ReplacePlayerOptions.KeepActive);
     }
 }
