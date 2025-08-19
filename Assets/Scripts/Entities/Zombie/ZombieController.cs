@@ -105,7 +105,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
         if (obj.CompareTag("Player"))
         {
-            Debug.Log("Поймал");
+            
             _targetToAttack = obj.GetComponent<IDamageable>();
             players.Add(obj.GetComponent<PlayerController>());
         }
@@ -118,7 +118,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
         if (obj.CompareTag("Player"))
         {
-            Debug.Log("Ушёл");
+            
             _targetToAttack = null;
             players.Remove(obj.GetComponent<PlayerController>());
         }
@@ -130,7 +130,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
         if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
         {
             _state = AIState.Attack;
-            Debug.Log("Начало атаки!");
+            
 
         }
         else
