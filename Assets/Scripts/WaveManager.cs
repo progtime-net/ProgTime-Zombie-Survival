@@ -45,11 +45,12 @@ public class WaveManager : NetworkBehaviour
         _spawnersInProgress = 0;
 
         playerCount = GameManager.Instance.AllPlayers.Count;
-
-        for (int i = 0; i < zombieSpawnSettings.Length; ++i)
+        for (int i = 0; i < playerCount; i++)
         {
-            _spawnersInProgress++;
-            StartCoroutine(SpawnCoroutine(zombieSpawnSettings[i]));
+            for (int j = 0; j < zombieSpawnSettings.Length; ++j)
+            {
+                StartCoroutine(SpawnCoroutine(zombieSpawnSettings[j]));
+            }
         }
 
         ++waveNumber;
@@ -64,7 +65,7 @@ public class WaveManager : NetworkBehaviour
     [Server]
     private IEnumerator SpawnCoroutine(ZombieSpawnSetting spawnSetting)
     {
-        for (int i = 0; i < spawnSetting.ZombieSpawnFactor * playerCount; ++i)
+        for (int i = 0; i < spawnSetting.ZombieSpawnFactor; ++i)
         {
             SpawnEnemy(spawnSetting.ZombiePrefab);
             yield return new WaitForSeconds(spawnSetting.ZombieSpawnDelay);
