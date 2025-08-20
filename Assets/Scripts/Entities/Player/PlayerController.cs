@@ -19,6 +19,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
 
+    [SerializeField] public int score = 100;
+
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;
     [SerializeField] private float runSpeed = 8f;
@@ -31,6 +33,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public Transform cam;
     [SerializeField] private float mouseSensitivity = 40f;
     [SerializeField] private Vector2 mouseClampY = new(-90f, 90f);
+    [SerializeField] float interactionRange = 3f;
 
     [Header("Audio Settings")]
     [SerializeField] private AudioClip clip;
@@ -140,7 +143,23 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Enable();
     }
 
-    private void Interact() { }
+    private void Interact() 
+    {
+        Debug.Log("Попал1");
+        Transform origin = cam.transform;
+        Ray ray = new Ray(origin.position + origin.forward * 2, origin.forward);
+        Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
+        {
+            
+            IInteractableE merchant = hit.collider.gameObject.GetComponent<IInteractableE>();
+            Debug.Log("Попал");
+            if (merchant == null) return;
+            merchant.InteractWithMe(this);
+            
+
+        }
+    }
 
     private void SelectWeapon(InputAction.CallbackContext ctx)
     {
