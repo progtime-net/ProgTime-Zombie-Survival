@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [Serializable]
 public class Inventory
 {
-    public UnityEvent OnInventoryChanged { get; private set; } = new UnityEvent();
+    public event Action<int> OnInventoryChanged;
     public event Action<int> OnWeaponChanged;
     public List<InventoryEntry> Items { get; private set; } = new();
     public Weapon CurrentWeapon { get; private set; } = null;
@@ -29,7 +29,7 @@ public class Inventory
             quantity = newEntry.Add(quantity);
             Items.Add(newEntry);
         }
-        OnInventoryChanged?.Invoke();
+        OnInventoryChanged?.Invoke(Items.Count);
     }
 
     public bool RemoveItem(Item item)
@@ -41,7 +41,7 @@ public class Inventory
         {
             Items.Remove(existingEntry);
         }
-        OnInventoryChanged?.Invoke();
+        OnInventoryChanged?.Invoke(Items.Count);
         return true;
     }
     

@@ -44,13 +44,14 @@ public class PlayerWeaponSpawner : MonoBehaviour
 
         gunLogicDisplayed = _weaponDisplayedInstancesList[0];
         gunDisplayed = _weaponDisplayedInstancesList[0];
-        SelectGunRandomly();
 
     }
     public void SetupBindings()
     {
         foreach (var item in _weaponLogicDisplayedInstancesList)
             Player.Inventory.AddItem(item.GetComponent<Weapon>(), 1);
+
+        SelectGun(0);
     }
     int MaskToLayer(LayerMask m)
     {
@@ -76,12 +77,14 @@ public class PlayerWeaponSpawner : MonoBehaviour
         
         if (Player == PlayerController.LocalPlayer)
         {
+            print("Local ammo change");
             RecursivelySetLayer(gunLogicDisplayed, hiddenGunLayer);
             gunLogicDisplayed = _weaponLogicDisplayedInstancesList[_index];
             RecursivelySetLayer(gunLogicDisplayed, shownGunLayer); 
         }
         else
         { 
+            print("Not Local ammo change");
             RecursivelySetLayer(gunDisplayed, hiddenGunLayer);
             gunDisplayed = _weaponDisplayedInstancesList[_index];
             RecursivelySetLayer(gunDisplayed, shownGunLayer);
@@ -103,6 +106,7 @@ public class PlayerWeaponSpawner : MonoBehaviour
 
     internal void Attack()
     {
+        
         (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
     }
 

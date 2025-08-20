@@ -34,6 +34,11 @@ public class UIInventory : MonoBehaviour
         foreach (var item in PlayerController.LocalPlayer.Inventory.Items)
         {
             string type = item.GetType().ToString();
+            if (!_map.ContainsKey(type))
+            {
+                Debug.Log("UI Inventory broke!");
+                continue;
+            }
             var el = _map[type];
             print(item.Quantity);
             print($"Updating State {PlayerController.LocalPlayer.Inventory.CurrentWeapon.name}");

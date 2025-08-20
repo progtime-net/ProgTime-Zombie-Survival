@@ -200,6 +200,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!isLocalPlayer || !isAlive) return;
 
         HandleAttack();
+        
     }
 
     private void HandleJump()
@@ -256,8 +257,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void HandleAttack()
     {
-        // if (_isShooting)
-        //     gun.Shoot();
+        if (!_isAttacking)
+            return;
+
         weaponSpawner.Attack();
     }
 
