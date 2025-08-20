@@ -217,6 +217,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlaceTurret"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2df65f5-733f-4af0-a992-d569462f69c0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -692,6 +701,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c53c6f99-5544-4b13-9102-ee1490984ab4"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PlaceTurret"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -775,6 +795,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player_DropItem = m_Player.FindAction("DropItem", throwIfNotFound: true);
         m_Player_ScrollWeapon = m_Player.FindAction("ScrollWeapon", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_PlaceTurret = m_Player.FindAction("PlaceTurret", throwIfNotFound: true);
     }
 
     ~@InputSystem()
@@ -869,6 +890,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DropItem;
     private readonly InputAction m_Player_ScrollWeapon;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_PlaceTurret;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -937,6 +959,10 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         /// <summary>
+        /// Provides access to the underlying input action "Player/PlaceTurret".
+        /// </summary>
+        public InputAction @PlaceTurret => m_Wrapper.m_Player_PlaceTurret;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1004,6 +1030,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @PlaceTurret.started += instance.OnPlaceTurret;
+            @PlaceTurret.performed += instance.OnPlaceTurret;
+            @PlaceTurret.canceled += instance.OnPlaceTurret;
         }
 
         /// <summary>
@@ -1057,6 +1086,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @PlaceTurret.started -= instance.OnPlaceTurret;
+            @PlaceTurret.performed -= instance.OnPlaceTurret;
+            @PlaceTurret.canceled -= instance.OnPlaceTurret;
         }
 
         /// <summary>
@@ -1260,5 +1292,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PlaceTurret" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPlaceTurret(InputAction.CallbackContext context);
     }
 }
