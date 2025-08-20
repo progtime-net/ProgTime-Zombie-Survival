@@ -4,10 +4,8 @@ using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.ShaderGraph;
 
 public class UIManager : MonoBehaviour
 {
@@ -45,6 +43,10 @@ public class UIManager : MonoBehaviour
 
     private void RegisterEvents()
     {
+        if (PlayerController.LocalPlayer == null || WaveManager.Instance == null)
+        {
+            return;
+        }
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
         PlayerController.LocalPlayer.OnUpdateStamina += SetStamina; 
         //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
@@ -55,6 +57,7 @@ public class UIManager : MonoBehaviour
     {
         if (state)
         {
+            Debug.Log("WaveStateChanged");
             Announce($"Волна {wave} началась!");
         }
         else
