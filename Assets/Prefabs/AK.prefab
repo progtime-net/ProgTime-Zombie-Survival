@@ -51,7 +51,7 @@ MonoBehaviour:
   maxStackSize: 1
   damage: 10
   range: 100
-  fireRate: 0.4
+  fireRate: 0.2
   clipSize: 30
   totalAmmo: 200
   scatterAngle: 2
