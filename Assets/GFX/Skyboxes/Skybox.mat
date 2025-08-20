@@ -111,11 +111,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AtmosphereThickness: 1
-<<<<<<< HEAD
-    - _Blend: 0.0003024236
-=======
-    - _Blend: 0
->>>>>>> ad893e1208c429e26885bd8676b905a7e5e9b3eb
+    - _Blend: 1
     - _Exposure: 1
     - _Rotation: 0
     - _SunDisk: 2

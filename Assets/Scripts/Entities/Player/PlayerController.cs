@@ -35,9 +35,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField] private Vector2 mouseClampY = new(-90f, 90f);
     [SerializeField] float interactionRange = 3f;
 
-    [Header("Audio Settings")]
-    [SerializeField] private AudioClip clip;
-
     
     [Header("Animation")]
     [SerializeField] private NetworkAnimator playerAnimator;
@@ -58,10 +55,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     
     private float _staminaRegenTimer = 0f;
-
-    [Header("Damage")]
-    private AudioSource _audio;
-
+    
     [SerializeField] private float damageMultiplier = 10f;
     
     [Header("Models")]
@@ -99,8 +93,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
     void Start()
     {
         GameManager.Instance.PlayerConnected(this);
-        _audio = GetComponent<AudioSource>();
-        _audio.PlayOneShot(clip);
 
         var components = playerModel.GetComponentsInChildren<Transform>();
         foreach (var part in components)

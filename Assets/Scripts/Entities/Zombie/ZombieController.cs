@@ -198,4 +198,9 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
 
     }
+    public void AtackEnd() {
+        // Called from animation
+        Debug.Log("Attack animation ended");
+        // You can trigger logic like ending attack state here
+    }
 }
