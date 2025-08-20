@@ -1,8 +1,14 @@
 using System;
 using Mirror;
 using Newtonsoft.Json.Bson;
+using System;
+using System.Collections.Generic;
+using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using Utils;
+using UnityEditor.ShaderGraph;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,7 +20,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIIndicator bloodLevel;
     [SerializeField] private UIIndicator staminaLevel;
     [SerializeField] private UIDamageOverlay UIDamageOverlay;
-    [SerializeField] private UIAnnouncer announcer;
+    [SerializeField] private UIAnnouncer announcer; 
+    [SerializeField] private UIInventory UIInventory;
+    [SerializeField] private DebugInventoryHolder inventoryHolder;
+      
     [SerializeField] private Animator inventoryAnimator;
     
     private InputSystem _controls;
@@ -30,13 +39,16 @@ public class UIManager : MonoBehaviour
         Debug.Log("Starting UI Manager");
         _controls = new InputSystem();
         _controls.UI.InventoryOpen.performed += _ => ChangeInventoryState();
+        
         _controls.Enable();
+        
     }
 
     private void RegisterEvents()
     {
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
-        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina; 
+        //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
         WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
     }
     
@@ -49,7 +61,7 @@ public class UIManager : MonoBehaviour
         else
         {
             Announce($"Волна {wave} успешно зачищена!");
-        }
+        } 
     }
 
     private void ChangeInventoryState()
@@ -58,7 +70,7 @@ public class UIManager : MonoBehaviour
         if (_isInventoryOpen) CloseInventory();
         else OpenInventory();
     }
-    
+     
     /// <summary>
     /// </summary>
     /// <param name="t">[0..1]</param>
@@ -76,7 +88,7 @@ public class UIManager : MonoBehaviour
     public void SetStamina(float t)
     {
         staminaLevel.SetValue(t);
-    } 
+    }
 
     public void AddScore(float score)
     {
@@ -103,18 +115,20 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Seconds of the day left
     /// </summary>
-    /// <param name="dayLength"></param>
-    
+    /// <param name="dayLength"></param> 
 
     public void OpenInventory()
     {
+        //UIInventory.OpenInventory();
+        UIInventory.UpdateState();
         _isInventoryOpen = true;
         inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen);
     }
     public void CloseInventory()
     {
+        //UIInventory.CloseInventory();
         _isInventoryOpen = false;
-        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen);
+        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen); 
     }
 
     public void Announce(string text)
@@ -156,12 +170,12 @@ public class UIManager : MonoBehaviour
 
     public void OpenSettig()
     {
-        
+
     }
 
     public void Exit()
     {
-        
+
     }
 
 }
