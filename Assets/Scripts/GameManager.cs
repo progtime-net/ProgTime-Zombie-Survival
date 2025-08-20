@@ -1,12 +1,21 @@
+using System;
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour
 {
-   
-    private List<PlayerController> allPlayers = new List<PlayerController>();
-    public List<PlayerController> AllPlayers => allPlayers;
+    public List<PlayerController> AllPlayers { get; private set; } = new List<PlayerController>();
+
+    [SerializeField] private int waveStartTime = 30;
+    [SerializeField] private DayNightCycle dayNightCycle;
+    public DayNightCycle DayNightCycle => dayNightCycle;
+    
+    
+    public event Action<int> OnTimerUpdate;
+    
+    private float _timeLeft = 0;
+    private float _timeSnapshot;
     
     public static GameManager Instance { get; private set; }
     
@@ -23,6 +32,10 @@ public class GameManager : NetworkBehaviour
     
     private void Start()
     {
+        if (isServer)
+        {
+            WaveEnd();
+        }
         Cursor.lockState = CursorLockMode.Locked;
         Application.targetFrameRate = 60;
     }
@@ -30,6 +43,38 @@ public class GameManager : NetworkBehaviour
     private void OnDestroy()
     {
         Instance = null;
+    }
+
+    [Server]
+    public void WaveEnd()
+    {
+        dayNightCycle.SetIsDay(true);
+        StartTimer(waveStartTime);
+    }
+    
+    [Server]
+    public void StartTimer(int seconds)
+    {
+        _timeLeft = seconds;
+        _timeSnapshot = Time.time;
+
+        UpdateTimer(); 
+        InvokeRepeating(nameof(UpdateTimer), 0f, 0.5f); 
+    }
+    
+    
+    [Server]
+    private void UpdateTimer()
+    {
+        int _left = Mathf.CeilToInt(Mathf.Max(0f, _timeLeft - (Time.time - _timeSnapshot)));
+        OnTimerUpdate?.Invoke(_left);
+
+        if (_left <= 0)
+        {
+            dayNightCycle.SetIsDay(false);
+            WaveManager.Instance.SpawnWave();
+            CancelInvoke(nameof(UpdateTimer)); 
+        }
     }
 
     public void PlayerConnected(PlayerController player)
