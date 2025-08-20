@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4092056415187159290}
   - component: {fileID: 1291385684686436000}
+  - component: {fileID: 1816716121992318614}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -46,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d98fe2738de74369a8041ac124f6ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Default Item
+  maxStackSize: 1
   damage: 30
   range: 200
   fireRate: 1.2
@@ -60,6 +63,103 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1765821276446244371, guid: 764d897116be74f98b57dd6ae933901a, type: 3}
   muzzlePoint: {fileID: 8332262241580735720}
   bulletSpeed: 50
+--- !u!82 &1816716121992318614
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370624457844863947}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3531904344809222399
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +202,7 @@ PrefabInstance:
     - target: {fileID: -8772473003839086392, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1a5cc9e7de3aa4c1c8e8f67dfbcd487a, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -8679921383154817045, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.025
@@ -158,11 +258,11 @@ PrefabInstance:
     - target: {fileID: -4862363265662070363, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1a5cc9e7de3aa4c1c8e8f67dfbcd487a, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -1799485640447703672, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1a5cc9e7de3aa4c1c8e8f67dfbcd487a, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 919132149155446097, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: m_Name
       value: Sniper
@@ -170,19 +270,19 @@ PrefabInstance:
     - target: {fileID: 1462635710948187858, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1a5cc9e7de3aa4c1c8e8f67dfbcd487a, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 6512717474458920506, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1a5cc9e7de3aa4c1c8e8f67dfbcd487a, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 8208124401512687112, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1a5cc9e7de3aa4c1c8e8f67dfbcd487a, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 8979031698797768238, guid: 00a9ad440e72a4f49b861b63e942a4f1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1a5cc9e7de3aa4c1c8e8f67dfbcd487a, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
