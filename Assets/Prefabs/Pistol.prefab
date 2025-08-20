@@ -81,6 +81,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb48f2aa8c1e5435dbf3770a95449daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Default Item
+  maxStackSize: 1
   damage: 5
   range: 50
   fireRate: 0.6
@@ -363,7 +365,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 1eaec5585e7e34230a25ee3a0663ab8d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 29880a6d6612d4957bf2f4ff6806727b, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 919132149155446097, guid: 1eaec5585e7e34230a25ee3a0663ab8d, type: 3}
       propertyPath: m_Name
       value: Pistol
