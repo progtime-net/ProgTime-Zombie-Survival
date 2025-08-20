@@ -936,7 +936,7 @@ GameObject:
   - component: {fileID: 496657664936318608}
   - component: {fileID: 5509411597660090885}
   m_Layer: 0
-  m_Name: Zombie Gigant Ragdoll
+  m_Name: Zombie Gigant 1
   m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
