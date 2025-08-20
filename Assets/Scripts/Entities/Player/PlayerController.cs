@@ -47,10 +47,16 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField]
     private float health = 100f;
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float stamina = 100f;
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float staminaRegenRate = 10f;
+    [SerializeField] private float staminaRegenDelay = 2f;
+    [SerializeField] private float staminaDrainRate = 20f;
+    
+    
+    private float _staminaRegenTimer = 0f;
 
     [Header("Damage")]
-
-
     private AudioSource _audio;
 
     [SerializeField] private float damageMultiplier = 10f;
@@ -173,6 +179,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         if (!isLocalPlayer || !isAlive) return;
         
+        HandleStamina();
         HandleMovement();
         HandleJump();
         HandleAnimation();
@@ -193,6 +200,39 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!isLocalPlayer || !isAlive) return;
 
         HandleAttack();
+    }
+    
+    private void HandleStamina()
+    {
+        bool isTryingToRun = _isRunning && _isWalking && stamina > 0f;
+
+        if (isTryingToRun)
+        {
+            stamina -= staminaDrainRate * Time.deltaTime;
+            stamina = Mathf.Max(stamina, 0f);
+            _staminaRegenTimer = 0f;
+            if (stamina == 0f)
+            {
+                _isRunning = false; 
+            }
+        }
+        else
+        {
+            if (stamina < maxStamina)
+            {
+                _staminaRegenTimer += Time.deltaTime;
+                if (_staminaRegenTimer >= staminaRegenDelay)
+                {
+                    stamina += staminaRegenRate * Time.deltaTime;
+                    stamina = Mathf.Min(stamina, maxStamina);
+                }
+            }
+            else
+            {
+                _staminaRegenTimer = 0f;
+            }
+        }
+        OnUpdateStamina?.Invoke(stamina / maxStamina);
     }
 
     private void HandleJump()
