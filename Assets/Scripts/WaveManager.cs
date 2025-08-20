@@ -17,7 +17,6 @@ public class WaveManager : NetworkBehaviour
     List<GameObject> Zombies { get; } = new List<GameObject>();
     
     public static WaveManager Instance { get; private set; }
-    [Server]
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -30,7 +29,6 @@ public class WaveManager : NetworkBehaviour
         Instance = this;
     }
 
-    [Server]
     public void OnDestroy()
     {
         Instance = null;
@@ -48,8 +46,8 @@ public class WaveManager : NetworkBehaviour
         {
             ++zombieSpawnSettings[i].ZombieSpawnFactor;
         }
-        OnWaveStateChanged?.Invoke(waveNumber, true);
-        SoundManager.Instance.Play($"Wave{waveNumber}");
+        AnnounceWaveStateChanged(waveNumber, true);
+        // SoundManager.Instance.Play($"Wave{waveNumber}");
     }
     [Server]
     private IEnumerator SpawnCoroutine(ZombieSpawnSetting spawnSetting)
@@ -85,8 +83,8 @@ public class WaveManager : NetworkBehaviour
         if (Zombies.Count == 0)
         {
             Debug.Log("All zombies are dead, spawning next wave.");
-            OnWaveStateChanged?.Invoke(waveNumber, false);
-            SoundManager.Instance.Play("WaveEnd");
+            AnnounceWaveStateChanged(waveNumber, false);
+            // SoundManager.Instance.Play("WaveEnd");
             GameManager.Instance.WaveEnd();
         }
     }
@@ -99,6 +97,23 @@ public class WaveManager : NetworkBehaviour
         {
             spawnSetting.ZombieSpawnFactor = 1;
         }
+    }
+    
+    [Server]
+    private void AnnounceWaveStateChanged(int waveNumber, bool started)
+    {
+        RpcWaveStateChanged(waveNumber, started);
+    }
+
+    [ClientRpc]
+    private void RpcWaveStateChanged(int waveNumber, bool started)
+    {
+        Debug.Log("Wave state changed: " + waveNumber + ", started: " + started);
+        OnWaveStateChanged?.Invoke(waveNumber, started);
+        if (started)
+            SoundManager.Instance.Play($"Wave{waveNumber}");
+        else
+            SoundManager.Instance.Play("WaveEnd");
     }
     
 #if UNITY_EDITOR
