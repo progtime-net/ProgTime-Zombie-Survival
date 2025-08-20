@@ -64,7 +64,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     
     public Inventory Inventory { get; private set; }
-    
+    public PlayerWeaponSpawner weaponSpawner { get; private set; }
+
     private CharacterController _controller;
     private InputSystem _controls;
     private Transform _t;
@@ -94,15 +95,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         GameManager.Instance.PlayerConnected(this);
 
-        var components = playerModel.GetComponentsInChildren<Transform>();
-        foreach (var part in components)
-        {
-            if (part.CompareTag("Dont_Render"))
-            {
-                Debug.Log("Disabling part: " + part.name);
-                part.gameObject.SetActive(false);
-            }
-        }
+        //var components = playerModel.GetComponentsInChildren<Transform>();
+        //foreach (var part in components)
+        //{
+        //    if (part.CompareTag("Dont_Render"))
+        //    {
+        //        Debug.Log("Disabling part: " + part.name);
+        //        part.gameObject.SetActive(false);
+        //    }
+        //}
 
         _controller = GetComponent<CharacterController>();
         _t = transform;
@@ -115,6 +116,12 @@ public class PlayerController : NetworkBehaviour, IDamageable
         LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
+
+
+        weaponSpawner = GetComponent<PlayerWeaponSpawner>();
+        Inventory.OnWeaponChanged += weaponSpawner.SelectGun;
+        weaponSpawner.SetupBindings();
+
         OnPlayerSpawned?.Invoke(this);
         
 
@@ -211,6 +218,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!isLocalPlayer || !isAlive) return;
 
         HandleAttack();
+        
     }
     
     private void HandleStamina()
@@ -300,8 +308,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void HandleAttack()
     {
-        // if (_isShooting)
-        //     gun.Shoot();
+        if (!_isAttacking)
+            return;
+
+        weaponSpawner.Attack();
     }
 
     public void AddRecoil(float upAmount, float sideAmount)
