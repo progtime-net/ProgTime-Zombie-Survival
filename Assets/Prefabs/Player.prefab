@@ -351,17 +351,17 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  score: 100
   walkSpeed: 4
   runSpeed: 8
   moveSpeedLerp: 10
   inertiaLerp: 10
   jumpHeight: 1.5
-  jumpStartVelocity: 5
   gravity: -9.81
   cam: {fileID: 8585369768983010056}
   mouseSensitivity: 40
   mouseClampY: {x: -90, y: 90}
-  clip: {fileID: 8300000, guid: 1a034f1ea285b4da59a6a9c0b668825c, type: 3}
+  interactionRange: 3
   playerAnimator: {fileID: 3082605695079118685}
   camAnimator: {fileID: 4475915297401999727}
   walkAnimationSpeed: 1
