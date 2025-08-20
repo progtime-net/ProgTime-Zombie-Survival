@@ -27,19 +27,19 @@ public class ExplosiveZombieController : ZombieController
     {
         _state = AIState.Disabled;
 
-        /*Collider[] colls = GetComponents<Collider>();
-        foreach (var coll in colls) coll.enabled = false;*/
+        Collider[] colls = GetComponents<Collider>();
+        foreach (var coll in colls) coll.enabled = false;
 
         _agent.enabled = false;
         //TODO: death anim
-        /*GameObject rag = Instantiate(
+        GameObject rag = Instantiate(
             ragdoll,
             transform.position,
             transform.rotation
         );
 
         ragdoll.transform.localScale = transform.localScale;
-        CopyTransform(transform, rag.transform);*/
+        CopyTransform(transform, rag.transform);
         Destroy(gameObject);
     }
     private void OnDestroy()
