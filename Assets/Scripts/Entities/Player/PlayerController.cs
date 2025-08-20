@@ -61,7 +61,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     
     public Inventory Inventory { get; private set; }
-    
+    public PlayerWeaponSpawner weaponSpawner { get; private set; }
+
     private CharacterController _controller;
     private InputSystem _controls;
     private Transform _t;
@@ -93,15 +94,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _audio = GetComponent<AudioSource>();
         _audio.PlayOneShot(clip);
 
-        var components = playerModel.GetComponentsInChildren<Transform>();
-        foreach (var part in components)
-        {
-            if (part.CompareTag("Dont_Render"))
-            {
-                Debug.Log("Disabling part: " + part.name);
-                part.gameObject.SetActive(false);
-            }
-        }
+        weaponSpawner = GetComponent<PlayerWeaponSpawner>();
+
+        //var components = playerModel.GetComponentsInChildren<Transform>();
+        //foreach (var part in components)
+        //{
+        //    if (part.CompareTag("Dont_Render"))
+        //    {
+        //        Debug.Log("Disabling part: " + part.name);
+        //        part.gameObject.SetActive(false);
+        //    }
+        //}
 
         _controller = GetComponent<CharacterController>();
         _t = transform;
@@ -251,6 +254,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         // if (_isShooting)
         //     gun.Shoot();
+        weaponSpawner.Attack();
     }
 
     public void AddRecoil(float upAmount, float sideAmount)
