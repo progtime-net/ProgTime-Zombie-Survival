@@ -2,6 +2,7 @@ using System;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -9,6 +10,10 @@ using UnityEngine.InputSystem.Controls;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : NetworkBehaviour, IDamageable
 {
+    public static event Action<PlayerController> OnPlayerSpawned;
+    public event Action<float> OnUpdateHealth;
+    public event Action<float> OnUpdateStamina;
+    
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
@@ -88,24 +93,28 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _audio = GetComponent<AudioSource>();
         _audio.PlayOneShot(clip);
 
+        var components = playerModel.GetComponentsInChildren<Transform>();
+        foreach (var part in components)
+        {
+            if (part.CompareTag("Dont_Render"))
+            {
+                Debug.Log("Disabling part: " + part.name);
+                part.gameObject.SetActive(false);
+            }
+        }
+
         _controller = GetComponent<CharacterController>();
         _t = transform;
-                
         cam.gameObject.SetActive(isLocalPlayer);
         Debug.Log($"isLocalPlayer: {isLocalPlayer}");
         Debug.Log($"isHost: {isHost}");
         Debug.Log($"isClient: {isClient}");
 
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-
-
-        // This is our local player
+        if (!isLocalPlayer) return;
         LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
+        OnPlayerSpawned?.Invoke(this);
         
 
         _controls.Player.Move.performed += ctx => _moveVector = ctx.ReadValue<Vector2>();
@@ -256,6 +265,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!isAlive || !isLocalPlayer) return;
         
         health -= damage;
+        OnUpdateHealth?.Invoke(health / maxHealth);
         if (health <= 0)
         {
             isAlive = false;

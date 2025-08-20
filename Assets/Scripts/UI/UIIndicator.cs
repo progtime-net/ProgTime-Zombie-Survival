@@ -20,9 +20,7 @@ public class UIIndicator : MonoBehaviour
         indicatorLevel.type = Image.Type.Filled;
         indicatorLevel.fillMethod = Image.FillMethod.Horizontal;
         indicatorLevel.fillOrigin = (int)Image.OriginHorizontal.Left;
-
-
-
+        
         indicatorLevelFollow.type = Image.Type.Filled;
         indicatorLevelFollow.fillMethod = Image.FillMethod.Horizontal;
         indicatorLevelFollow.fillOrigin = (int)Image.OriginHorizontal.Left;
@@ -35,13 +33,13 @@ public class UIIndicator : MonoBehaviour
         IndicatorCurrent = Mathf.Lerp(IndicatorCurrent, _indicatorTarget, mainLerpValue);
         _indicatorFollowCurrent = Mathf.Lerp(_indicatorFollowCurrent, IndicatorCurrent, followLerpValue);
     }
-    private void SetValueIndicator(float t) // t â [0..1]
+    private void SetValueIndicator(float t) // t ï¿½ [0..1]
     { 
         t = Mathf.Clamp01(t);
         indicatorLevel.rectTransform.anchorMax = new Vector2(t, indicatorLevel.rectTransform.anchorMax.y);
 
     }
-    private void SetValueIndicatorFollow(float t) // t â [0..1]
+    private void SetValueIndicatorFollow(float t) // t ï¿½ [0..1]
     { 
         t = Mathf.Clamp01(t);
         indicatorLevelFollow.rectTransform.anchorMax = new Vector2(t, indicatorLevelFollow.rectTransform.anchorMax.y);

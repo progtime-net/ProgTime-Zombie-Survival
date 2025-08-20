@@ -585,6 +585,17 @@
                 },
                 {
                     "name": "",
+                    "id": "231530fa-611d-4a3d-9017-897fe2d3a313",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8e6b1b72-c927-40b7-b302-23f4c5b6a036",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -624,6 +635,45 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "PlaceTurret",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "1b66826c-ed1f-437c-a2ab-f5d33ea78bae",
+            "actions": [
+                {
+                    "name": "InventoryOpen",
+                    "type": "Button",
+                    "id": "48f7b2d7-cdda-4180-87a7-d2227a3671af",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1a66a5dc-e349-47b1-b96a-6b14cc2062ca",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "InventoryOpen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a6c936e-5015-4a91-9fea-57bb01372b77",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "InventoryOpen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

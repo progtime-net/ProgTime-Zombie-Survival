@@ -1,6 +1,13 @@
+using System;
+using Mirror;
 using Newtonsoft.Json.Bson;
+using System;
+using System.Collections.Generic;
+using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using UnityEditor.ShaderGraph;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,9 +19,57 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIIndicator bloodLevel;
     [SerializeField] private UIIndicator staminaLevel;
     [SerializeField] private UIDamageOverlay UIDamageOverlay;
-    [SerializeField] private UIAnnouncer announcer;
+    [SerializeField] private UIAnnouncer announcer; 
+    [SerializeField] private UIInventory UIInventory;
+    [SerializeField] private DebugInventoryHolder inventoryHolder;
+      
     [SerializeField] private Animator inventoryAnimator;
     
+    private InputSystem _controls;
+    private bool _isInventoryOpen = false;
+
+    void Awake()
+    {
+        PlayerController.OnPlayerSpawned += _ => RegisterEvents();
+    }
+
+    private void Start()
+    {
+        Debug.Log("Starting UI Manager");
+        _controls = new InputSystem();
+        _controls.UI.InventoryOpen.performed += _ => ChangeInventoryState();
+        
+        _controls.Enable();
+        
+    }
+
+    private void RegisterEvents()
+    {
+        PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
+        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina; 
+        //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
+        WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
+    }
+    
+    private void WaveStateChanged(int wave, bool state)
+    {
+        if (state)
+        {
+            Announce($"Волна {wave} началась!");
+        }
+        else
+        {
+            Announce($"Волна {wave} успешно зачищена!");
+        } 
+    }
+
+    private void ChangeInventoryState()
+    {
+        Debug.Log("Changing inventory state");
+        if (_isInventoryOpen) CloseInventory();
+        else OpenInventory();
+    }
+     
     /// <summary>
     /// </summary>
     /// <param name="t">[0..1]</param>
@@ -32,7 +87,7 @@ public class UIManager : MonoBehaviour
     public void SetStamina(float t)
     {
         staminaLevel.SetValue(t);
-    } 
+    }
 
     public void AddScore(float score)
     {
@@ -59,16 +114,20 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Seconds of the day left
     /// </summary>
-    /// <param name="dayLength"></param>
-    public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
+    /// <param name="dayLength"></param> 
 
     public void OpenInventory()
     {
-        inventoryAnimator.Play("InventoryAppearing");
+        //UIInventory.OpenInventory();
+        UIInventory.UpdateState();
+        _isInventoryOpen = true;
+        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen);
     }
     public void CloseInventory()
     {
-        inventoryAnimator.Play("InventoryDisappearing");
+        //UIInventory.CloseInventory();
+        _isInventoryOpen = false;
+        inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen); 
     }
 
     public void Announce(string text)

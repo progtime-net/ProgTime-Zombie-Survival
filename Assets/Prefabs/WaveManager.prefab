@@ -49,8 +49,14 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  zombieSpawnSettings: []
-  waveNamber: 1
+  zombieSpawnSettings:
+  - ZombieSpawnFactor: 5
+    ZombieSpawnDelay: 5
+    ZombiePrefab: {fileID: 2021144843788509213, guid: f486cad8475f2b74e93054b2b990475f, type: 3}
+  - ZombieSpawnFactor: 2
+    ZombieSpawnDelay: 1
+    ZombiePrefab: {fileID: 2021144843788509213, guid: 443d09e418bb50f4096cb8964873c4f1, type: 3}
+  waveNumber: 1
   spawnPoints: []
   playerCount: 1
 --- !u!114 &6022788933705493474
