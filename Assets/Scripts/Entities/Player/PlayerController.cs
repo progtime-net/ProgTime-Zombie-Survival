@@ -150,7 +150,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void Interact() 
     {
-        Debug.Log("Попал1");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅ1");
         Transform origin = cam.transform;
         Ray ray = new Ray(origin.position + origin.forward * 2, origin.forward);
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red);
@@ -158,7 +158,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             
             IInteractableE merchant = hit.collider.gameObject.GetComponent<IInteractableE>();
-            Debug.Log("Попал");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅ");
             if (merchant == null) return;
             merchant.InteractWithMe(this);
             
@@ -381,6 +381,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
         health = Mathf.Min(maxHealth, health + count);
         print($"Health changed from {prevHealth} to {health}");
         return true;
+    }
+    public void SetInputActive(bool active)
+    {
+        if (active)
+        {
+            _controls.Player.Enable();
+        }
+        else
+        {
+            _controls.Player.Disable();
+        }
     }
     
     // [Command]
