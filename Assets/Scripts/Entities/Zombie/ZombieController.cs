@@ -133,7 +133,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [Server]
     public virtual void FixedUpdate()
     {
-        //Debug.Log("aaaaaaa");
         if (!isServer) return;
         
         if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
