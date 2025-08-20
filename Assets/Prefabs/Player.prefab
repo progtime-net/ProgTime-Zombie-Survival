@@ -210,7 +210,6 @@ GameObject:
   - component: {fileID: -6021968149124871184}
   - component: {fileID: -7297416107186959612}
   - component: {fileID: 3082605695079118685}
-  - component: {fileID: 3512636795586791585}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -387,8 +386,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   damageMultiplier: 10
-  playerModel: {fileID: 0}
-  pistolBehaviour: {fileID: 0}
+  playerModel: {fileID: 1957587197341743140}
 --- !u!82 &-592803460989768290
 AudioSource:
   m_ObjectHideFlags: 0
@@ -556,33 +554,6 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 0
   animator: {fileID: 5080415896491899108}
---- !u!114 &3512636795586791585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9210088866820255921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f042135db20108449fb0ae1c9dd717a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMethod: 0
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  turretPrefab: {fileID: 7321135431700883336, guid: 0b5c671e3ae8b7e449276550d57fcd72, type: 3}
-  placementDistance: 10
-  placementLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  placementCheckRadius: 1
-  collisionLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  canPlaceMaterial: {fileID: 2100000, guid: a3ff2c0c9042a463791fe85273be7d35, type: 2}
-  cantPlaceMaterial: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
 --- !u!1001 &1723707672272110965
 PrefabInstance:
   m_ObjectHideFlags: 0
