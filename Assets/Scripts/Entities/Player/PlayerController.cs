@@ -139,7 +139,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
         
         _controls.Enable();
     }
-
     private void Interact() { }
 
     private void SelectWeapon(InputAction.CallbackContext ctx)

@@ -161,7 +161,7 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
-
+    
     public void Remuse()
     {
         pauseMenuPanel.SetActive(false);
@@ -176,5 +176,4 @@ public class UIManager : MonoBehaviour
     {
 
     }
-
 }
