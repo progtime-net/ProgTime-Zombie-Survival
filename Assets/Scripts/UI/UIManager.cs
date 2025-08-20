@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [Header("UI Settings")]
+    [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private UIScoreIndicator scoreIndicator;
     [SerializeField] private UIBulletIndicator bulletIndicator;
     [SerializeField] private UITimeIndicator timeIndicator;
@@ -163,7 +164,6 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
-
     public void Remuse()
     {
         pauseMenuPanel.SetActive(false);
@@ -178,5 +178,4 @@ public class UIManager : MonoBehaviour
     {
 
     }
-
 }
