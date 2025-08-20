@@ -7,7 +7,6 @@ using TMPro;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 using UnityEditor.ShaderGraph;
 
 public class UIManager : MonoBehaviour
