@@ -35,32 +35,22 @@ public class PlayerWeaponSpawner : MonoBehaviour
             _weaponLogicDisplayedInstancesList.Add(item.gameObject);
 
 
-        if (Player == PlayerController.LocalPlayer)
-        {
-            //hide gunDisplayed
-            foreach (var item in _weaponLogicDisplayedInstancesList) 
-                item.layer = MaskToLayer(hiddenGunLayer); 
-            foreach (var item in _weaponDisplayedInstancesList) 
-                item.layer = MaskToLayer(hiddenGunLayer); 
+        foreach (var item in _weaponLogicDisplayedInstancesList)
+            RecursivelySetLayer(item, hiddenGunLayer);
+        foreach (var item in _weaponDisplayedInstancesList)
+            RecursivelySetLayer(item, hiddenGunLayer);
 
-            // Убрать слой из отрисовки
-            //int layer = MaskToLayer(hiddenGunLayer);
-            //Player.cam.GetComponent<Camera>().cullingMask &= ~(1 << layer); //надо 1 раз при создании главного игрока делать
-        }
-        else
-        {
 
-            foreach (var item in _weaponLogicDisplayedInstancesList)
-                item.layer = MaskToLayer(hiddenGunLayer);
-            foreach (var item in _weaponDisplayedInstancesList)
-                item.layer = MaskToLayer(hiddenGunLayer);
-
-        }
 
         gunLogicDisplayed = _weaponDisplayedInstancesList[0];
         gunDisplayed = _weaponDisplayedInstancesList[0];
-        SelectGun();
+        SelectGunRandomly();
 
+    }
+    public void SetupBindings()
+    {
+        foreach (var item in _weaponLogicDisplayedInstancesList)
+            Player.Inventory.AddItem(item.GetComponent<Weapon>(), 1);
     }
     int MaskToLayer(LayerMask m)
     {
@@ -69,27 +59,32 @@ public class PlayerWeaponSpawner : MonoBehaviour
         int i = 0; while (v > 1) { v >>= 1; i++; }
         return i; // 0..31
     }
-    public void SelectGun()
+    private void RecursivelySetLayer(GameObject gameObject, LayerMask layerMask)
+    {
+        foreach (var item in gameObject.GetComponentsInChildren<Transform>())
+        {
+            item.gameObject.layer = MaskToLayer(layerMask);
+        }
+    }
+    public void SelectGunRandomly()
     {
         int _newWeaponId = UnityEngine.Random.Range(0, _weaponDisplayedInstancesList.Count);
-
-        print("Gun selected: " + _newWeaponId);
-        print("1: " + hiddenGunLayer);
-        print("1-1: " + MaskToLayer(hiddenGunLayer));
-        print("2: " + shownGunLayer);
-        print("2-2: " + MaskToLayer(shownGunLayer));
+        SelectGun(_newWeaponId);
+    }
+    public void SelectGun(int _index)
+    {
+        
         if (Player == PlayerController.LocalPlayer)
         {
-            gunLogicDisplayed.layer = MaskToLayer(hiddenGunLayer);
-            gunLogicDisplayed = _weaponDisplayedInstancesList[_newWeaponId];
-            gunLogicDisplayed.layer = MaskToLayer(shownGunLayer);
+            RecursivelySetLayer(gunLogicDisplayed, hiddenGunLayer);
+            gunLogicDisplayed = _weaponLogicDisplayedInstancesList[_index];
+            RecursivelySetLayer(gunLogicDisplayed, shownGunLayer); 
         }
         else
-        {
-
-            gunDisplayed.layer = MaskToLayer(hiddenGunLayer);
-            gunDisplayed = _weaponDisplayedInstancesList[_newWeaponId];
-            gunDisplayed.layer = MaskToLayer(shownGunLayer);
+        { 
+            RecursivelySetLayer(gunDisplayed, hiddenGunLayer);
+            gunDisplayed = _weaponDisplayedInstancesList[_index];
+            RecursivelySetLayer(gunDisplayed, shownGunLayer);
         }
 
     }
@@ -103,12 +98,12 @@ public class PlayerWeaponSpawner : MonoBehaviour
     [ContextMenu("Randomize Weapon")]
     void ContextRandomizeWeapon()
     {
-        SelectGun();
+        SelectGunRandomly();
     }
 
     internal void Attack()
     {
-
+        (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
     }
 
 #endif

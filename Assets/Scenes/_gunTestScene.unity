@@ -49043,7 +49043,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  waveStartTime: 30
+  waveStartTime: 60
   dayNightCycle: {fileID: 1189415326}
 --- !u!4 &2096576065
 Transform:

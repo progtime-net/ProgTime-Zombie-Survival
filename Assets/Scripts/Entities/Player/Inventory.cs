@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Inventory
 {
     public UnityEvent OnInventoryChanged { get; private set; } = new UnityEvent();
-    public UnityEvent OnWeaponChanged { get; private set; } = new UnityEvent();
+    public event Action<int> OnWeaponChanged;
     public List<InventoryEntry> Items { get; private set; } = new();
     public Weapon CurrentWeapon { get; private set; } = null;
     
@@ -45,15 +45,14 @@ public class Inventory
         return true;
     }
     
-    public bool SetCurrentWeapon(Weapon weapon)
+    /// <summary>
+    /// </summary>
+    /// <param name="weapon"></param>
+    /// <returns></returns>
+    public int GetCurrentWeaponId(Weapon weapon)
     {
-        if (Items.Exists(i => i.Item == weapon))
-        {
-            CurrentWeapon = weapon;
-            OnWeaponChanged?.Invoke();
-            return true;
-        }
-        return false;
+        var weapons = GetWeapons();
+        return weapons.IndexOf(weapon);
     }
     
     public bool SetCurrentWeapon(int index)
@@ -62,7 +61,7 @@ public class Inventory
         if (index >= 0 && index < weapons.Count)
         {
             CurrentWeapon = weapons[index];
-            OnWeaponChanged?.Invoke();
+            OnWeaponChanged?.Invoke(index);
             return true;
         }
         return false;
@@ -75,6 +74,6 @@ public class Inventory
         int newIndex = (weapons.IndexOf(CurrentWeapon) + move) % weapons.Count;
         if (newIndex < 0) newIndex += weapons.Count;
         CurrentWeapon = weapons[newIndex];
-        OnWeaponChanged?.Invoke();
+        OnWeaponChanged?.Invoke(newIndex);
     }
 }

@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bb3f697fe074e3997f7cd687f1a478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Default Item
+  maxStackSize: 1
   damage: 10
   range: 100
   fireRate: 0.4
@@ -142,23 +144,23 @@ PrefabInstance:
     - target: {fileID: -8156188778583273094, guid: 61bd35a42530845679d710c5a04836b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c7783d8558b134eca91f1e00872c3622, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -7482247130573425886, guid: 61bd35a42530845679d710c5a04836b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c7783d8558b134eca91f1e00872c3622, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -2802683624455041859, guid: 61bd35a42530845679d710c5a04836b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c7783d8558b134eca91f1e00872c3622, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -2018696366688870845, guid: 61bd35a42530845679d710c5a04836b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c7783d8558b134eca91f1e00872c3622, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -1912289534375822889, guid: 61bd35a42530845679d710c5a04836b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c7783d8558b134eca91f1e00872c3622, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 919132149155446097, guid: 61bd35a42530845679d710c5a04836b7, type: 3}
       propertyPath: m_Name
       value: AK
@@ -166,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 5025163563147383924, guid: 61bd35a42530845679d710c5a04836b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c7783d8558b134eca91f1e00872c3622, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

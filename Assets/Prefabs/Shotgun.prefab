@@ -77,6 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39403a4d5269949ea8f7511359131757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Default Item
+  maxStackSize: 1
   damage: 25
   range: 10
   fireRate: 0.8
@@ -154,23 +156,23 @@ PrefabInstance:
     - target: {fileID: -6093592463355912122, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e8cdd9a68812d4543b8f6566090b8b09, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -4683669308469848369, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e8cdd9a68812d4543b8f6566090b8b09, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -1806680513116206669, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e8cdd9a68812d4543b8f6566090b8b09, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -804731622281664130, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e8cdd9a68812d4543b8f6566090b8b09, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: -678588488315902003, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e8cdd9a68812d4543b8f6566090b8b09, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 919132149155446097, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -178,11 +180,11 @@ PrefabInstance:
     - target: {fileID: 7071182760956848314, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e8cdd9a68812d4543b8f6566090b8b09, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     - target: {fileID: 7202271454713460447, guid: fbb75dfca998648a18071402aad2fe3a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e8cdd9a68812d4543b8f6566090b8b09, type: 2}
+      objectReference: {fileID: 2100000, guid: fdd97771d80b94860961b61ac66ada00, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

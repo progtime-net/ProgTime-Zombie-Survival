@@ -94,8 +94,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _audio = GetComponent<AudioSource>();
         _audio.PlayOneShot(clip);
 
-        weaponSpawner = GetComponent<PlayerWeaponSpawner>();
-
         //var components = playerModel.GetComponentsInChildren<Transform>();
         //foreach (var part in components)
         //{
@@ -117,6 +115,12 @@ public class PlayerController : NetworkBehaviour, IDamageable
         LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
+
+
+        weaponSpawner = GetComponent<PlayerWeaponSpawner>();
+        Inventory.OnWeaponChanged += weaponSpawner.SelectGun;
+        weaponSpawner.SetupBindings();
+
         OnPlayerSpawned?.Invoke(this);
         
 
