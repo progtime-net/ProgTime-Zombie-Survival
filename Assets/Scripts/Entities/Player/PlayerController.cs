@@ -144,6 +144,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
+        _controls.Player.Reload.performed += _ => weaponSpawner.gunLogicDisplayed.GetComponent<Gun>().Reload();
         
         _controls.Enable();
     }
