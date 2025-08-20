@@ -71,12 +71,13 @@ public class GameManager : NetworkBehaviour
     [Server]
     public void GameEnd()
     {
+        UIGameOverScreen.Instance.Show();
         Debug.Log("Game Over!");
-        var ui = FindFirstObjectByType<GameEndUI>();
-        if (ui != null)
-        {
-            ui.ShowResults(AllPlayers, WaveManager.Instance.WaveNamber);
-        }
+        //var ui = FindFirstObjectByType<GameEndUI>();
+        //if (ui != null)
+        //{
+        //    ui.ShowResults(AllPlayers, WaveManager.Instance.WaveNamber);
+        //}
     }
 
 
