@@ -1,10 +1,13 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [InitializeOnLoad]
 public static class PlayModeSceneLoader
 {
+    private const string PreviousSceneKey = "PlayModeSceneLoader.PreviousScenePath";
+
     static PlayModeSceneLoader()
     {
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
@@ -14,8 +17,10 @@ public static class PlayModeSceneLoader
     {
         if (state == PlayModeStateChange.ExitingEditMode)
         {
-            string sceneToLoadPath = "Assets/Scenes/MainMenuScene.unity"; 
+            string currentScenePath = SceneManager.GetActiveScene().path;
+            EditorPrefs.SetString(PreviousSceneKey, currentScenePath);
 
+            string sceneToLoadPath = "Assets/Scenes/MainMenuScene.unity";
             if (System.IO.File.Exists(sceneToLoadPath))
             {
                 EditorSceneManager.OpenScene(sceneToLoadPath);
@@ -23,6 +28,22 @@ public static class PlayModeSceneLoader
             else
             {
                 Debug.LogWarning($"Scene not found at path: {sceneToLoadPath}");
+            }
+        }
+        else if (state == PlayModeStateChange.EnteredEditMode)
+        {
+            if (EditorPrefs.HasKey(PreviousSceneKey))
+            {
+                string previousScenePath = EditorPrefs.GetString(PreviousSceneKey);
+                if (System.IO.File.Exists(previousScenePath))
+                {
+                    EditorSceneManager.OpenScene(previousScenePath);
+                }
+                else
+                {
+                    Debug.LogWarning($"Previous scene not found at path: {previousScenePath}");
+                }
+                EditorPrefs.DeleteKey(PreviousSceneKey);
             }
         }
     }
