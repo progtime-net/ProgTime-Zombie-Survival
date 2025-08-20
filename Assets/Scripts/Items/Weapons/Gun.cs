@@ -66,7 +66,7 @@ public abstract class Gun : Weapon
         }
         OnAmmoChanged?.Invoke(_currentAmmo, totalAmmo);
         audio.PlayOneShot(reloadClip); // воспроизводим звук перезарядки
-        _gunAnimHelper.PlayReloadAnim();
+        //_gunAnimHelper.PlayReloadAnim();
     }
 
     public override void Attack()
@@ -100,11 +100,17 @@ public abstract class Gun : Weapon
             Debug.Log("Hit: " + hit.collider.name);
             hitPoint = hit.point;
 
-            GameObject hitObject = hit.collider.gameObject;
-            var _comp = hitObject.GetComponent<ZombieCollisionScript>();
-            if (_comp != null)
+            ZombieController hitObject = hit.collider.GetComponent<ZombieController>();
+            if (hitObject != null)
             {
-                _comp.owner.TakeDamage(damage);
+                Debug.Log("Take damage in count: " + damage);
+                int potentialScore = hitObject.score;
+                hitObject.TakeDamage(damage);
+                if (hitObject.gameObject.activeInHierarchy)
+                {
+                    Debug.Log("Оно было убито!");
+                    PlayerController.LocalPlayer.AddScore(potentialScore);
+                }
             }
         }
         else
@@ -119,7 +125,7 @@ public abstract class Gun : Weapon
         bullet.GetComponent<BulletController>().Init(hitPoint, bulletSpeed);
 
         // анимация выстрела
-        _gunAnimHelper.PlayShootAnim();
+        //_gunAnimHelper.PlayShootAnim();
 
         // player.AddRecoil(0.25f, 0.25f); // добавление отдачи
     }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1638530902487907525}
   - component: {fileID: 5442826711661236731}
   - component: {fileID: 4071885495456855339}
+  - component: {fileID: 7571268954840347994}
   m_Layer: 0
   m_Name: AK
   m_TagString: Untagged
@@ -49,15 +50,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Default Item
   maxStackSize: 1
-  damage: 10
+  damage: 100
   range: 100
-  fireRate: 0.2
+  fireRate: 0.1
   clipSize: 30
   totalAmmo: 200
   scatterAngle: 2
   shootMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   shootClip: {fileID: 8300000, guid: 84621af874a5844c5ac1129fa504c474, type: 3}
   reloadClip: {fileID: 8300000, guid: 615407a3962be478782824550912ee7c, type: 3}
   bulletPrefab: {fileID: 1765821276446244371, guid: 764d897116be74f98b57dd6ae933901a, type: 3}
@@ -160,6 +161,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &7571268954840347994
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645890978756866313}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5728864413870127668
 GameObject:
   m_ObjectHideFlags: 0

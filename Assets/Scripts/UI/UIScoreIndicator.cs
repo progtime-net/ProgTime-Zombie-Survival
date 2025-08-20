@@ -7,12 +7,12 @@ public class UIScoreIndicator : MonoBehaviour
 {
 
     private float scoreCurrent = 0;
-    private float scoreTarget = 0;
+    private int scoreTarget = 0;
     private string initialTextValue;
     [SerializeField] private float scoreAddSpeed = 0.02f;
     [SerializeField] private TextMeshProUGUI scoreText;
 
-    public void AddScore(float score)
+    public void AddScore(int score)
     {
         scoreTarget += score;
     }

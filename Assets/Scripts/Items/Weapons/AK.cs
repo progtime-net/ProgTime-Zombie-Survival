@@ -4,12 +4,6 @@ public class AK : Gun
 {
     public override void Start()
     {
-        damage = 10;
-        range = 100;
-        fireRate = 0.4f;
-        clipSize = 30; // размер обоймы
-        totalAmmo = 100;
-
         // обязательно после инициализации других переменных
         base.Start(); // Initialize base class
     }

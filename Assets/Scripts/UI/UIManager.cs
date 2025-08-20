@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
         }
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
         PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+        PlayerController.LocalPlayer.OnScoreUpdate += AddScore;
         PlayerController.LocalPlayer.weaponSpawner.OnWeaponSelected += UpdateWeaponIndicator;
         UpdateWeaponIndicator(null, PlayerController.LocalPlayer.weaponSpawner.gunLogicDisplayed.GetComponent<Weapon>());
         //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
@@ -109,7 +110,7 @@ public class UIManager : MonoBehaviour
         staminaLevel.SetValue(t);
     }
 
-    public void AddScore(float score)
+    public void AddScore(int score)
     {
         print(score);
         scoreIndicator.AddScore(score);
