@@ -174,7 +174,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   clientAuthority: 0
-  animator: {fileID: 0}
+  animator: {fileID: 8723263740811696059}
 --- !u!54 &5509411597660090885
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -590,3 +590,8 @@ MonoBehaviour:
   isHead: 0
   collider: {fileID: 1076632884105027524}
   owner: {fileID: 3078366825486382421}
+--- !u!95 &8723263740811696059 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: bb8a0a1912139f94cbdb6b93c0469345, type: 3}
+  m_PrefabInstance: {fileID: 2910969740977564202}
+  m_PrefabAsset: {fileID: 0}

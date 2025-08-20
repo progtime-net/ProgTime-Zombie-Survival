@@ -13,10 +13,11 @@ public class WaveManager : NetworkBehaviour
     [SerializeField] private int waveNumber = 1;
     [SerializeField] private Transform[] spawnPoints;
 
-    [SerializeField] public int playerCount;
-    public List<GameObject> Zombies { get; } = new List<GameObject>();
+    [SerializeField] public int playerCount; 
+    List<GameObject> Zombies { get; } = new List<GameObject>();
     
     public static WaveManager Instance { get; private set; }
+    [Server]
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,11 +30,7 @@ public class WaveManager : NetworkBehaviour
         Instance = this;
     }
 
-    private void Update()
-    {
-        string a = "a";
-    }
-
+    [Server]
     public void OnDestroy()
     {
         Instance = null;
@@ -69,6 +66,7 @@ public class WaveManager : NetworkBehaviour
 
         var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         var zombie = Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity);
+        NetworkServer.Spawn(zombie);
 
         if (zombie == null) return;
         var controller = zombie.GetComponent<ZombieController>();
@@ -90,7 +88,7 @@ public class WaveManager : NetworkBehaviour
             GameManager.Instance.WaveEnd();
         }
     }
-    
+    [Server]
     public void ResetWave()
     {
         waveNumber = 1;
