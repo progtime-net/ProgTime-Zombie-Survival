@@ -449,11 +449,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  walkSpeed: 6
-  runSpeed: 12
+  walkSpeed: 4
+  runSpeed: 8
   moveSpeedLerp: 10
   inertiaLerp: 10
-  jumpHeight: 3
+  jumpHeight: 1.5
+  jumpStartVelocity: 5
   gravity: -9.81
   cam: {fileID: 8585369768983010056}
   mouseSensitivity: 40
@@ -465,6 +466,11 @@ MonoBehaviour:
   runAnimationSpeed: 1
   health: 100
   maxHealth: 100
+  stamina: 100
+  maxStamina: 100
+  staminaRegenRate: 5
+  staminaRegenDelay: 3
+  staminaDrainRate: 10
   damageMultiplier: 10
   playerModel: {fileID: 1957587197341743140}
   pistolBehaviour: {fileID: 0}

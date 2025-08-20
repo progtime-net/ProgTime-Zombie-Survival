@@ -13,8 +13,8 @@ public class WaveManager : NetworkBehaviour
     [SerializeField] private int waveNumber = 1;
     [SerializeField] private Transform[] spawnPoints;
 
-    [SerializeField] public int playerCount;
-    public List<GameObject> Zombies { get; } = new List<GameObject>();
+    [SerializeField] public int playerCount; 
+    List<GameObject> Zombies { get; } = new List<GameObject>();
     
     public static WaveManager Instance { get; private set; }
     public void Awake()
@@ -27,11 +27,6 @@ public class WaveManager : NetworkBehaviour
         }
         
         Instance = this;
-    }
-
-    private void Update()
-    {
-        string a = "a";
     }
 
     public void OnDestroy()
@@ -51,7 +46,8 @@ public class WaveManager : NetworkBehaviour
         {
             ++zombieSpawnSettings[i].ZombieSpawnFactor;
         }
-        OnWaveStateChanged?.Invoke(waveNumber, true);
+        AnnounceWaveStateChanged(waveNumber, true);
+        // SoundManager.Instance.Play($"Wave{waveNumber}");
     }
     [Server]
     private IEnumerator SpawnCoroutine(ZombieSpawnSetting spawnSetting)
@@ -69,6 +65,7 @@ public class WaveManager : NetworkBehaviour
 
         var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         var zombie = Instantiate(zombiePrefab, spawnPoint.position, Quaternion.identity);
+        NetworkServer.Spawn(zombie);
 
         if (zombie == null) return;
         var controller = zombie.GetComponent<ZombieController>();
@@ -86,11 +83,12 @@ public class WaveManager : NetworkBehaviour
         if (Zombies.Count == 0)
         {
             Debug.Log("All zombies are dead, spawning next wave.");
-            OnWaveStateChanged?.Invoke(waveNumber, false);
+            AnnounceWaveStateChanged(waveNumber, false);
+            // SoundManager.Instance.Play("WaveEnd");
             GameManager.Instance.WaveEnd();
         }
     }
-    
+    [Server]
     public void ResetWave()
     {
         waveNumber = 1;
@@ -99,6 +97,23 @@ public class WaveManager : NetworkBehaviour
         {
             spawnSetting.ZombieSpawnFactor = 1;
         }
+    }
+    
+    [Server]
+    private void AnnounceWaveStateChanged(int waveNumber, bool started)
+    {
+        RpcWaveStateChanged(waveNumber, started);
+    }
+
+    [ClientRpc]
+    private void RpcWaveStateChanged(int waveNumber, bool started)
+    {
+        Debug.Log("Wave state changed: " + waveNumber + ", started: " + started);
+        OnWaveStateChanged?.Invoke(waveNumber, started);
+        if (started)
+            SoundManager.Instance.Play($"Wave{waveNumber}");
+        else
+            SoundManager.Instance.Play("WaveEnd");
     }
     
 #if UNITY_EDITOR

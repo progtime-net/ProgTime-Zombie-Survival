@@ -1,6 +1,7 @@
 using System;
 using Mirror;
 using System.Collections.Generic;
+using kcp2k;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -130,7 +131,9 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [Server]
     public virtual void FixedUpdate()
     {
+        Debug.Log("aaaaaaa");
         if (!isServer) return;
+        
         if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
         {
             _state = AIState.Attack;
@@ -194,5 +197,10 @@ public class ZombieController : NetworkBehaviour, IDamageable
         }
 
 
+    }
+    public void AtackEnd() {
+        // Called from animation
+        Debug.Log("Attack animation ended");
+        // You can trigger logic like ending attack state here
     }
 }
