@@ -111,7 +111,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AtmosphereThickness: 1
-    - _Blend: 0
+    - _Blend: 1
     - _Exposure: 1
     - _Rotation: 0
     - _SunDisk: 2
