@@ -8,6 +8,7 @@ using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using UnityEditor.ShaderGraph;
 
 public class UIManager : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("Starting UI Manager");
         _controls = new InputSystem();
         _controls.UI.InventoryOpen.performed += _ => ChangeInventoryState();
+        
         _controls.Enable();
         
     }
@@ -46,12 +48,11 @@ public class UIManager : MonoBehaviour
     {
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
         PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+        //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState();
     }
 
     private void ChangeInventoryState()
     {
-
-
         Debug.Log("Changing inventory state");
         if (_isInventoryOpen) CloseInventory();
         else OpenInventory();
@@ -107,9 +108,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenInventory()
     {
-
-
         //UIInventory.OpenInventory();
+        UIInventory.UpdateState();
         _isInventoryOpen = true;
         inventoryAnimator.SetBool("isInventoryOpen", _isInventoryOpen);
     }
