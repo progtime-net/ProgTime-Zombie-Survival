@@ -1378,37 +1378,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354707045}
   m_CullTransparentMesh: 1
---- !u!1 &377282903
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 377282904}
-  m_Layer: 0
-  m_Name: Animation1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &377282904
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377282903}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &383432328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,14 +1865,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93eb015e3dd215241951a035cebdd03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreIndicator: {fileID: 0}
-  bulletIndicator: {fileID: 0}
-  timeIndicator: {fileID: 0}
-  bloodLevel: {fileID: 0}
-  staminaLevel: {fileID: 0}
+  pauseMenuPanel: {fileID: 1569279809}
+  BloodLevel: {fileID: 0}
+  EnergyLevel: {fileID: 0}
   UIDamageOverlay: {fileID: 0}
-  announcer: {fileID: 0}
-  inventoryAnimator: {fileID: 0}
 --- !u!4 &511541007
 Transform:
   m_ObjectHideFlags: 0
@@ -5922,4 +5887,3 @@ SceneRoots:
   - {fileID: 847204966}
   - {fileID: 950952870}
   - {fileID: 511541007}
-  - {fileID: 377282904}

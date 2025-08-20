@@ -122,24 +122,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "75ff7b7d-cc5c-48c5-a120-c42667dbc7e0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PlaceTurret",
-                    "type": "Button",
-                    "id": "b2df65f5-733f-4af0-a992-d569462f69c0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -613,28 +595,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "ScrollWeapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "203a0494-6be3-4e7b-aca7-0abdd00581ac",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c53c6f99-5544-4b13-9102-ee1490984ab4",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "PlaceTurret",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
