@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.AI;
 
 public class ZombieController : NetworkBehaviour, IDamageable
 {
+    public event Action<ZombieController> OnDeath;
+    
     protected enum AIState { Disabled, Idle, Chase, Attack }
     [Header("AI Settings")]
     [SerializeField] protected float moveSpeed = 4f;
@@ -66,6 +69,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [Server]
     public virtual void Death()
     {
+        OnDeath?.Invoke(this);
         _state = AIState.Disabled;
 
         Collider[] colls = GetComponents<Collider>();
@@ -80,7 +84,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
         ragdoll.transform.localScale = transform.localScale;
         CopyTransform(transform, rag.transform);
-        
+        Destroy(rag, 15f);
         Destroy(gameObject);
     }
 
@@ -105,7 +109,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
         if (obj.CompareTag("Player"))
         {
-            Debug.Log("Поймал");
+            
             _targetToAttack = obj.GetComponent<IDamageable>();
             players.Add(obj.GetComponent<PlayerController>());
         }
@@ -118,7 +122,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
 
         if (obj.CompareTag("Player"))
         {
-            Debug.Log("Ушёл");
+            
             _targetToAttack = null;
             players.Remove(obj.GetComponent<PlayerController>());
         }
@@ -130,7 +134,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
         if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
         {
             _state = AIState.Attack;
-            Debug.Log("Начало атаки!");
+            
 
         }
         else

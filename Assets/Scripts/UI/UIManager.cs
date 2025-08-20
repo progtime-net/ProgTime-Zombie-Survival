@@ -47,8 +47,21 @@ public class UIManager : MonoBehaviour
     private void RegisterEvents()
     {
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
-        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
-        //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState();
+        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina; 
+        //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
+        WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
+    }
+    
+    private void WaveStateChanged(int wave, bool state)
+    {
+        if (state)
+        {
+            Announce($"Волна {wave} началась!");
+        }
+        else
+        {
+            Announce($"Волна {wave} успешно зачищена!");
+        } 
     }
 
     private void ChangeInventoryState()
@@ -102,9 +115,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Seconds of the day left
     /// </summary>
-    /// <param name="dayLength"></param>
-    public void StartTimer(int dayLength) => timeIndicator.StartTimer(dayLength);
-
+    /// <param name="dayLength"></param> 
 
     public void OpenInventory()
     {
