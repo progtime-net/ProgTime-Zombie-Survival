@@ -18,8 +18,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
-
-    [SerializeField] public int score = 100;
+     
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;

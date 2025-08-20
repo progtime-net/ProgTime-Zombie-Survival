@@ -19,6 +19,7 @@ public class GameManager : NetworkBehaviour
 
     private float _timeLeft = 0;
     private float _timeSnapshot;
+    public bool HasGameEnded = false;
 
     public static GameManager Instance { get; private set; }
 
@@ -50,11 +51,22 @@ public class GameManager : NetworkBehaviour
     private void FixedUpdate()
     {
         if (!isServer) return;
-        foreach (var player in AllPlayers) {
+        CheckPlayerAlive();
+    }
+
+    private void CheckPlayerAlive()
+    {
+        foreach (var player in AllPlayers)
+        {
             if (player.IsAlive == true) return;
         }
-        GameEnd();
+        if (!HasGameEnded)
+        {
+            HasGameEnded = true;
+            GameEnd();
+        }
     }
+
 
     [Server]
     public void GameEnd()
