@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using static UnityEditor.Progress;
 
 public class UIInventory : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class UIInventory : MonoBehaviour
     {
 
         //PlayerController.LocalPlayer.Inventory.Items;
+        print("UpdateState");
 
         //disable elements which are not presented
         foreach (var item in PlayerController.LocalPlayer.Inventory.Items)
