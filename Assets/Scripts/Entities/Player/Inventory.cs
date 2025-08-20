@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities.Player;
 using UnityEngine.Events;
 
+[Serializable]
 public class Inventory
 {
     public UnityEvent OnInventoryChanged { get; private set; } = new UnityEvent();
