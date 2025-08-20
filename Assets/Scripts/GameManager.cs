@@ -1,7 +1,8 @@
-using System;
 using Mirror;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : NetworkBehaviour
 {
@@ -44,6 +45,27 @@ public class GameManager : NetworkBehaviour
     {
         Instance = null;
     }
+
+    private void FixedUpdate()
+    {
+        if (!isServer) return;
+        foreach (var player in AllPlayers) {
+            if (player.IsAlive == true) return;
+        }
+        GameEnd();
+    }
+
+    [Server]
+    public void GameEnd()
+    {
+        Debug.Log("Game Over!");
+        var ui = FindFirstObjectByType<GameEndUI>();
+        if (ui != null)
+        {
+            ui.ShowResults(AllPlayers, WaveManager.Instance.WaveNamber);
+        }
+    }
+
 
     [Server]
     public void WaveEnd()

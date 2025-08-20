@@ -47,6 +47,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField]
     private float health = 100f;
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] public int score = 0;
+    [SerializeField] public int deaths = 0;
 
     [Header("Damage")]
 
@@ -274,6 +276,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
             // System.Diagnostics.Process.Start("reboot");
         }
         Debug.Log(health);
+        ++deaths;
+        
     }
 
     private void HealthChanged(float prev, float now)

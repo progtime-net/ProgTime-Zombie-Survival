@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class WaveManager : NetworkBehaviour
 {
@@ -17,6 +18,8 @@ public class WaveManager : NetworkBehaviour
     List<GameObject> Zombies { get; } = new List<GameObject>();
     
     public static WaveManager Instance { get; private set; }
+
+    public int WaveNamber => waveNumber;
     [Server]
     public void Awake()
     {
