@@ -49,6 +49,7 @@ public class WaveManager : NetworkBehaviour
             ++zombieSpawnSettings[i].ZombieSpawnFactor;
         }
         OnWaveStateChanged?.Invoke(waveNumber, true);
+        SoundManager.Instance.Play($"Wave{waveNumber}");
     }
     [Server]
     private IEnumerator SpawnCoroutine(ZombieSpawnSetting spawnSetting)
@@ -85,6 +86,7 @@ public class WaveManager : NetworkBehaviour
         {
             Debug.Log("All zombies are dead, spawning next wave.");
             OnWaveStateChanged?.Invoke(waveNumber, false);
+            SoundManager.Instance.Play("WaveEnd");
             GameManager.Instance.WaveEnd();
         }
     }

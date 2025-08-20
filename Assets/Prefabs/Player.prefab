@@ -351,29 +351,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  onUpdateHealth:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1793265686166528984, guid: c330a6b65fe24a342af1d56df6dba65c, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onUpdateStamina:
-    m_PersistentCalls:
-      m_Calls: []
-  walkSpeed: 6
-  runSpeed: 12
+  walkSpeed: 4
+  runSpeed: 8
   moveSpeedLerp: 10
   inertiaLerp: 10
-  jumpHeight: 3
+  jumpHeight: 1.5
+  jumpStartVelocity: 5
   gravity: -9.81
   cam: {fileID: 8585369768983010056}
   mouseSensitivity: 40
@@ -385,8 +368,14 @@ MonoBehaviour:
   runAnimationSpeed: 1
   health: 100
   maxHealth: 100
+  stamina: 100
+  maxStamina: 100
+  staminaRegenRate: 5
+  staminaRegenDelay: 3
+  staminaDrainRate: 10
   damageMultiplier: 10
   playerModel: {fileID: 1957587197341743140}
+  pistolBehaviour: {fileID: 0}
 --- !u!82 &-592803460989768290
 AudioSource:
   m_ObjectHideFlags: 0
