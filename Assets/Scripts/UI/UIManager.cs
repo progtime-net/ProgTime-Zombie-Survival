@@ -48,7 +48,8 @@ public class UIManager : MonoBehaviour
             return;
         }
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
-        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina; 
+        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+        PlayerController.LocalPlayer.OnScoreUpdate += AddScore;
         //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
         WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
     }
@@ -92,7 +93,7 @@ public class UIManager : MonoBehaviour
         staminaLevel.SetValue(t);
     }
 
-    public void AddScore(float score)
+    public void AddScore(int score)
     {
         print(score);
         scoreIndicator.AddScore(score);

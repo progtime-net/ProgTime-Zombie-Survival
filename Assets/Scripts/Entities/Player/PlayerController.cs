@@ -13,13 +13,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public static event Action<PlayerController> OnPlayerSpawned;
     public event Action<float> OnUpdateHealth;
     public event Action<float> OnUpdateStamina;
-    
+    public event Action<int> OnScoreUpdate;
+
+
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
 
-    [SerializeField] public int score = 100;
+    [SerializeField] public int score = 0;
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;
@@ -394,4 +396,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     // {
     //     playerAnimator.SetTrigger(trigger);
     // }
+
+    public void AddScore(int score) {
+        OnScoreUpdate(score);
+    }
 }
