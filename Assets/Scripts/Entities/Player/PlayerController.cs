@@ -144,13 +144,14 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
+        _controls.Player.Reload.performed += _ => weaponSpawner.gunLogicDisplayed.GetComponent<Gun>().Reload();
         
         _controls.Enable();
     }
 
     private void Interact() 
     {
-        Debug.Log("Попал1");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅ1");
         Transform origin = cam.transform;
         Ray ray = new Ray(origin.position + origin.forward * 2, origin.forward);
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red);
@@ -158,7 +159,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             
             IInteractableE merchant = hit.collider.gameObject.GetComponent<IInteractableE>();
-            Debug.Log("Попал");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅ");
             if (merchant == null) return;
             merchant.InteractWithMe(this);
             
