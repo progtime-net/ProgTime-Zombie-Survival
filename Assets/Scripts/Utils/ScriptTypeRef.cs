@@ -1,12 +1,19 @@
-using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 /// <summary>
-/// Весь класс чтоб можно было выбрать тип в инспекторе Unity.
+/// Reference to a script type for use in Unity.
 /// </summary>
 [System.Serializable]
 public class ScriptTypeRef
 {
-    public MonoScript script;                 
+#if UNITY_EDITOR
+    public MonoScript script;
     public System.Type Type => script ? script.GetClass() : null;
+#else
+    // Provide alternative fields or leave empty for builds
+#endif
 }

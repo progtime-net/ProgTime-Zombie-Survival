@@ -19,6 +19,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
 
+    [SerializeField] public int score = 100;
+
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;
     [SerializeField] private float runSpeed = 8f;
@@ -31,9 +33,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public Transform cam;
     [SerializeField] private float mouseSensitivity = 40f;
     [SerializeField] private Vector2 mouseClampY = new(-90f, 90f);
-
-    [Header("Audio Settings")]
-    [SerializeField] private AudioClip clip;
+    [SerializeField] float interactionRange = 3f;
 
     
     [Header("Animation")]
@@ -47,14 +47,20 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField]
     private float health = 100f;
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float stamina = 100f;
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float staminaRegenRate = 10f;
+    [SerializeField] private float staminaRegenDelay = 2f;
+    [SerializeField] private float staminaDrainRate = 20f;
+    
+    
+    private float _staminaRegenTimer = 0f;
+
     [SerializeField] public int score = 0;
     [SerializeField] public int deaths = 0;
 
     [Header("Damage")]
-
-
     private AudioSource _audio;
-
     [SerializeField] private float damageMultiplier = 10f;
     
     [Header("Models")]
@@ -63,7 +69,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     
     public Inventory Inventory { get; private set; }
-    
+    public PlayerWeaponSpawner weaponSpawner { get; private set; }
+
     private CharacterController _controller;
     private InputSystem _controls;
     private Transform _t;
@@ -92,18 +99,16 @@ public class PlayerController : NetworkBehaviour, IDamageable
     void Start()
     {
         GameManager.Instance.PlayerConnected(this);
-        _audio = GetComponent<AudioSource>();
-        _audio.PlayOneShot(clip);
 
-        var components = playerModel.GetComponentsInChildren<Transform>();
-        foreach (var part in components)
-        {
-            if (part.CompareTag("Dont_Render"))
-            {
-                Debug.Log("Disabling part: " + part.name);
-                part.gameObject.SetActive(false);
-            }
-        }
+        //var components = playerModel.GetComponentsInChildren<Transform>();
+        //foreach (var part in components)
+        //{
+        //    if (part.CompareTag("Dont_Render"))
+        //    {
+        //        Debug.Log("Disabling part: " + part.name);
+        //        part.gameObject.SetActive(false);
+        //    }
+        //}
 
         _controller = GetComponent<CharacterController>();
         _t = transform;
@@ -116,6 +121,12 @@ public class PlayerController : NetworkBehaviour, IDamageable
         LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
+
+
+        weaponSpawner = GetComponent<PlayerWeaponSpawner>();
+        Inventory.OnWeaponChanged += weaponSpawner.SelectGun;
+        weaponSpawner.SetupBindings();
+
         OnPlayerSpawned?.Invoke(this);
         
 
@@ -142,7 +153,23 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Enable();
     }
 
-    private void Interact() { }
+    private void Interact() 
+    {
+        Debug.Log("Попал1");
+        Transform origin = cam.transform;
+        Ray ray = new Ray(origin.position + origin.forward * 2, origin.forward);
+        Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
+        {
+            
+            IInteractableE merchant = hit.collider.gameObject.GetComponent<IInteractableE>();
+            Debug.Log("Попал");
+            if (merchant == null) return;
+            merchant.InteractWithMe(this);
+            
+
+        }
+    }
 
     private void SelectWeapon(InputAction.CallbackContext ctx)
     {
@@ -175,6 +202,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         if (!isLocalPlayer || !isAlive) return;
         
+        HandleStamina();
         HandleMovement();
         HandleJump();
         HandleAnimation();
@@ -195,6 +223,40 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!isLocalPlayer || !isAlive) return;
 
         HandleAttack();
+        
+    }
+    
+    private void HandleStamina()
+    {
+        bool isTryingToRun = _isRunning && _isWalking && stamina > 0f;
+
+        if (isTryingToRun)
+        {
+            stamina -= staminaDrainRate * Time.deltaTime;
+            stamina = Mathf.Max(stamina, 0f);
+            _staminaRegenTimer = 0f;
+            if (stamina == 0f)
+            {
+                _isRunning = false; 
+            }
+        }
+        else
+        {
+            if (stamina < maxStamina)
+            {
+                _staminaRegenTimer += Time.deltaTime;
+                if (_staminaRegenTimer >= staminaRegenDelay)
+                {
+                    stamina += staminaRegenRate * Time.deltaTime;
+                    stamina = Mathf.Min(stamina, maxStamina);
+                }
+            }
+            else
+            {
+                _staminaRegenTimer = 0f;
+            }
+        }
+        OnUpdateStamina?.Invoke(stamina / maxStamina);
     }
 
     private void HandleJump()
@@ -251,8 +313,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void HandleAttack()
     {
-        // if (_isShooting)
-        //     gun.Shoot();
+        if (!_isAttacking)
+            return;
+
+        weaponSpawner.Attack();
     }
 
     public void AddRecoil(float upAmount, float sideAmount)

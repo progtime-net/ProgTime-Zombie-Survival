@@ -37,7 +37,6 @@ public abstract class Gun : Weapon
 
     public virtual void Reload()
     {
-        Debug.Log("enter to gun class in method Reload");
         if (_currentAmmo == clipSize)
         {
             Debug.Log("No need to reload");
@@ -53,24 +52,24 @@ public abstract class Gun : Weapon
         {
             totalAmmo = 0;
             Debug.Log("No ammo to reload");
-            throw new CustomException("No ammo to reload");
+            return;
         }
         audio.PlayOneShot(reloadClip); // воспроизводим звук перезарядки
         _gunAnimHelper.PlayReloadAnim();
 
-        Debug.Log("Gun Reloaded");
     }
 
     public override void Attack()
     {
-        Debug.Log($"Attack called: _canShoot={_canShoot}, _currentAmmo={_currentAmmo}, Time={Time.time}, lastShotTime={lastShotTime}, _clipSize ={clipSize}");
+        //Debug.Log($"Attack called: _canShoot={_canShoot}, _currentAmmo={_currentAmmo}, Time={Time.time}, lastShotTime={lastShotTime}, _clipSize ={clipSize}");
         if (!_canShoot)
         {
-            if (Time.time > fireRate + lastShotTime)
-                Debug.Log("Cannot shoot yet");
-            if (_currentAmmo <= 0)
-                Debug.Log("Out of ammo, cannot shoot");
-            throw new CustomException("You can't shoot now"); // если не может стрелять, выходим
+            //if (Time.time > fireRate + lastShotTime)
+            //    Debug.Log("Cannot shoot yet");
+            //if (_currentAmmo <= 0)
+            //    Debug.Log("Out of ammo, cannot shoot");
+            //throw new CustomException("You can't shoot now"); // если не может стрелять, выходим
+            return;
         }
 
         audio.PlayOneShot(shootClip); // воспроизводим звук выстрела
@@ -90,11 +89,11 @@ public abstract class Gun : Weapon
             Debug.Log("Hit: " + hit.collider.name);
             hitPoint = hit.point;
 
-            // TAKE DAMAGE
             GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.CompareTag("Enemy"))
+            var _comp = hitObject.GetComponent<ZombieCollisionScript>();
+            if (_comp != null)
             {
-                hitObject.GetComponent<IDamageable>().TakeDamage(damage);
+                _comp.owner.TakeDamage(damage);
             }
         }
         else

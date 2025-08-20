@@ -1054,6 +1054,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154274331}
   m_CullTransparentMesh: 1
+--- !u!1 &172764590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172764591}
+  m_Layer: 0
+  m_Name: Animation1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172764591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172764590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &206077446
 GameObject:
   m_ObjectHideFlags: 0
@@ -5237,9 +5268,25 @@ MonoBehaviour:
   autoCreatePlayer: 0
   playerSpawnMethod: 1
   spawnPrefabs:
+  - {fileID: 7607508574940066547, guid: 04e126db42eca4c709e6b9373f285441, type: 3}
+  - {fileID: 2021144843788509213, guid: 89b16b90968aabb4991182a9df7267e5, type: 3}
+  - {fileID: 4939223125470821130, guid: 02bcb945570cef04c8a25b578686c271, type: 3}
+  - {fileID: 5824351312185384438, guid: 5db0fd8bd22834cc7858396d53ed91aa, type: 3}
   - {fileID: 2687588755383932976, guid: 024595be07e3b734e8b45149c30646c1, type: 3}
+  - {fileID: 9210088866820255921, guid: 6d9bcd1b55227a4449bf50476ee2b312, type: 3}
   - {fileID: 607893146106261737, guid: f2b9d2ada48c01f4a97c7a64d73de9dd, type: 3}
   - {fileID: 2021144843788509213, guid: f486cad8475f2b74e93054b2b990475f, type: 3}
+  - {fileID: 2021144843788509213, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+  - {fileID: 2021144843788509213, guid: 08127b44ea3d2c346b6017001dfe4cdc, type: 3}
+  - {fileID: 2021144843788509213, guid: 443d09e418bb50f4096cb8964873c4f1, type: 3}
+  - {fileID: 2021144843788509213, guid: 7f9562a6efc474543a32a65dc8d26a9c, type: 3}
+  - {fileID: 2021144843788509213, guid: 7dfffd72e0780e44d8fbf7c908f47795, type: 3}
+  - {fileID: 8061531558246577150, guid: 1fdd257a84b487145a249059ad636f1e, type: 3}
+  - {fileID: 2021144843788509213, guid: dcded41181716604ab8c8acd7c20dc07, type: 3}
+  - {fileID: 6359548905578918109, guid: b86e2e2022951124daaa3d6828b8c585, type: 3}
+  - {fileID: 6359548905578918109, guid: 169410cfd3dcc6b49bc3716d90e44912, type: 3}
+  - {fileID: 2021144843788509213, guid: 2f0496656859d3f4c8b0b7c59d1483e9, type: 3}
+  - {fileID: 6359548905578918109, guid: f2cea453a955bf94092c2a249d4c667d, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     bufferLimit: 32
