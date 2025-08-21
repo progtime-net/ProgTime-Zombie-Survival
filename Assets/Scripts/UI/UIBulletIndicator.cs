@@ -78,16 +78,21 @@ public class UIBulletIndicator : MonoBehaviour
 
     private void UpdateText()
     {
-        string currentDisplay = (_targetBullets < 0 || _currentBullets < 0)
-            ? "inf"
-            : ((int)_currentBullets).ToString();
+        try
+        {
+            string currentDisplay = (_targetBullets < 0 || _currentBullets < 0)
+                ? "inf"
+                : ((int)_currentBullets).ToString();
 
-        string totalDisplay = (_totalBullets < 0)
-            ? "inf"
-            : _totalBullets.ToString();
+            string totalDisplay = (_totalBullets < 0)
+                ? "inf"
+                : _totalBullets.ToString();
 
-        bulletText.text = _baseBulletText
-            .Replace("XXX", currentDisplay)
-            .Replace("YYY", totalDisplay);
+            bulletText.text = _baseBulletText
+                .Replace("XXX", currentDisplay)
+                .Replace("YYY", totalDisplay);
+        }
+        catch (System.Exception)
+        {}
     }
 }
