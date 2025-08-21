@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UIBulletIndicator : MonoBehaviour
 {
+    private const string InfinitySymbol = "\u221E";
+
     private float _currentBullets = 0;
     private int _targetBullets;
     private int _totalBullets;
@@ -13,13 +15,15 @@ public class UIBulletIndicator : MonoBehaviour
     void Start()
     {
         _baseBulletText = bulletText.text;
-        bulletText.text = bulletText.text.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
+        UpdateText();
     }
+
     public void SetTotalBullets(int totalBullets)
     {
         _totalBullets = totalBullets;
-        bulletText.text = _baseBulletText.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
+        UpdateText();
     }
+
     /// <summary>
     /// force set - when changing weapons
     /// </summary>
@@ -27,35 +31,68 @@ public class UIBulletIndicator : MonoBehaviour
     {
         _currentBullets = currentBullets;
         _targetBullets = currentBullets;
-        bulletText.text = _baseBulletText.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
+        UpdateText();
     }
 
     public void UpdateBulletsLeft(int bulletsLeft)
     {
         _targetBullets = bulletsLeft;
+        if (_targetBullets < 0)
+        {
+            // lock display to infinity immediately
+            _currentBullets = -1f;
+            UpdateText();
+        }
     }
 
-     
     void Update()
-    { 
-        if (_targetBullets == _currentBullets)
+    {
+        // Infinite current bullets: show ∞ and skip smoothing
+        if (_targetBullets < 0 || _currentBullets < 0)
         {
-            bulletText.text = _baseBulletText.Replace("XXX", _targetBullets.ToString()).Replace("YYY", _totalBullets.ToString());
+            _currentBullets = -1f;
+            UpdateText();
+            return;
+        }
+
+        if (_targetBullets == (int)_currentBullets)
+        {
+            UpdateText();
             return;
         }
 
         _currentBullets = (int)Mathf.Lerp(_currentBullets, _targetBullets, changeBulletSmoothness);
+
         if (Mathf.Abs(_currentBullets - _targetBullets) < 5)
         {
             _currentBullets = (int)Mathf.Lerp(_currentBullets, _targetBullets, 0.95f);
-
         }
+
         if (Mathf.Abs(_currentBullets - _targetBullets) < 2)
         {
             _currentBullets = _targetBullets;
         }
-        bulletText.text = _baseBulletText.Replace("XXX", _currentBullets.ToString()).Replace("YYY", _totalBullets.ToString());
 
+        UpdateText();
     }
 
+    private void UpdateText()
+    {
+        try
+        {
+            string currentDisplay = (_targetBullets < 0 || _currentBullets < 0)
+                ? "inf"
+                : ((int)_currentBullets).ToString();
+
+            string totalDisplay = (_totalBullets < 0)
+                ? "inf"
+                : _totalBullets.ToString();
+
+            bulletText.text = _baseBulletText
+                .Replace("XXX", currentDisplay)
+                .Replace("YYY", totalDisplay);
+        }
+        catch (System.Exception)
+        {}
+    }
 }

@@ -11,6 +11,7 @@ public class TurretPlacementManager : NetworkBehaviour
     [Header("Настройка размещения")]
     [SerializeField] private LayerMask placementLayer;
     [SerializeField] private float placementCheckRadius = 1.0f;
+    [SerializeField] private int maxCountPlacement = 1;
     [SerializeField] private LayerMask collisionLayers;
     [SerializeField] private Material canPlaceMaterial;
     [SerializeField] private Material cantPlaceMaterial;
@@ -19,6 +20,7 @@ public class TurretPlacementManager : NetworkBehaviour
     private bool isPlacing = false;
     private Renderer[] ghostRenderers;
     private InputSystem playerInputActions;
+    private int _currentPlacementCount = 0;
 
     void OnEnable()
     {
@@ -42,6 +44,7 @@ public class TurretPlacementManager : NetworkBehaviour
     private void OnPlaceTurretPressed(InputAction.CallbackContext context)
     {
         if (!isLocalPlayer) return;
+        if (_currentPlacementCount >= maxCountPlacement) return;
 
         if (isPlacing)
         {
@@ -143,6 +146,7 @@ public class TurretPlacementManager : NetworkBehaviour
         Destroy(ghostTurret);
         
         isPlacing = false;
+        _currentPlacementCount++;
     }
 
     [Command]

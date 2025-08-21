@@ -41,6 +41,7 @@ public class WaveManager : NetworkBehaviour
     [Server]
     public void SpawnWave()
     {
+        Debug.Log("Spawning Wave");
         _waveEnded = false;
         _spawnersInProgress = 0;
 

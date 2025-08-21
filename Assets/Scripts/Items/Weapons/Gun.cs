@@ -64,9 +64,14 @@ public abstract class Gun : Weapon
             Debug.Log("No ammo to reload");
             return;
         }
-        OnAmmoChanged?.Invoke(_currentAmmo, totalAmmo);
         audio.PlayOneShot(reloadClip); // воспроизводим звук перезарядки
+        AmmoChangedNotify(_currentAmmo, totalAmmo);
         //_gunAnimHelper.PlayReloadAnim();
+    }
+    
+    protected void AmmoChangedNotify(int currentAmmo, int total)
+    {
+        OnAmmoChanged?.Invoke(currentAmmo, total);
     }
 
     public override void Attack()
