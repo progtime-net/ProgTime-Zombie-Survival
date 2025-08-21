@@ -434,6 +434,7 @@ MonoBehaviour:
   shownGunLayer:
     serializedVersion: 2
     m_Bits: 256
+  gunLogicDisplayed: {fileID: 2095819089099659850}
 --- !u!114 &8492329498752469151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,6 +665,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   placementCheckRadius: 1
+  maxCountPlacement: 1
   collisionLayers:
     serializedVersion: 2
     m_Bits: 1

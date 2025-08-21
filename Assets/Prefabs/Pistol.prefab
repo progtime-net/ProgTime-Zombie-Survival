@@ -87,7 +87,7 @@ MonoBehaviour:
   range: 50
   fireRate: 0.5
   clipSize: 8
-  totalAmmo: 40
+  totalAmmo: -1
   scatterAngle: 2
   shootMask:
     serializedVersion: 2

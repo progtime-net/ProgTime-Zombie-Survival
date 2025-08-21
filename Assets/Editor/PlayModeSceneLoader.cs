@@ -17,8 +17,18 @@ public static class PlayModeSceneLoader
     {
         if (state == PlayModeStateChange.ExitingEditMode)
         {
+            // Prompt to save modified scenes; cancel Play if user presses Cancel.
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            {
+                EditorApplication.isPlaying = false;
+                return;
+            }
+
             string currentScenePath = SceneManager.GetActiveScene().path;
-            EditorPrefs.SetString(PreviousSceneKey, currentScenePath);
+            if (!string.IsNullOrEmpty(currentScenePath))
+            {
+                EditorPrefs.SetString(PreviousSceneKey, currentScenePath);
+            }
 
             string sceneToLoadPath = "Assets/Scenes/MainMenuScene.unity";
             if (System.IO.File.Exists(sceneToLoadPath))

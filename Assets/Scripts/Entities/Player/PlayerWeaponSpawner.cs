@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class PlayerWeaponSpawner : MonoBehaviour
 {
@@ -99,6 +98,12 @@ public class PlayerWeaponSpawner : MonoBehaviour
         var curGun = weaponPrefabsList.Where(x=>x.GetComponent<Weapon>().name == weapon.name).First();
          
     }
+    
+    internal void Attack()
+    {
+        
+        (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
+    }
 #if UNITY_EDITOR
     // Editor helpers (works in play mode). Uses server path if available.
     [ContextMenu("Randomize Weapon")]
@@ -107,11 +112,7 @@ public class PlayerWeaponSpawner : MonoBehaviour
         SelectGunRandomly();
     }
 
-    internal void Attack()
-    {
-        
-        (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
-    }
+
 
 #endif
 
