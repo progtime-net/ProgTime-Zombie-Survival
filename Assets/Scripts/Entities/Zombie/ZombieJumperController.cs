@@ -38,7 +38,7 @@ public class ZombieJumperController : ZombieController
                 else if (Time.time - _lastAttackTime >= damageCooldown)
                 {
                     _targetToChase = (_targetToAttack as PlayerController);
-                    _targetToAttack.TakeDamage(attackDamage);
+                    _targetToChase.CmdTakeDamage(attackDamage); // Use Command instead of direct call
                     _animator.SetBool("IsInAttack", false);
                     isInAttack = false;
                 }

@@ -63,7 +63,7 @@ public class ZombieSpitterController : ZombieController
                         GameObject hitObj = hit.collider.gameObject;
                         if (hitObj.CompareTag("Player"))
                         {
-                            hitObj.GetComponent<IDamageable>().TakeDamage(attackDamage);
+                            hitObj.GetComponent<PlayerController>().CmdTakeDamage(attackDamage); // Use Command instead of direct call
                         }
                     }
                     else

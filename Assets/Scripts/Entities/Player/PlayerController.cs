@@ -452,4 +452,34 @@ public class PlayerController : NetworkBehaviour, IDamageable
         score += scoreToAdd;
         OnScoreUpdate?.Invoke(scoreToAdd);
     }
+
+    [Command(requiresAuthority = false)]
+    public void CmdTakeDamage(float damage)
+    {
+        RpcTakeDamage(damage);
+    }
+
+    [ClientRpc]
+    public void RpcTakeDamage(float damage)
+    {
+        TakeDamageInternal(damage);
+    }
+
+    private void TakeDamageInternal(float damage)
+    {
+        if (!isAlive) return;
+        
+        health -= damage;
+        if (isLocalPlayer)
+        {
+            OnUpdateHealth?.Invoke(health / maxHealth);
+        }
+        
+        if (health <= 0)
+        {
+            isAlive = false;
+            playerAnimator.SetTrigger(DieTrigger);
+        }
+        Debug.Log($"Player took {damage} damage, health: {health}");
+    }
 }
