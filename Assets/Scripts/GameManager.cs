@@ -2,6 +2,7 @@ using Mirror;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : NetworkBehaviour
@@ -68,16 +69,22 @@ public class GameManager : NetworkBehaviour
     }
 
 
-    [Server]
     public void GameEnd()
     {
         UIGameOverScreen.Instance.Show();
         Debug.Log("Game Over!");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         //var ui = FindFirstObjectByType<GameEndUI>();
         //if (ui != null)
         //{
         //    ui.ShowResults(AllPlayers, WaveManager.Instance.WaveNamber);
         //}
+    }
+    public void LoadMenu()
+    {
+        print("btn pressed");
+        SceneManager.LoadScene("MainMenuScene");
     }
 
 

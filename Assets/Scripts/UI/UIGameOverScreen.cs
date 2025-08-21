@@ -14,6 +14,7 @@ public class UIGameOverScreen : MonoBehaviour
     {
         Instance = this;
     }
+
     public void Show()//час сорок ночи. Сон - хорошая идея!
     {
         animator.SetBool("isOpen", true);
