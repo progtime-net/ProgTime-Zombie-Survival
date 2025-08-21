@@ -420,6 +420,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83d81fb25088a04fa42978663bd8f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMethod: 0
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   weaponPrefabsList:
   - {fileID: 3481962575342610120, guid: d023ea773ca8e43959f1b61091596933, type: 3}
   - {fileID: 8197237447811923130, guid: 74f7d5d2413e14586854756827a4a238, type: 3}
@@ -427,7 +431,6 @@ MonoBehaviour:
   - {fileID: 1291385684686436000, guid: 1973ff13624de46f4aec96b32bcc2b38, type: 3}
   gunDisplayerHolder: {fileID: 2476398968892146881}
   gunLogicDisplayer: {fileID: 2095819089099659850}
-  Player: {fileID: 8492329498752469151}
   hiddenGunLayer:
     serializedVersion: 2
     m_Bits: 128

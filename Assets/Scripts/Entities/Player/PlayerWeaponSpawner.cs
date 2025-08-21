@@ -2,16 +2,16 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 using UnityEngine;
 
-public class PlayerWeaponSpawner : MonoBehaviour
+public class PlayerWeaponSpawner : NetworkBehaviour
 {
     public event Action<Weapon?, Weapon?> OnWeaponSelected;
     
     [SerializeField] private List<Weapon> weaponPrefabsList;
     [SerializeField] private GameObject gunDisplayerHolder;
     [SerializeField] private GameObject gunLogicDisplayer;
-    [SerializeField] private PlayerController Player;
     [SerializeField] private LayerMask hiddenGunLayer;
     [SerializeField] private LayerMask shownGunLayer;
     private List<GameObject> _weaponDisplayedInstancesList = new List<GameObject>();
@@ -19,8 +19,11 @@ public class PlayerWeaponSpawner : MonoBehaviour
 
     private GameObject gunDisplayed;
     public GameObject gunLogicDisplayed;
-    void Start()
+    private bool _isStart = false;
+    public void Start()
     {
+        if (_isStart) return;
+        _isStart = true;
         //foreach (var item in weaponPrefabsList)
         //{
         //    print(item);
@@ -28,11 +31,15 @@ public class PlayerWeaponSpawner : MonoBehaviour
         //    _weaponDisplayedInstancesList.Add(Instantiate(item.gameObject, gunDisplayerHolder.transform));
         //    _weaponLogicDisplayedInstancesList.Add(Instantiate(item.gameObject, gunLogicDisplayer.transform));
         //}
+        Debug.Log("Weapon spawner started");
         foreach (Transform item in gunDisplayerHolder.transform)
             _weaponDisplayedInstancesList.Add(item.gameObject);
 
         foreach (Transform item in gunLogicDisplayer.transform)
+        {
             _weaponLogicDisplayedInstancesList.Add(item.gameObject);
+            Debug.Log(item.name);
+        }
 
 
         foreach (var item in _weaponLogicDisplayedInstancesList)
@@ -40,15 +47,13 @@ public class PlayerWeaponSpawner : MonoBehaviour
         foreach (var item in _weaponDisplayedInstancesList)
             RecursivelySetLayer(item, hiddenGunLayer);
 
-
-
         gunLogicDisplayed = _weaponDisplayedInstancesList[0];
         gunDisplayed = _weaponDisplayedInstancesList[0];
     }
     public void SetupBindings()
     {
         foreach (var item in _weaponLogicDisplayedInstancesList)
-            Player.Inventory.AddItem(item.GetComponent<Weapon>(), 1);
+            PlayerController.LocalPlayer.Inventory.AddItem(item.GetComponent<Weapon>(), 1);
 
         SelectGun(0);
     }
@@ -73,8 +78,13 @@ public class PlayerWeaponSpawner : MonoBehaviour
     }
     public void SelectGun(int _index)
     {
-        
-        if (Player == PlayerController.LocalPlayer)
+        if (_index < 0 || _index >= _weaponDisplayedInstancesList.Count)
+        {
+            Debug.LogError("Invalid weapon index: " + _index + " some: " + isLocalPlayer);
+            return;
+        }
+
+        if (isLocalPlayer)
         {
             print("Local ammo change");
             RecursivelySetLayer(gunLogicDisplayed, hiddenGunLayer);
@@ -98,12 +108,13 @@ public class PlayerWeaponSpawner : MonoBehaviour
         var curGun = weaponPrefabsList.Where(x=>x.GetComponent<Weapon>().name == weapon.name).First();
          
     }
-    
+
     internal void Attack()
-    {
-        
-        (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
-    }
+        {
+
+            (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
+        }
+
 #if UNITY_EDITOR
     // Editor helpers (works in play mode). Uses server path if available.
     [ContextMenu("Randomize Weapon")]

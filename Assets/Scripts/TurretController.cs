@@ -1,6 +1,7 @@
+using Mirror;
 using UnityEngine;
 
-public class TurretController : MonoBehaviour
+public class TurretController : NetworkBehaviour
 {
     [Header("Настройка турели")]
     [SerializeField] private Transform turretTower; 
@@ -15,9 +16,9 @@ public class TurretController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab; 
     [SerializeField] private Transform[] firePoints; 
 
-    private Transform _currentTarget;
-    private float _nextFireTime;
-    private int _currentFirePointIndex = 0;
+    [SyncVar] private Transform _currentTarget;
+    [SyncVar] private float _nextFireTime;
+    [SyncVar] private int _currentFirePointIndex = 0;
 
     void Update()
     {

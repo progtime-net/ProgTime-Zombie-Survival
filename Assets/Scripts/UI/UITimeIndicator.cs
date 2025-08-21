@@ -18,6 +18,11 @@ public class UITimeIndicator : MonoBehaviour
 
     void UpdateTimer(int seconds)
     {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(seconds > 0);
+        }
+        
         timerText.text = _baseTimerText.Replace("XXX", seconds.ToString());
     }
 }
