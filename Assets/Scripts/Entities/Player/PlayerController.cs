@@ -13,12 +13,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public static event Action<PlayerController> OnPlayerSpawned;
     public event Action<float> OnUpdateHealth;
     public event Action<float> OnUpdateStamina;
-    
+    public event Action<int> OnScoreUpdate;
+
+
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
-     
+
+    [SerializeField] public int score = 0;
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;
@@ -148,13 +151,14 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
+        _controls.Player.Reload.performed += _ => weaponSpawner.gunLogicDisplayed.GetComponent<Gun>().Reload();
         
         _controls.Enable();
     }
 
     private void Interact() 
     {
-        Debug.Log("Попал1");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅ1");
         Transform origin = cam.transform;
         Ray ray = new Ray(origin.position + origin.forward * 2, origin.forward);
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red);
@@ -162,7 +166,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             
             IInteractableE merchant = hit.collider.gameObject.GetComponent<IInteractableE>();
-            Debug.Log("Попал");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅ");
             if (merchant == null) return;
             merchant.InteractWithMe(this);
             
@@ -388,6 +392,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
         print($"Health changed from {prevHealth} to {health}");
         return true;
     }
+    public void SetInputActive(bool active)
+    {
+        if (active)
+        {
+            _controls.Player.Enable();
+        }
+        else
+        {
+            _controls.Player.Disable();
+        }
+    }
     
     // [Command]
     // void CmdSetTrigger(int trigger)
@@ -400,4 +415,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     // {
     //     playerAnimator.SetTrigger(trigger);
     // }
+
+    public void AddScore(int score) {
+        OnScoreUpdate(score);
+    }
 }

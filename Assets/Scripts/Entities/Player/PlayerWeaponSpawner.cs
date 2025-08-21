@@ -7,7 +7,8 @@ using static UnityEditor.Progress;
 
 public class PlayerWeaponSpawner : MonoBehaviour
 {
-
+    public event Action<Weapon?, Weapon?> OnWeaponSelected;
+    
     [SerializeField] private List<Weapon> weaponPrefabsList;
     [SerializeField] private GameObject gunDisplayerHolder;
     [SerializeField] private GameObject gunLogicDisplayer;
@@ -18,7 +19,7 @@ public class PlayerWeaponSpawner : MonoBehaviour
     private List<GameObject> _weaponLogicDisplayedInstancesList = new List<GameObject>();
 
     private GameObject gunDisplayed;
-    private GameObject gunLogicDisplayed;
+    public GameObject gunLogicDisplayed;
     void Start()
     {
         //foreach (var item in weaponPrefabsList)
@@ -44,7 +45,6 @@ public class PlayerWeaponSpawner : MonoBehaviour
 
         gunLogicDisplayed = _weaponDisplayedInstancesList[0];
         gunDisplayed = _weaponDisplayedInstancesList[0];
-
     }
     public void SetupBindings()
     {
@@ -79,8 +79,11 @@ public class PlayerWeaponSpawner : MonoBehaviour
         {
             print("Local ammo change");
             RecursivelySetLayer(gunLogicDisplayed, hiddenGunLayer);
+            var oldGun = gunLogicDisplayed.GetComponent<Weapon>();
             gunLogicDisplayed = _weaponLogicDisplayedInstancesList[_index];
             RecursivelySetLayer(gunLogicDisplayed, shownGunLayer); 
+            var newGun = gunLogicDisplayed.GetComponent<Weapon>();
+            OnWeaponSelected?.Invoke(oldGun, newGun);
         }
         else
         { 

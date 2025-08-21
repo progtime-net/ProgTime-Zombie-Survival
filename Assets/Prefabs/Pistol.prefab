@@ -85,13 +85,13 @@ MonoBehaviour:
   maxStackSize: 1
   damage: 5
   range: 50
-  fireRate: 0.6
+  fireRate: 0.5
   clipSize: 8
   totalAmmo: 40
   scatterAngle: 2
   shootMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   shootClip: {fileID: 8300000, guid: 536c87632a7fc446080212801b99754c, type: 3}
   reloadClip: {fileID: 8300000, guid: 20dec0d5f22e7449890ae79544890b0c, type: 3}
   bulletPrefab: {fileID: 1765821276446244371, guid: 764d897116be74f98b57dd6ae933901a, type: 3}

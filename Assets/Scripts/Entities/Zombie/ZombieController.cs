@@ -17,6 +17,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [SerializeField] protected float reAggressiveCooldown = 10f;
     [SerializeField] protected float attackDamage = 10f;
     [SerializeField] protected GameObject ragdoll;
+    [SerializeField] public int score = 5;
 
     protected NavMeshAgent _agent;
     protected Animator _animator;
@@ -30,6 +31,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     protected float _lastAttackTime = int.MinValue;
     protected float _reAggressiveTime = int.MinValue;
     protected bool isInAttack = false;
+
     public virtual void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -131,7 +133,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [Server]
     public virtual void FixedUpdate()
     {
-        Debug.Log("aaaaaaa");
         if (!isServer) return;
         
         if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)

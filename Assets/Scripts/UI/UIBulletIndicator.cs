@@ -50,7 +50,7 @@ public class UIBulletIndicator : MonoBehaviour
             _currentBullets = (int)Mathf.Lerp(_currentBullets, _targetBullets, 0.95f);
 
         }
-        if (Mathf.Abs(_currentBullets - _targetBullets) < 0.9)
+        if (Mathf.Abs(_currentBullets - _targetBullets) < 2)
         {
             _currentBullets = _targetBullets;
         }

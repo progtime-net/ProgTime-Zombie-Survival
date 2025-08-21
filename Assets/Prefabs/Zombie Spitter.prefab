@@ -202,6 +202,7 @@ MonoBehaviour:
   reAggressiveCooldown: 10
   attackDamage: 10
   ragdoll: {fileID: 6359548905578918109, guid: b86e2e2022951124daaa3d6828b8c585, type: 3}
+  score: 20
   _health: 20
   shootDistance: 5
   scatterAngle: 10
