@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class WaveManager : NetworkBehaviour
 {
@@ -21,6 +22,8 @@ public class WaveManager : NetworkBehaviour
     private bool _waveEnded;
 
     public static WaveManager Instance { get; private set; }
+
+    public int WaveNamber => waveNumber;
     public void Awake()
     {
         if (Instance != null && Instance != this)

@@ -1,7 +1,9 @@
-using System;
 using Mirror;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : NetworkBehaviour
 {
@@ -18,6 +20,7 @@ public class GameManager : NetworkBehaviour
 
     private float _timeLeft = 0;
     private float _timeSnapshot;
+    public bool HasGameEnded = false;
 
     public static GameManager Instance { get; private set; }
 
@@ -45,6 +48,45 @@ public class GameManager : NetworkBehaviour
     {
         Instance = null;
     }
+
+    private void FixedUpdate()
+    {
+        if (!isServer) return;
+        CheckPlayerAlive();
+    }
+
+    private void CheckPlayerAlive()
+    {
+        foreach (var player in AllPlayers)
+        {
+            if (player.IsAlive == true) return;
+        }
+        if (!HasGameEnded)
+        {
+            HasGameEnded = true;
+            GameEnd();
+        }
+    }
+
+
+    public void GameEnd()
+    {
+        UIGameOverScreen.Instance.Show();
+        Debug.Log("Game Over!");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        //var ui = FindFirstObjectByType<GameEndUI>();
+        //if (ui != null)
+        //{
+        //    ui.ShowResults(AllPlayers, WaveManager.Instance.WaveNamber);
+        //}
+    }
+    public void LoadMenu()
+    {
+        print("btn pressed");
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
 
     [Server]
     public void WaveEnd()

@@ -57,7 +57,12 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     
     private float _staminaRegenTimer = 0f;
-    
+
+    [SerializeField] public int score = 0;
+    [SerializeField] public int deaths = 0;
+
+    [Header("Damage")]
+    private AudioSource _audio;
     [SerializeField] private float damageMultiplier = 10f;
     
     [Header("Models")]
@@ -365,6 +370,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
             // System.Diagnostics.Process.Start("reboot");
         }
         Debug.Log(health);
+        ++deaths;
+        
     }
 
     private void HealthChanged(float prev, float now)
