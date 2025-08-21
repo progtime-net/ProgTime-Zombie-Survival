@@ -122,6 +122,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "75ff7b7d-cc5c-48c5-a120-c42667dbc7e0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlaceTurret",
+                    "type": "Button",
+                    "id": "b2df65f5-733f-4af0-a992-d569462f69c0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -597,6 +615,28 @@
                     "action": "ScrollWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "203a0494-6be3-4e7b-aca7-0abdd00581ac",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c53c6f99-5544-4b13-9102-ee1490984ab4",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "PlaceTurret",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -608,6 +648,15 @@
                     "name": "InventoryOpen",
                     "type": "Button",
                     "id": "48f7b2d7-cdda-4180-87a7-d2227a3671af",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "f384bade-2241-4991-86fb-8a1a6294e887",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -628,12 +677,12 @@
                 },
                 {
                     "name": "",
-                    "id": "5a6c936e-5015-4a91-9fea-57bb01372b77",
-                    "path": "<Keyboard>/e",
+                    "id": "61ac1db5-004b-4186-8497-8049ef60805a",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "InventoryOpen",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

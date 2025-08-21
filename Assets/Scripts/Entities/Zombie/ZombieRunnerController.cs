@@ -1,3 +1,4 @@
+using Mirror;
 using UnityEngine;
 
 public class ZombieRunnerController : ZombieController
@@ -15,7 +16,7 @@ public class ZombieRunnerController : ZombieController
         if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
         {
             _state = AIState.Attack;
-            Debug.Log("Начало атаки!");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!");
 
         }
         else

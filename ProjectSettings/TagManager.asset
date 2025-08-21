@@ -10,13 +10,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - Don't Render
-  - 
-  - 
-  - 
+  - HideLocal
+  - ShowLocal
+  - Trader
   - 
   - 
   - 

@@ -1,6 +1,7 @@
 using System;
 using Mirror;
 using System.Collections.Generic;
+using kcp2k;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     [SerializeField] protected float reAggressiveCooldown = 10f;
     [SerializeField] protected float attackDamage = 10f;
     [SerializeField] protected GameObject ragdoll;
+    [SerializeField] public int score = 5;
 
     protected NavMeshAgent _agent;
     protected Animator _animator;
@@ -29,6 +31,7 @@ public class ZombieController : NetworkBehaviour, IDamageable
     protected float _lastAttackTime = int.MinValue;
     protected float _reAggressiveTime = int.MinValue;
     protected bool isInAttack = false;
+
     public virtual void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -101,7 +104,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
         }
     }
 
-    [Server]
     protected void OnTriggerEnter(Collider other)
     {
         if (!isServer) return;
@@ -114,7 +116,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
             players.Add(obj.GetComponent<PlayerController>());
         }
     }
-    [Server]
     protected void OnTriggerExit(Collider other)
     {
         if (!isServer) return;
@@ -127,10 +128,10 @@ public class ZombieController : NetworkBehaviour, IDamageable
             players.Remove(obj.GetComponent<PlayerController>());
         }
     }
-    [Server]
     public virtual void FixedUpdate()
     {
         if (!isServer) return;
+        
         if (_targetToChase != null && players.Contains(_targetToChase) && _targetToChase.IsAlive)
         {
             _state = AIState.Attack;
@@ -194,5 +195,29 @@ public class ZombieController : NetworkBehaviour, IDamageable
         }
 
 
+    }
+    public void AtackEnd() {
+        // Called from animation
+        Debug.Log("Attack animation ended");
+        // You can trigger logic like ending attack state here
+    }
+    [Command(requiresAuthority = false)]
+    public void CmdTakeDamage(float damage, NetworkConnectionToClient sender = null)
+    {
+        TakeDamage(damage);
+        // Store the connection that caused damage for score attribution
+        if (sender != null && _health <= 0)
+        {
+            // Award score to the player who killed this zombie
+            var playerIdentity = sender.identity;
+            if (playerIdentity != null)
+            {
+                var playerController = playerIdentity.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.RpcAddScore(score);
+                }
+            }
+        }
     }
 }

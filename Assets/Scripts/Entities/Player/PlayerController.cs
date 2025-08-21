@@ -13,11 +13,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public static event Action<PlayerController> OnPlayerSpawned;
     public event Action<float> OnUpdateHealth;
     public event Action<float> OnUpdateStamina;
-    
+    public event Action<int> OnScoreUpdate;
+
+
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int DieTrigger = Animator.StringToHash("DieTrigger");
+
+    [SerializeField] public int score = 0;
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4f;
@@ -31,9 +35,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public Transform cam;
     [SerializeField] private float mouseSensitivity = 40f;
     [SerializeField] private Vector2 mouseClampY = new(-90f, 90f);
-
-    [Header("Audio Settings")]
-    [SerializeField] private AudioClip clip;
+    [SerializeField] float interactionRange = 3f;
 
     
     [Header("Animation")]
@@ -47,12 +49,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
     [SerializeField]
     private float health = 100f;
     [SerializeField] private float maxHealth = 100f;
-
-    [Header("Damage")]
-
-
-    private AudioSource _audio;
-
+    [SerializeField] private float stamina = 100f;
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float staminaRegenRate = 10f;
+    [SerializeField] private float staminaRegenDelay = 2f;
+    [SerializeField] private float staminaDrainRate = 20f;
+    
+    
+    private float _staminaRegenTimer = 0f;
+    
     [SerializeField] private float damageMultiplier = 10f;
     
     [Header("Models")]
@@ -61,7 +66,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     
     public Inventory Inventory { get; private set; }
-    
+    public PlayerWeaponSpawner weaponSpawner { get; private set; }
+
     private CharacterController _controller;
     private InputSystem _controls;
     private Transform _t;
@@ -90,18 +96,21 @@ public class PlayerController : NetworkBehaviour, IDamageable
     void Start()
     {
         GameManager.Instance.PlayerConnected(this);
-        _audio = GetComponent<AudioSource>();
-        _audio.PlayOneShot(clip);
 
-        var components = playerModel.GetComponentsInChildren<Transform>();
-        foreach (var part in components)
+        //var components = playerModel.GetComponentsInChildren<Transform>();
+        //foreach (var part in components)
+        //{
+        //    if (part.CompareTag("Dont_Render"))
+        //    {
+        //        Debug.Log("Disabling part: " + part.name);
+        //        part.gameObject.SetActive(false);
+        //    }
+        //}
+
+        if (!isLocalPlayer)
         {
-            if (part.CompareTag("Dont_Render"))
-            {
-                Debug.Log("Disabling part: " + part.name);
-                part.gameObject.SetActive(false);
-            }
-        }
+            RecursivelySetLayer(this.gameObject, LayerMask.GetMask("ShowLocal"));
+        };
 
         _controller = GetComponent<CharacterController>();
         _t = transform;
@@ -114,6 +123,13 @@ public class PlayerController : NetworkBehaviour, IDamageable
         LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
+
+
+        weaponSpawner = GetComponent<PlayerWeaponSpawner>();
+        weaponSpawner.Start();
+        Inventory.OnWeaponChanged += weaponSpawner.SelectGun;
+        weaponSpawner.SetupBindings();
+
         OnPlayerSpawned?.Invoke(this);
         
 
@@ -132,15 +148,48 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Player.Sprint.performed += _ => _isRunning = true;
         _controls.Player.Sprint.canceled += _ => _isRunning = false;
 
-        _controls.Player.Interact.performed += _ => Interact();
+        _controls.Player.Interact.started += _ => Interact();
+
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
+        _controls.Player.Reload.performed += _ => weaponSpawner.gunLogicDisplayed.GetComponent<Gun>().Reload();
         
         _controls.Enable();
     }
 
-    private void Interact() { }
+    private void RecursivelySetLayer(GameObject gameObject, LayerMask layerMask)
+    {
+        foreach (var item in gameObject.GetComponentsInChildren<Transform>())
+        {
+            item.gameObject.layer = MaskToLayer(layerMask);
+        }
+    }
+
+    int MaskToLayer(LayerMask m)
+    {
+        int v = m.value;
+        if (v == 0 || (v & (v - 1)) != 0) return -1; // not exactly one layer
+        int i = 0; while (v > 1) { v >>= 1; i++; }
+        return i; // 0..31
+    }
+
+    private void Interact() 
+    {
+        //Debug.Log("�����1");
+        Transform origin = cam.transform;
+        Ray ray = new Ray(origin.position, origin.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange, 1 << 9))
+        {
+            
+            IInteractableE merchant = hit.collider.gameObject.GetComponent<IInteractableE>();
+            Debug.Log("�����");
+            if (merchant == null) return;
+            merchant.InteractWithMe(this);
+            
+
+        }
+    }
 
     private void SelectWeapon(InputAction.CallbackContext ctx)
     {
@@ -173,6 +222,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     {
         if (!isLocalPlayer || !isAlive) return;
         
+        HandleStamina();
         HandleMovement();
         HandleJump();
         HandleAnimation();
@@ -188,11 +238,47 @@ public class PlayerController : NetworkBehaviour, IDamageable
         HandleCamAnimation();
     }
 
+    private bool _wasAttackingLastFrame = false;
+
     private void FixedUpdate()
     {
         if (!isLocalPlayer || !isAlive) return;
 
         HandleAttack();
+        
+    }
+    
+    private void HandleStamina()
+    {
+        bool isTryingToRun = _isRunning && _isWalking && stamina > 0f;
+
+        if (isTryingToRun)
+        {
+            stamina -= staminaDrainRate * Time.deltaTime;
+            stamina = Mathf.Max(stamina, 0f);
+            _staminaRegenTimer = 0f;
+            if (stamina == 0f)
+            {
+                _isRunning = false; 
+            }
+        }
+        else
+        {
+            if (stamina < maxStamina)
+            {
+                _staminaRegenTimer += Time.deltaTime;
+                if (_staminaRegenTimer >= staminaRegenDelay)
+                {
+                    stamina += staminaRegenRate * Time.deltaTime;
+                    stamina = Mathf.Min(stamina, maxStamina);
+                }
+            }
+            else
+            {
+                _staminaRegenTimer = 0f;
+            }
+        }
+        OnUpdateStamina?.Invoke(stamina / maxStamina);
     }
 
     private void HandleJump()
@@ -249,8 +335,13 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void HandleAttack()
     {
-        // if (_isShooting)
-        //     gun.Shoot();
+        // Only trigger attack on the first frame when attack button is pressed
+        if (_isAttacking && !_wasAttackingLastFrame)
+        {
+            weaponSpawner.Attack();
+        }
+        
+        _wasAttackingLastFrame = _isAttacking;
     }
 
     public void AddRecoil(float upAmount, float sideAmount)
@@ -321,6 +412,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
         print($"Health changed from {prevHealth} to {health}");
         return true;
     }
+    public void SetInputActive(bool active)
+    {
+        if (active)
+        {
+            _controls.Player.Enable();
+        }
+        else
+        {
+            _controls.Player.Disable();
+        }
+    }
     
     // [Command]
     // void CmdSetTrigger(int trigger)
@@ -333,4 +435,21 @@ public class PlayerController : NetworkBehaviour, IDamageable
     // {
     //     playerAnimator.SetTrigger(trigger);
     // }
+
+    public void AddScore(int score) {
+        OnScoreUpdate(score);
+    }
+
+    [Command]
+    public void CmdAddScore(int scoreToAdd)
+    {
+        RpcAddScore(scoreToAdd);
+    }
+
+    [ClientRpc]
+    public void RpcAddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        OnScoreUpdate?.Invoke(scoreToAdd);
+    }
 }

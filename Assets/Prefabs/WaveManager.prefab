@@ -50,12 +50,27 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   zombieSpawnSettings:
-  - ZombieSpawnFactor: 5
-    ZombieSpawnDelay: 5
+  - ZombieSpawnFactor: 4
+    ZombieSpawnDelay: 3
     ZombiePrefab: {fileID: 2021144843788509213, guid: f486cad8475f2b74e93054b2b990475f, type: 3}
   - ZombieSpawnFactor: 2
-    ZombieSpawnDelay: 1
+    ZombieSpawnDelay: 4
+    ZombiePrefab: {fileID: 2021144843788509213, guid: 53b7649c15b3ff34f92afeb1abf3a32c, type: 3}
+  - ZombieSpawnFactor: 1
+    ZombieSpawnDelay: 5
     ZombiePrefab: {fileID: 2021144843788509213, guid: 443d09e418bb50f4096cb8964873c4f1, type: 3}
+  - ZombieSpawnFactor: 0
+    ZombieSpawnDelay: 2
+    ZombiePrefab: {fileID: 2021144843788509213, guid: 7dfffd72e0780e44d8fbf7c908f47795, type: 3}
+  - ZombieSpawnFactor: -1
+    ZombieSpawnDelay: 3
+    ZombiePrefab: {fileID: 2021144843788509213, guid: dcded41181716604ab8c8acd7c20dc07, type: 3}
+  - ZombieSpawnFactor: -1
+    ZombieSpawnDelay: 3
+    ZombiePrefab: {fileID: 2021144843788509213, guid: 2f0496656859d3f4c8b0b7c59d1483e9, type: 3}
+  - ZombieSpawnFactor: -2
+    ZombieSpawnDelay: 3
+    ZombiePrefab: {fileID: 2021144843788509213, guid: 89b16b90968aabb4991182a9df7267e5, type: 3}
   waveNumber: 1
   spawnPoints: []
   playerCount: 1

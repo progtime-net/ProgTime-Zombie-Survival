@@ -61,6 +61,7 @@ MonoBehaviour:
   reAggressiveCooldown: 10
   attackDamage: 10
   ragdoll: {fileID: 2021144843788509213, guid: 08127b44ea3d2c346b6017001dfe4cdc, type: 3}
+  score: 5
   _health: 20
 --- !u!195 &9004721022551790852
 NavMeshAgent:

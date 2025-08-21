@@ -23,6 +23,14 @@ public class UIInventoryItemSelectorElement : MonoBehaviour
         animator.SetBool("isSelected", false); 
 
     }
+    
+    internal void ShowElement()
+    {
+    }
+
+    internal void HideElement()
+    {
+    }
 
 #if UNITY_EDITOR
     // Editor helpers (works in play mode). Uses server path if available.
@@ -36,14 +44,6 @@ public class UIInventoryItemSelectorElement : MonoBehaviour
     void ContextDeselect()
     {
         Deselect();
-    }
-
-    internal void ShowElement()
-    {
-    }
-
-    internal void HideElement()
-    {
     }
 #endif
 }

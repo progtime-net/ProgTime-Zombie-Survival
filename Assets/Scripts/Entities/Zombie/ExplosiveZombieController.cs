@@ -47,7 +47,6 @@ public class ExplosiveZombieController : ZombieController
         
         _explosiveRadius.Explode(attackDamage);
     }
-    [Server]
     public override void FixedUpdate()
     {
         
@@ -100,6 +99,30 @@ public class ExplosiveZombieController : ZombieController
 
 
                 break;
+        }
+    }
+    protected void OnTriggerEnter(Collider other)
+    {
+        if (!isServer) return;
+        GameObject obj = other.gameObject;
+
+        if (obj.CompareTag("Player"))
+        {
+            
+            _targetToAttack = obj.GetComponent<IDamageable>();
+            players.Add(obj.GetComponent<PlayerController>());
+        }
+    }
+    protected void OnTriggerExit(Collider other)
+    {
+        if (!isServer) return;
+        GameObject obj = other.gameObject;
+
+        if (obj.CompareTag("Player"))
+        {
+            
+            _targetToAttack = null;
+            players.Remove(obj.GetComponent<PlayerController>());
         }
     }
 }

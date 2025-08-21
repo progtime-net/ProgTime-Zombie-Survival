@@ -4,9 +4,11 @@ using UnityEngine;
 [Serializable]
 public abstract class Gun : Weapon
 {
+    public event Action<int, int> OnAmmoChanged;
+    
     [Header("Gun Settings")]
     [SerializeField] protected int clipSize; // размер обоймы
-    [SerializeField] protected int totalAmmo; // общее количество патронов
+    [SerializeField] public int totalAmmo; // общее количество патронов
     [SerializeField] protected float scatterAngle = 2f; // угол разброса
     [SerializeField] private LayerMask shootMask; // попадания только для заданных слоев
     [Header("Audio Settings")]
@@ -24,12 +26,20 @@ public abstract class Gun : Weapon
     protected AudioSource audio; // воспроизводчик звуков
     private bool _canShoot => _currentAmmo > 0 && Time.time > fireRate + lastShotTime; // флаг стрелять
     private bool _isReloading;
+    
+    public int CurrentAmmo => _currentAmmo; 
+    public int ClipSize => clipSize; // размер обоймы
+    public int TotalAmmo => totalAmmo;
 
+    public void Awake()
+    {
+        _currentAmmo = clipSize;
+    }
+    
     public virtual void Start()
     {
         audio = GetComponent<AudioSource>();
         _gunAnimHelper = GetComponent<GunAnimHelper>();
-        _currentAmmo = clipSize;
 
         // Debug.Log("CurrentAmmo: " + _currentAmmo);
         // Debug.Log("Time before shooting: " + (fireRate + lastShotTime - Time.time));
@@ -37,7 +47,6 @@ public abstract class Gun : Weapon
 
     public virtual void Reload()
     {
-        Debug.Log("enter to gun class in method Reload");
         if (_currentAmmo == clipSize)
         {
             Debug.Log("No need to reload");
@@ -53,30 +62,36 @@ public abstract class Gun : Weapon
         {
             totalAmmo = 0;
             Debug.Log("No ammo to reload");
-            throw new CustomException("No ammo to reload");
+            return;
         }
         audio.PlayOneShot(reloadClip); // воспроизводим звук перезарядки
-        _gunAnimHelper.PlayReloadAnim();
-
-        Debug.Log("Gun Reloaded");
+        AmmoChangedNotify(_currentAmmo, totalAmmo);
+        //_gunAnimHelper.PlayReloadAnim();
+    }
+    
+    public void AmmoChangedNotify(int currentAmmo, int total)
+    {
+        OnAmmoChanged?.Invoke(currentAmmo, total);
     }
 
     public override void Attack()
     {
-        Debug.Log($"Attack called: _canShoot={_canShoot}, _currentAmmo={_currentAmmo}, Time={Time.time}, lastShotTime={lastShotTime}, _clipSize ={clipSize}");
+        //Debug.Log($"Attack called: _canShoot={_canShoot}, _currentAmmo={_currentAmmo}, Time={Time.time}, lastShotTime={lastShotTime}, _clipSize ={clipSize}");
         if (!_canShoot)
         {
-            if (Time.time > fireRate + lastShotTime)
-                Debug.Log("Cannot shoot yet");
-            if (_currentAmmo <= 0)
-                Debug.Log("Out of ammo, cannot shoot");
-            throw new CustomException("You can't shoot now"); // если не может стрелять, выходим
+            //if (Time.time > fireRate + lastShotTime)
+            //    Debug.Log("Cannot shoot yet");
+            //if (_currentAmmo <= 0)
+            //    Debug.Log("Out of ammo, cannot shoot");
+            //throw new CustomException("You can't shoot now"); // если не может стрелять, выходим
+            return;
         }
 
         audio.PlayOneShot(shootClip); // воспроизводим звук выстрела
 
         lastShotTime = Time.time; // обновляем время последнего выстрела
         _currentAmmo--; // уменьшаем количество патронов в обойме
+        OnAmmoChanged?.Invoke(_currentAmmo, totalAmmo);
 
         Camera cam = Camera.main;
         Vector3 direction = GetScatterDirection(cam);
@@ -90,11 +105,13 @@ public abstract class Gun : Weapon
             Debug.Log("Hit: " + hit.collider.name);
             hitPoint = hit.point;
 
-            // TAKE DAMAGE
-            GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.CompareTag("Enemy"))
+            ZombieController hitObject = hit.collider.GetComponent<ZombieController>();
+            if (hitObject != null)
             {
-                hitObject.GetComponent<IDamageable>().TakeDamage(damage);
+                Debug.Log("Take damage in count: " + damage);
+                int potentialScore = hitObject.score;
+                hitObject.CmdTakeDamage(damage); // Use Command instead of direct call
+                // Note: Score will be handled when zombie actually dies on server
             }
         }
         else
@@ -109,7 +126,7 @@ public abstract class Gun : Weapon
         bullet.GetComponent<BulletController>().Init(hitPoint, bulletSpeed);
 
         // анимация выстрела
-        _gunAnimHelper.PlayShootAnim();
+        //_gunAnimHelper.PlayShootAnim();
 
         // player.AddRecoil(0.25f, 0.25f); // добавление отдачи
     }

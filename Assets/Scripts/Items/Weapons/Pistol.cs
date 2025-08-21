@@ -4,14 +4,6 @@ public class Pistol : Gun
 {
     public override void Start()
     {
-        audio = GetComponent<AudioSource>();
-
-        damage = 5;
-        range = 50;
-        fireRate = 0.6f;
-        clipSize = 8; // размер обоймы
-        totalAmmo = 40;
-
         // обязательно после инициализации других переменных
         base.Start(); // Initialize base class
     }
@@ -33,6 +25,7 @@ public class Pistol : Gun
 
         audio.PlayOneShot(reloadClip); // воспроизводим звук перезарядки
         _gunAnimHelper.PlayReloadAnim();
+        AmmoChangedNotify(_currentAmmo, totalAmmo);
     }
 
     public override void Attack()
@@ -43,6 +36,6 @@ public class Pistol : Gun
         //TODO: Animation
 
         base.Attack(); // Call the base Attack method to decrease ammo
-        audio.PlayOneShot(shootClip); // воспроизводим звук выстрела
+        //audio.PlayOneShot(shootClip); // воспроизводим звук выстрела
     }
 }

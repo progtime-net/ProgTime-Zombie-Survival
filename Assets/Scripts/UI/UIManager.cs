@@ -4,15 +4,12 @@ using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.ShaderGraph;
 
 public class UIManager : MonoBehaviour
 {
     [Header("UI Settings")]
-    [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private UIScoreIndicator scoreIndicator;
     [SerializeField] private UIBulletIndicator bulletIndicator;
     [SerializeField] private UITimeIndicator timeIndicator;
@@ -45,16 +42,40 @@ public class UIManager : MonoBehaviour
 
     private void RegisterEvents()
     {
+        if (PlayerController.LocalPlayer == null || WaveManager.Instance == null)
+        {
+            return;
+        }
         PlayerController.LocalPlayer.OnUpdateHealth += SetHealth;
-        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina; 
+        PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
+        PlayerController.LocalPlayer.OnScoreUpdate += AddScore;
+        PlayerController.LocalPlayer.weaponSpawner.OnWeaponSelected += UpdateWeaponIndicator;
+        UpdateWeaponIndicator(null, PlayerController.LocalPlayer.weaponSpawner.gunLogicDisplayed.GetComponent<Weapon>());
         //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
         WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
+    }
+    
+    private void UpdateWeaponIndicator(Weapon oldWeapon, Weapon newWeapon)
+    {
+        if (oldWeapon is Gun oldGun)
+        {
+            oldGun.OnAmmoChanged -= UpdateBullets;
+            bulletIndicator.enabled = false;
+        }
+        if (newWeapon is Gun newGun)
+        {
+            bulletIndicator.enabled = true;
+            newGun.OnAmmoChanged += UpdateBullets;
+            bulletIndicator.SetTotalBullets(newGun.TotalAmmo);
+            bulletIndicator.SetCurrentBullets(newGun.CurrentAmmo);   
+        }
     }
     
     private void WaveStateChanged(int wave, bool state)
     {
         if (state)
         {
+            Debug.Log("WaveStateChanged");
             Announce($"Волна {wave} началась!");
         }
         else
@@ -89,12 +110,18 @@ public class UIManager : MonoBehaviour
         staminaLevel.SetValue(t);
     }
 
-    public void AddScore(float score)
+    public void AddScore(int score)
     {
         print(score);
         scoreIndicator.AddScore(score);
     }
 
+
+    private void UpdateBullets(int currentBullets, int totalBullets)
+    {
+        bulletIndicator.SetTotalBullets(totalBullets);
+        UpdateBulletsLeft(currentBullets);
+    }
 
     /// <summary>
     /// Set total Bullets
@@ -161,20 +188,4 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
-
-    public void Remuse()
-    {
-        pauseMenuPanel.SetActive(false);
-    }
-
-    public void OpenSettig()
-    {
-
-    }
-
-    public void Exit()
-    {
-
-    }
-
 }
