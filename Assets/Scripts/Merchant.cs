@@ -23,25 +23,9 @@ public class Merchant : MonoBehaviour, IInteractableE
 
     void FixedUpdate()
     {
-        //CheckPlayerDistance();
 
         
     }
-
-    //void CheckPlayerDistance()
-    //{
-    //    if (PlayerController.LocalPlayer == null) return;
-
-    //    float distance = Vector3.Distance(transform.position, PlayerController.LocalPlayer.transform.position);
-    //    canInteract = distance <= interactionRange;
-
-    //    // Optional: Show interaction prompt
-    //    if (canInteract)
-    //    {
-    //        // You could show a UI prompt here
-    //        Debug.Log("Press E to buy ammo");
-    //    }
-    //}
 
     public void BuyAmmo(PlayerController player)
     {
@@ -49,6 +33,7 @@ public class Merchant : MonoBehaviour, IInteractableE
         if (player.score >= costAmmo)
         {
             player.score -= costAmmo;
+            //PlayerWeaponSpawner.AddAmmo();
             Debug.Log("Purchased: Ammo");
         }
         else
@@ -56,13 +41,6 @@ public class Merchant : MonoBehaviour, IInteractableE
             Debug.Log("Not enough points!");
         }
     }
-    /*void OnInteract()
-    {
-        if (canInteract)
-        {
-            BuyAmmo();
-        }
-    }*/
 
     public void InteractWithMe(PlayerController player)
     {

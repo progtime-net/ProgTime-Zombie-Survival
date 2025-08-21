@@ -96,6 +96,10 @@ public class PlayerWeaponSpawner : MonoBehaviour
         var curGun = weaponPrefabsList.Where(x=>x.GetComponent<Weapon>().name == weapon.name).First();
          
     }
+    public void AddAmmo() {
+        gunLogicDisplayed.GetComponent<Weapon>();
+    
+    }
 #if UNITY_EDITOR
     // Editor helpers (works in play mode). Uses server path if available.
     [ContextMenu("Randomize Weapon")]
