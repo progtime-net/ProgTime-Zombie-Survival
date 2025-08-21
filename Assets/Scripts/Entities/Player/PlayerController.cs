@@ -107,6 +107,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
         //    }
         //}
 
+        if (!isLocalPlayer)
+        {
+            RecursivelySetLayer(this.gameObject, LayerMask.GetMask("ShowLocal"));
+        };
+
         _controller = GetComponent<CharacterController>();
         _t = transform;
         cam.gameObject.SetActive(isLocalPlayer);
@@ -121,6 +126,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
 
         weaponSpawner = GetComponent<PlayerWeaponSpawner>();
+        weaponSpawner.Start();
         Inventory.OnWeaponChanged += weaponSpawner.SelectGun;
         weaponSpawner.SetupBindings();
 
@@ -149,6 +155,22 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Player.Reload.performed += _ => weaponSpawner.gunLogicDisplayed.GetComponent<Gun>().Reload();
         
         _controls.Enable();
+    }
+
+    private void RecursivelySetLayer(GameObject gameObject, LayerMask layerMask)
+    {
+        foreach (var item in gameObject.GetComponentsInChildren<Transform>())
+        {
+            item.gameObject.layer = MaskToLayer(layerMask);
+        }
+    }
+
+    int MaskToLayer(LayerMask m)
+    {
+        int v = m.value;
+        if (v == 0 || (v & (v - 1)) != 0) return -1; // not exactly one layer
+        int i = 0; while (v > 1) { v >>= 1; i++; }
+        return i; // 0..31
     }
 
     private void Interact() 
