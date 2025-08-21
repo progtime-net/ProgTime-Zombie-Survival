@@ -43,13 +43,20 @@ public class Merchant : MonoBehaviour, IInteractableE
     //    }
     //}
 
+    public void InteractWithMe(PlayerController player)
+    {
+        BuyAmmo(player);
+    }
     public void BuyAmmo(PlayerController player)
     {
 
         if (player.score >= costAmmo)
         {
-            player.score -= costAmmo;
+            player.AddScore(-costAmmo);
             Debug.Log("Purchased: Ammo");
+            Gun gun = player.Inventory.CurrentWeapon as Gun;
+            gun.totalAmmo += 10;
+            gun.AmmoChangedNotify(gun.CurrentAmmo, gun.totalAmmo);
         }
         else
         {
@@ -64,8 +71,5 @@ public class Merchant : MonoBehaviour, IInteractableE
         }
     }*/
 
-    public void InteractWithMe(PlayerController player)
-    {
-        BuyAmmo(player);
-    }
+    
 }

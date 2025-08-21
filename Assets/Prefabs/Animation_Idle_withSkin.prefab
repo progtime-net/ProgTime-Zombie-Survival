@@ -53,6 +53,10 @@ PrefabInstance:
       value: Animation_Idle_withSkin
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 360b56eb25bf64d4284bc34080344eb4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 360b56eb25bf64d4284bc34080344eb4, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ad834557fa4051747a7f2d159b47de95, type: 2}
@@ -60,7 +64,8 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 360b56eb25bf64d4284bc34080344eb4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

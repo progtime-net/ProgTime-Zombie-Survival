@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Default Item
   maxStackSize: 1
-  damage: 100
+  damage: 20
   range: 100
   fireRate: 0.1
   clipSize: 30

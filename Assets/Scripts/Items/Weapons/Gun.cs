@@ -8,7 +8,7 @@ public abstract class Gun : Weapon
     
     [Header("Gun Settings")]
     [SerializeField] protected int clipSize; // размер обоймы
-    [SerializeField] protected int totalAmmo; // общее количество патронов
+    [SerializeField] public int totalAmmo; // общее количество патронов
     [SerializeField] protected float scatterAngle = 2f; // угол разброса
     [SerializeField] private LayerMask shootMask; // попадания только для заданных слоев
     [Header("Audio Settings")]
@@ -69,7 +69,7 @@ public abstract class Gun : Weapon
         //_gunAnimHelper.PlayReloadAnim();
     }
     
-    protected void AmmoChangedNotify(int currentAmmo, int total)
+    public void AmmoChangedNotify(int currentAmmo, int total)
     {
         OnAmmoChanged?.Invoke(currentAmmo, total);
     }

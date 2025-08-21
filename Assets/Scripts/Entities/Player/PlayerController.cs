@@ -148,7 +148,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Player.Sprint.performed += _ => _isRunning = true;
         _controls.Player.Sprint.canceled += _ => _isRunning = false;
 
-        _controls.Player.Interact.performed += _ => Interact();
+        _controls.Player.Interact.started += _ => Interact();
+
         _controls.Player.SelectWeapon.performed += SelectWeapon;
         _controls.Player.DropItem.performed += _ => DropItem();
         _controls.Player.ScrollWeapon.performed += ScrollWeapon;
@@ -175,11 +176,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void Interact() 
     {
-        Debug.Log("�����1");
+        //Debug.Log("�����1");
         Transform origin = cam.transform;
-        Ray ray = new Ray(origin.position + origin.forward * 2, origin.forward);
-        Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
+        Ray ray = new Ray(origin.position, origin.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange, 1 << 9))
         {
             
             IInteractableE merchant = hit.collider.gameObject.GetComponent<IInteractableE>();
