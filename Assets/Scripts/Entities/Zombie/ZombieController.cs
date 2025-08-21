@@ -104,7 +104,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
         }
     }
 
-    [Server]
     protected void OnTriggerEnter(Collider other)
     {
         if (!isServer) return;
@@ -117,7 +116,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
             players.Add(obj.GetComponent<PlayerController>());
         }
     }
-    [Server]
     protected void OnTriggerExit(Collider other)
     {
         if (!isServer) return;
@@ -130,7 +128,6 @@ public class ZombieController : NetworkBehaviour, IDamageable
             players.Remove(obj.GetComponent<PlayerController>());
         }
     }
-    [Server]
     public virtual void FixedUpdate()
     {
         if (!isServer) return;
@@ -203,5 +200,24 @@ public class ZombieController : NetworkBehaviour, IDamageable
         // Called from animation
         Debug.Log("Attack animation ended");
         // You can trigger logic like ending attack state here
+    }
+    [Command(requiresAuthority = false)]
+    public void CmdTakeDamage(float damage, NetworkConnectionToClient sender = null)
+    {
+        TakeDamage(damage);
+        // Store the connection that caused damage for score attribution
+        if (sender != null && _health <= 0)
+        {
+            // Award score to the player who killed this zombie
+            var playerIdentity = sender.identity;
+            if (playerIdentity != null)
+            {
+                var playerController = playerIdentity.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.RpcAddScore(score);
+                }
+            }
+        }
     }
 }

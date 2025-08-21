@@ -238,6 +238,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         HandleCamAnimation();
     }
 
+    private bool _wasAttackingLastFrame = false;
+
     private void FixedUpdate()
     {
         if (!isLocalPlayer || !isAlive) return;
@@ -333,10 +335,13 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void HandleAttack()
     {
-        if (!_isAttacking)
-            return;
-
-        weaponSpawner.Attack();
+        // Only trigger attack on the first frame when attack button is pressed
+        if (_isAttacking && !_wasAttackingLastFrame)
+        {
+            weaponSpawner.Attack();
+        }
+        
+        _wasAttackingLastFrame = _isAttacking;
     }
 
     public void AddRecoil(float upAmount, float sideAmount)
@@ -433,5 +438,18 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     public void AddScore(int score) {
         OnScoreUpdate(score);
+    }
+
+    [Command]
+    public void CmdAddScore(int scoreToAdd)
+    {
+        RpcAddScore(scoreToAdd);
+    }
+
+    [ClientRpc]
+    public void RpcAddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        OnScoreUpdate?.Invoke(scoreToAdd);
     }
 }

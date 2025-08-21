@@ -21,7 +21,6 @@ public class ZombieSpitterController : ZombieController
         return scatterRotation * direction;
     }
     
-    [Server]
     public virtual void FixedUpdate()
     {
         if (!isServer) return;

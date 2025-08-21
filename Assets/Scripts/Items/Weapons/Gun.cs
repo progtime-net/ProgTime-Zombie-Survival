@@ -110,12 +110,8 @@ public abstract class Gun : Weapon
             {
                 Debug.Log("Take damage in count: " + damage);
                 int potentialScore = hitObject.score;
-                hitObject.TakeDamage(damage);
-                if (hitObject.gameObject.activeInHierarchy)
-                {
-                    Debug.Log("Оно было убито!");
-                    PlayerController.LocalPlayer.AddScore(potentialScore);
-                }
+                hitObject.CmdTakeDamage(damage); // Use Command instead of direct call
+                // Note: Score will be handled when zombie actually dies on server
             }
         }
         else
