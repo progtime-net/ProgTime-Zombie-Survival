@@ -25,6 +25,7 @@ public class Pistol : Gun
 
         audio.PlayOneShot(reloadClip); // воспроизводим звук перезарядки
         _gunAnimHelper.PlayReloadAnim();
+        AmmoChangedNotify(_currentAmmo, totalAmmo);
     }
 
     public override void Attack()
