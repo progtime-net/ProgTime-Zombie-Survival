@@ -631,7 +631,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""SelectWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -642,7 +642,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""SelectWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -653,7 +653,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""SelectWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -664,7 +664,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""SelectWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -675,7 +675,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""SelectWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

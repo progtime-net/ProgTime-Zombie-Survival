@@ -276,8 +276,8 @@ GameObject:
   - component: {fileID: 6535474081569925413}
   - component: {fileID: 3010607506688801202}
   - component: {fileID: 6731274216103606005}
-  - component: {fileID: 5456349266807086451}
   - component: {fileID: 8492329498752469151}
+  - component: {fileID: 5456349266807086451}
   - component: {fileID: -592803460989768290}
   - component: {fileID: -6021968149124871184}
   - component: {fileID: -7297416107186959612}
@@ -408,32 +408,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5456349266807086451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9210088866820255921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a83d81fb25088a04fa42978663bd8f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponPrefabsList:
-  - {fileID: 3481962575342610120, guid: d023ea773ca8e43959f1b61091596933, type: 3}
-  - {fileID: 8197237447811923130, guid: 74f7d5d2413e14586854756827a4a238, type: 3}
-  - {fileID: 5442826711661236731, guid: 9846b9ea885924fd1b335ca3eb761471, type: 3}
-  - {fileID: 1291385684686436000, guid: 1973ff13624de46f4aec96b32bcc2b38, type: 3}
-  gunDisplayerHolder: {fileID: 2476398968892146881}
-  gunLogicDisplayer: {fileID: 2095819089099659850}
-  Player: {fileID: 8492329498752469151}
-  hiddenGunLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  shownGunLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &8492329498752469151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +449,33 @@ MonoBehaviour:
   damageMultiplier: 10
   playerModel: {fileID: 1957587197341743140}
   pistolBehaviour: {fileID: 0}
+--- !u!114 &5456349266807086451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9210088866820255921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83d81fb25088a04fa42978663bd8f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefabsList:
+  - {fileID: 3481962575342610120, guid: d023ea773ca8e43959f1b61091596933, type: 3}
+  - {fileID: 8197237447811923130, guid: 74f7d5d2413e14586854756827a4a238, type: 3}
+  - {fileID: 5442826711661236731, guid: 9846b9ea885924fd1b335ca3eb761471, type: 3}
+  - {fileID: 1291385684686436000, guid: 1973ff13624de46f4aec96b32bcc2b38, type: 3}
+  gunDisplayerHolder: {fileID: 2476398968892146881}
+  gunLogicDisplayer: {fileID: 2095819089099659850}
+  Player: {fileID: 8492329498752469151}
+  hiddenGunLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  shownGunLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  gunLogicDisplayed: {fileID: 0}
 --- !u!82 &-592803460989768290
 AudioSource:
   m_ObjectHideFlags: 0

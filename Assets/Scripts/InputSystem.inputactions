@@ -545,7 +545,7 @@
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "SelectWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -556,7 +556,7 @@
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "SelectWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -567,7 +567,7 @@
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "SelectWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -578,7 +578,7 @@
                     "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "SelectWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -589,7 +589,7 @@
                     "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "SelectWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false

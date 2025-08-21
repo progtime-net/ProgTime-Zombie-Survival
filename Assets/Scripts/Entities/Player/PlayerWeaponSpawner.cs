@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class PlayerWeaponSpawner : MonoBehaviour
 {
@@ -44,14 +43,13 @@ public class PlayerWeaponSpawner : MonoBehaviour
 
 
         gunLogicDisplayed = _weaponDisplayedInstancesList[0];
-        gunDisplayed = _weaponDisplayedInstancesList[0];
+        gunDisplayed = _weaponDisplayedInstancesList[0];    
+        SelectGun(0); 
     }
     public void SetupBindings()
     {
         foreach (var item in _weaponLogicDisplayedInstancesList)
             Player.Inventory.AddItem(item.GetComponent<Weapon>(), 1);
-
-        SelectGun(0);
     }
     int MaskToLayer(LayerMask m)
     {
@@ -99,18 +97,18 @@ public class PlayerWeaponSpawner : MonoBehaviour
         var curGun = weaponPrefabsList.Where(x=>x.GetComponent<Weapon>().name == weapon.name).First();
          
     }
+    
+    internal void Attack()
+    {
+        
+        (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
+    }
 #if UNITY_EDITOR
     // Editor helpers (works in play mode). Uses server path if available.
     [ContextMenu("Randomize Weapon")]
     void ContextRandomizeWeapon()
     {
         SelectGunRandomly();
-    }
-
-    internal void Attack()
-    {
-        
-        (gunLogicDisplayed.GetComponent<Weapon>()).Attack();
     }
 
 #endif

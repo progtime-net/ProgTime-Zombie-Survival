@@ -114,7 +114,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
         Debug.Log($"isHost: {isHost}");
         Debug.Log($"isClient: {isClient}");
 
-        if (!isLocalPlayer) return;
+        if (!isLocalPlayer)
+        {
+            RecursivelySetLayer(this.gameObject, LayerMask.GetMask("ShowLocal"));
+        };
+
         LocalPlayer = this;
         _controls = new InputSystem();
         Inventory = new Inventory();
@@ -151,6 +155,21 @@ public class PlayerController : NetworkBehaviour, IDamageable
         _controls.Enable();
     }
 
+    int MaskToLayer(LayerMask m)
+    {
+        int v = m.value;
+        if (v == 0 || (v & (v - 1)) != 0) return -1; // not exactly one layer
+        int i = 0; while (v > 1) { v >>= 1; i++; }
+        return i; // 0..31
+    }
+    
+    private void RecursivelySetLayer(GameObject gameObject, LayerMask layerMask)
+    {
+        foreach (var item in gameObject.GetComponentsInChildren<Transform>())
+        {
+            item.gameObject.layer = MaskToLayer(layerMask);
+        }
+    }
     private void Interact() 
     {
         Debug.Log("�����1");

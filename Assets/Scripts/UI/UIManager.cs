@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         PlayerController.LocalPlayer.OnUpdateStamina += SetStamina;
         PlayerController.LocalPlayer.OnScoreUpdate += AddScore;
         PlayerController.LocalPlayer.weaponSpawner.OnWeaponSelected += UpdateWeaponIndicator;
-        UpdateWeaponIndicator(null, PlayerController.LocalPlayer.weaponSpawner.gunLogicDisplayed.GetComponent<Weapon>());
+        // UpdateWeaponIndicator(null, PlayerController.LocalPlayer.weaponSpawner.gunLogicDisplayed.GetComponent<Weapon>());
         //PlayerController.LocalPlayer.Inventory.OnWeaponChanged += UIInventory.UpdateState(); 
         WaveManager.Instance.OnWaveStateChanged += WaveStateChanged;
     }
