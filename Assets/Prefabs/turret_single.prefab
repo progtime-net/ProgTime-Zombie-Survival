@@ -156,8 +156,8 @@ MonoBehaviour:
   searchRadius: 10
   rotationSpeed: 5
   fireRate: 1
-  damage: 25
-  range: 50
+  damage: 10
+  range: 25
   bulletPrefab: {fileID: 1765821276446244371, guid: 764d897116be74f98b57dd6ae933901a, type: 3}
   firePoints:
   - {fileID: 2805741764536462414}
