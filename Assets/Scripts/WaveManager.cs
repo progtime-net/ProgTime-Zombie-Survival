@@ -1,3 +1,4 @@
+// csharp
 using System;
 using Mirror;
 using System.Collections;
@@ -8,14 +9,17 @@ using Random = UnityEngine.Random;
 public class WaveManager : NetworkBehaviour
 {
     public event Action<int, bool> OnWaveStateChanged;
-    
+
     public ZombieSpawnSetting[] zombieSpawnSettings;
     [SerializeField] private int waveNumber = 1;
     [SerializeField] private Transform[] spawnPoints;
 
-    [SerializeField] public int playerCount; 
+    [SerializeField] public int playerCount;
     List<GameObject> Zombies { get; } = new List<GameObject>();
-    
+
+    private int _spawnersInProgress;
+    private bool _waveEnded;
+
     public static WaveManager Instance { get; private set; }
     public void Awake()
     {
@@ -25,7 +29,7 @@ public class WaveManager : NetworkBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         Instance = this;
     }
 
@@ -33,14 +37,22 @@ public class WaveManager : NetworkBehaviour
     {
         Instance = null;
     }
+
     [Server]
     public void SpawnWave()
     {
+        _waveEnded = false;
+        _spawnersInProgress = 0;
+
         playerCount = GameManager.Instance.AllPlayers.Count;
-        for (int i = 0; i < zombieSpawnSettings.Length; ++i)
+        for (int i = 0; i < playerCount; i++)
         {
-            StartCoroutine(SpawnCoroutine(zombieSpawnSettings[i]));
+            for (int j = 0; j < zombieSpawnSettings.Length; ++j)
+            {
+                StartCoroutine(SpawnCoroutine(zombieSpawnSettings[j]));
+            }
         }
+
         ++waveNumber;
         for (int i = 0; i < zombieSpawnSettings.Length; i++)
         {
@@ -49,15 +61,20 @@ public class WaveManager : NetworkBehaviour
         AnnounceWaveStateChanged(waveNumber, true);
         // SoundManager.Instance.Play($"Wave{waveNumber}");
     }
+
     [Server]
     private IEnumerator SpawnCoroutine(ZombieSpawnSetting spawnSetting)
     {
-        for (int i = 0; i < spawnSetting.ZombieSpawnFactor * playerCount; ++i)
+        for (int i = 0; i < spawnSetting.ZombieSpawnFactor; ++i)
         {
             SpawnEnemy(spawnSetting.ZombiePrefab);
             yield return new WaitForSeconds(spawnSetting.ZombieSpawnDelay);
         }
+
+        _spawnersInProgress = Mathf.Max(0, _spawnersInProgress - 1);
+        TryFinishWave();
     }
+
     [Server]
     private void SpawnEnemy(GameObject zombiePrefab)
     {
@@ -72,33 +89,51 @@ public class WaveManager : NetworkBehaviour
         controller.OnDeath += OnEnemyDeath;
         Zombies.Add(zombie);
     }
-    
+
     [Server]
     private void OnEnemyDeath(ZombieController zombie)
     {
+        // Unsubscribe to be safe
+        zombie.OnDeath -= OnEnemyDeath;
+
         if (Zombies.Contains(zombie.gameObject))
         {
             Zombies.Remove(zombie.gameObject);
         }
+
         if (Zombies.Count == 0)
         {
-            Debug.Log("All zombies are dead, spawning next wave.");
-            AnnounceWaveStateChanged(waveNumber, false);
-            // SoundManager.Instance.Play("WaveEnd");
-            GameManager.Instance.WaveEnd();
+            TryFinishWave();
         }
     }
+
+    [Server]
+    private void TryFinishWave()
+    {
+        if (_waveEnded) return;                
+        if (_spawnersInProgress > 0) return;  
+        if (Zombies.Count > 0) return;      
+
+        _waveEnded = true;
+        AnnounceWaveStateChanged(waveNumber, false);
+        // SoundManager.Instance.Play("WaveEnd");
+        GameManager.Instance.WaveEnd();
+    }
+
     [Server]
     public void ResetWave()
     {
         waveNumber = 1;
         Zombies.Clear();
+        _spawnersInProgress = 0;
+        _waveEnded = false;
+
         foreach (var spawnSetting in zombieSpawnSettings)
         {
             spawnSetting.ZombieSpawnFactor = 1;
         }
     }
-    
+
     [Server]
     private void AnnounceWaveStateChanged(int waveNumber, bool started)
     {
@@ -115,7 +150,7 @@ public class WaveManager : NetworkBehaviour
         else
             SoundManager.Instance.Play("WaveEnd");
     }
-    
+
 #if UNITY_EDITOR
     [ContextMenu("Kill all enemies")]
     [Server]
